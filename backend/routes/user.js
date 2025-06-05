@@ -7,10 +7,10 @@ router.get("/", (req, res) => {
     res.send("this is user");
 });
 
-// /user/settings
-router.get("/settings", (req, res) => {
+// /user/me
+router.get("/me", (req, res) => {
     res.json({
-        message: "this is userRouters/settings"
+        message: "this is user/me"
     });
 });
 
