@@ -1,9 +1,21 @@
 $(function(){
   
     $("#drama-select-btn").click(function(){
+        // createTable();
 
-        // [Coding]
-        createTable();
+        let type = $("#categories-select").val();
+
+        // 用ajax發request, 用query_string發參數
+        $.ajax({
+            url: "/dramas/getDramaListData?type=" + type,
+            type: "GET"
+        })
+        .then(res => {
+            createTable(res["result"]);
+        })
+        .catch(err => {
+            console.log(err);
+        })
     });
 
     $("#drama-insert-btn").click(function(){
