@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 
+const validator = require("../utils/validator");
+
 let readFilePromise = (path) => {
   return new Promise((resolve, reject) => {
     fs.readFile(path, "utf-8", (err, data) => {
@@ -20,6 +22,10 @@ router.get("/page", (req, res) => {
 });
 
 router.get("/list", 
+  // 檢查API請求header上是否有token
+  validator.isTokenExist,
+  // 檢查token是否正確
+  validator.isTokenValid,
   // 檢查參數存在
   (req, res, next) => {
     if (!req.query.type) {
@@ -59,23 +65,9 @@ router.get("/list",
 
 router.post("/data", 
   // 檢查API請求header上是否有token
-  (req, res, next) => {
-    if (!req.headers["x-jeff-token"]) {
-      console.log("token not found");
-      res.status(400).json({ message: "tokne not found" });
-    } else {
-      next();
-    }
-  },
+  validator.isTokenExist,
   // 檢查token是否正確
-  (req, res, next) => {
-    if (req.headers["x-jeff-token"] !== "APTX4869") {
-      console.log("沒有權限");
-      res.status(403).json({ message: "你沒有權限" });
-    } else {
-      next();
-    }
-  },
+  validator.isTokenValid,
   async (req, res) => {
     try {
         let data = await readFilePromise("models/sample2.json");

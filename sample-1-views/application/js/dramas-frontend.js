@@ -8,7 +8,8 @@ $(function(){
         // 用ajax發request, 用query_string發參數
         $.ajax({
             url: "/dramas/list?type=" + type,
-            type: "GET"
+            type: "GET",
+            headers: {"x-jeff-token": "APTX4869"}
         })
         .then(res => {
             createTable(res["result"]);
