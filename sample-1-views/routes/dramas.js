@@ -24,19 +24,32 @@ router.get("/getDramaListData", async (req, res) => {
   try {
     let data = await readFilePromise("models/sample2.json");
     let type = req.query.type;
-    console.log(`type is ${type}`);
     if (type === "全") {
-        console.log("JIJHU");
         res.json({ result: data });
     }
     else {
-        console.log("adfadfa");
       let filteredData = data.filter(ele => ele["category"] === type);
       res.json({ result: filteredData });
     }
   } catch (err) {
     res.status(500).json({ message: "server 有問題" });
   }
+});
+
+router.post("/createNewDramaData", async (req, res) => {
+    try {
+        let data = await readFilePromise("models/sample2.json");
+
+        // 取得前端form data的參數值 req.body (先去設定body-parser)
+        data.push(req.body);
+
+        fs.writeFileSync("models/sample2.json", JSON.stringify(data), "utf-8");
+
+        res.json({ message: "ok." });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "server error" })
+    }
 });
 
 module.exports = router;

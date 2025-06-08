@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const hbs = require("hbs");
+const bodyParser = require("body-parser");
+
 const portNum = 8088;
 
 const dramasRouter = require("./routes/dramas");
@@ -14,6 +16,16 @@ app.set("views", path.join(__dirname, "application", "views"));
 
 // 設定靜態檔(*.css, *.js, *.png...)位置
 app.use(express.static(path.join(__dirname, "application")));
+
+// 解析application/json (前端傳來的資料)
+app.use(bodyParser.json());
+
+// 解析urlencoded的資料型態 (前端傳來的資料)
+app.use(bodyParser.urlencoded({
+  extend: false, 
+  limit: "1mb",
+  parameterLimit: "10000"
+}));
 
 app.get("/" , (req,res) => {
   res.render("index.html");  // 回傳html頁面
