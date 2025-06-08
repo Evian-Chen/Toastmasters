@@ -67,6 +67,7 @@ let insertNewRecord = ()=> {
     $.ajax({
         url  : "/dramas/data",
         type : "POST",
+        headers: {"x-jeff-token": "APTX4869"},
 
         //// 以 application/x-www-form-urlencoded 資料傳送
         data : {

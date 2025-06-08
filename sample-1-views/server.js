@@ -60,7 +60,7 @@ app.get("/hello",
     console.log(req.testName);
     next();
   },
-  (req, res, next) => {
+  (req, res) => {
     console.log("middleware3");
     res.json({ result: req.testName });
   }

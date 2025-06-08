@@ -19,24 +19,64 @@ router.get("/page", (req, res) => {
   res.render("dramas.html");
 });
 
-router.get("/list", async (req, res) => {
-  // 讀取sample2.json, 透過type過濾資料，回傳給前端
-  try {
-    let data = await readFilePromise("models/sample2.json");
-    let type = req.query.type;
-    if (type === "全") {
-        res.json({ result: data });
+router.get("/list", 
+  // 檢查參數存在
+  (req, res, next) => {
+    if (!req.query.type) {
+      // status code 可以讓前端進入catch error的區域
+      res.status(400).json({ message: "沒有type" });
+    } else {
+      next();
     }
-    else {
-      let filteredData = data.filter(ele => ele["category"] === type);
-      res.json({ result: filteredData });
+  },
+  // 檢查參數型別正確
+  (req, res, next) => {
+    let data = ["犯罪", "殭屍", "愛情", "政治", "其他", "全"];
+    if (data.indexOf(req.query.type) === -1) {
+      res.status(400).json({ message: "type不在參數列表中" });
+    } else {
+      next();
     }
-  } catch (err) {
-    res.status(500).json({ message: "server 有問題" });
+  },
+  // 參數沒問題，存入資料
+  async (req, res) => {
+    // 讀取sample2.json, 透過type過濾資料，回傳給前端
+    try {
+      let data = await readFilePromise("models/sample2.json");
+      let type = req.query.type;
+      if (type === "全") {
+          res.json({ result: data });
+      }
+      else {
+        let filteredData = data.filter(ele => ele["category"] === type);
+        res.json({ result: filteredData });
+      }
+    } catch (err) {
+      res.status(500).json({ message: "server 有問題" });
+    }
   }
-});
+);
 
-router.post("/data", async (req, res) => {
+router.post("/data", 
+  // 檢查API請求header上是否有token
+  (req, res, next) => {
+    if (!req.headers["x-jeff-token"]) {
+      console.log("token not found");
+      res.status(400).json({ message: "tokne not found" });
+    } else {
+      next();
+    }
+  },
+  // 檢查token是否正確
+  (req, res, next) => {
+    if (req.headers["x-jeff-token"] !== "APTX4869") {
+      console.log("沒有權限");
+      res.status(403).json({ message: "你沒有權限" });
+    } else {
+      next();
+    }
+  },
+  async (req, res) => {
     try {
         let data = await readFilePromise("models/sample2.json");
 
@@ -54,6 +94,7 @@ router.post("/data", async (req, res) => {
         console.log(err);
         res.status(500).json({ message: "server error" })
     }
-});
+  }
+);
 
 module.exports = router;
