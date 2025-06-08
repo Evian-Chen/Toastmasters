@@ -19,7 +19,7 @@ router.get("/page", (req, res) => {
   res.render("dramas.html");
 });
 
-router.get("/getDramaListData", async (req, res) => {
+router.get("/list", async (req, res) => {
   // 讀取sample2.json, 透過type過濾資料，回傳給前端
   try {
     let data = await readFilePromise("models/sample2.json");
@@ -36,11 +36,15 @@ router.get("/getDramaListData", async (req, res) => {
   }
 });
 
-router.post("/createNewDramaData", async (req, res) => {
+router.post("/data", async (req, res) => {
     try {
         let data = await readFilePromise("models/sample2.json");
 
-        // 取得前端form data的參數值 req.body (先去設定body-parser)
+        // 新增dramaId
+        let latestDramaId = data.map(ele => ele['dramaId']).sort((a, b) => b-a)[0];
+
+        // 取得前端form data的參數值 req.body(物件) (先去設定body-parser)
+        req.body.dramaId = String(Number(latestDramaId) + 1);
         data.push(req.body);
 
         fs.writeFileSync("models/sample2.json", JSON.stringify(data), "utf-8");
