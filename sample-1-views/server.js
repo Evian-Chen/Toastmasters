@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const portNum = 8088;
 
 const dramasRouter = require("./routes/dramas");
+const authRouter = require("./routes/auth");
 
 // 設定模板引擎 -> 讓express解析html
 app.engine("html", hbs.__express);
@@ -35,6 +36,10 @@ app.get("/", (req, res) => {
 
 app.get("/about/us", (req, res) => {
   res.render("aboutus.html");
+});
+
+app.get("/login", (req, res) => {
+  res.render("login.html");
 });
 
 // middleware
@@ -67,6 +72,7 @@ app.get("/hello",
 );
 
 app.use("/dramas", dramasRouter);
+app.use("/auth", authRouter);
 
 app.listen(portNum, () => {
   console.log(`Server is running at localhost:${portNum}`);

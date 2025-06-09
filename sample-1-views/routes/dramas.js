@@ -21,11 +21,15 @@ router.get("/page", (req, res) => {
   res.render("dramas.html");
 });
 
-router.get("/list", 
+// 一定會經過的middleware
+router.use(
   // 檢查API請求header上是否有token
   validator.isTokenExist,
   // 檢查token是否正確
-  validator.isTokenValid,
+  validator.isTokenValid
+);
+
+router.get("/list", 
   // 檢查參數存在
   (req, res, next) => {
     if (!req.query.type) {
@@ -64,10 +68,6 @@ router.get("/list",
 );
 
 router.post("/data", 
-  // 檢查API請求header上是否有token
-  validator.isTokenExist,
-  // 檢查token是否正確
-  validator.isTokenValid,
   async (req, res) => {
     try {
         let data = await readFilePromise("models/sample2.json");
