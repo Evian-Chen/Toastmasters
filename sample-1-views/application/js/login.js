@@ -19,6 +19,7 @@ $(function(){
                 console.log(message);
                 changeErrMsgState(message);
 
+                // res 有帶redirect的參數的話，前端使用href跳轉
                 if(res.data.redirect) location.href= res.data.redirect;
              })
              .catch(function(err){

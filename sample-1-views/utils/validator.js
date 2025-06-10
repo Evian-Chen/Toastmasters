@@ -44,12 +44,21 @@ let setSessionInfo = (req, res, next) => {
     isLogIned: true
   };
   next();
-}
+};
+
+let isUserLogined = (req, res, next) => {
+  if (!req.session.userInfo || !req.session.userInfo.isLogIned) {
+    res.redirect("/login");  // status 302 有找到但資源換位置
+    return;
+  } 
+  next();
+};
 
 module.exports = {
   "isTokenExist": isTokenExist,
   "isTokenValid": isTokenValid,
   "isAccoutExists": isAccoutExists,
   "isUserValid": isUserValid,
-  "setSessionInfo": setSessionInfo
+  "setSessionInfo": setSessionInfo,
+  "isUserLogined": isUserLogined
 };

@@ -4,6 +4,11 @@ const path = require("path");
 const hbs = require("hbs");
 const bodyParser = require("body-parser");
 const session = require("express-session");
+const validator = require("./utils/validator");
+
+// 如果適用session/cokkies驗證要用redis，JWT就不用了
+
+// 可使用express-validator去做更多的驗證
 
 const portNum = 8088;
 
@@ -23,11 +28,11 @@ app.use(express.static(path.join(__dirname, "application")));
 app.use(bodyParser.json());
 
 app.use(session({
-  secret: "c90dis90",
-  resave: true,
-  saveUninitialized: false,
-  name: "_ntust_tutorial_id",
-  ttl: 20*60*60*1
+  secret: "c90dis90",  // session加密
+  resave: true,        // 儲存到store上面
+  saveUninitialized: false, // 初始化的session是否要存到store
+  name: "_ntust_tutorial_id", // cokkie的key
+  ttl: 20*60*60*1  // session的有效時間
 }));
 
 // 解析urlencoded的資料型態 (前端傳來的資料)
@@ -40,18 +45,14 @@ app.use(
 );
 
 app.get("/", 
-  (req, res, next) => {
-    if (req.session.userInfo && req.session.userInfo.isLogIned) {
-      next();
-    } else {
-      res.json({ message: "沒登入" });
-    }
-  },
+  validator.isUserLogined,
   (req, res) => {
-  res.render("index.html"); // 回傳html頁面
-});
+    res.render("index.html"); // 回傳html頁面
+  }
+);
 
 app.get("/about/us", 
+  validator.isUserLogined,
   (req, res) => {
     res.render("aboutus.html");
   }
@@ -60,6 +61,12 @@ app.get("/about/us",
 app.get("/login", (req, res) => {
   res.render("login.html");
 });
+
+app.get("/logout", (req, res) => {
+  req.session.destroy;  // 刪掉session
+  res.clearCookie("_ntust_tutorial_id"); // 刪掉cokkie上面的key-value pair
+  res.redirect("/login");
+})
 
 // middleware
 app.get("/hello", 
@@ -90,7 +97,7 @@ app.get("/hello",
   }
 );
 
-app.use("/dramas", dramasRouter);
+app.use("/dramas", validator.isUserLogined, dramasRouter);
 app.use("/auth", authRouter);
 
 app.listen(portNum, () => {
