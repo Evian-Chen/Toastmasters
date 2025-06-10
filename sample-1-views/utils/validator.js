@@ -20,7 +20,8 @@ let isTokenValid = (req, res, next) => {
 };
 
 let isAccoutExists = (req, res, next) => {
-  if (!req.body.account || !req.body.password) {
+  console.log(req.body);
+  if (!req.body.account || !req.body.passwd) {
     res.status(400).json({ message: "帳號或密碼缺少" });
   } else {
     next();
@@ -28,7 +29,8 @@ let isAccoutExists = (req, res, next) => {
 };
 
 let isUserValid = (req, res, next) => {
-  if (!(req.body.account === "Evian" && req.body.password === "1111")) {
+  console.log(req.body);
+  if (!(req.body.account === "Evian" && req.body.passwd === "1111")) {
     res.status(400).json({ message: "帳號密碼錯誤" });
   } else {
     next();
@@ -36,12 +38,18 @@ let isUserValid = (req, res, next) => {
 };
 
 let setSessionInfo = (req, res, next) => {
-  
+  // 設定一個key-value pair，把這個人紀錄在session上
+  req.session.userInfo = {
+    name: "Evian",
+    isLogIned: true
+  };
+  next();
 }
 
 module.exports = {
   "isTokenExist": isTokenExist,
   "isTokenValid": isTokenValid,
   "isAccoutExists": isAccoutExists,
-  "isUserValid": isUserValid
+  "isUserValid": isUserValid,
+  "setSessionInfo": setSessionInfo
 };

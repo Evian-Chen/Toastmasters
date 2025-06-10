@@ -3,6 +3,7 @@ const app = express();
 const path = require("path");
 const hbs = require("hbs");
 const bodyParser = require("body-parser");
+const session = require("express-session");
 
 const portNum = 8088;
 
@@ -21,6 +22,14 @@ app.use(express.static(path.join(__dirname, "application")));
 // 解析application/json (前端傳來的資料)
 app.use(bodyParser.json());
 
+app.use(session({
+  secret: "c90dis90",
+  resave: true,
+  saveUninitialized: false,
+  name: "_ntust_tutorial_id",
+  ttl: 20*60*60*1
+}));
+
 // 解析urlencoded的資料型態 (前端傳來的資料)
 app.use(
   bodyParser.urlencoded({
@@ -30,13 +39,23 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
+app.get("/", 
+  (req, res, next) => {
+    if (req.session.userInfo && req.session.userInfo.isLogIned) {
+      next();
+    } else {
+      res.json({ message: "沒登入" });
+    }
+  },
+  (req, res) => {
   res.render("index.html"); // 回傳html頁面
 });
 
-app.get("/about/us", (req, res) => {
-  res.render("aboutus.html");
-});
+app.get("/about/us", 
+  (req, res) => {
+    res.render("aboutus.html");
+  }
+);
 
 app.get("/login", (req, res) => {
   res.render("login.html");
