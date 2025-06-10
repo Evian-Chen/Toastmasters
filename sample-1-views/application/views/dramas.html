@@ -52,7 +52,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li>
                         <a href="#setting" data-toggle="collapse" aria-expanded="false"  class="dropdown-toggle">
                             <span class="icon-holder">
@@ -108,24 +107,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr>
-                            <th scope="row">1</th>
-                                <td>犯罪</td>
-                                <td>絕命毒師</td>
-                                <td>10/10</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">2</th>
-                                <td>殭屍</td>
-                                <td>屍戰朝鮮</td>
-                                <td>9/10</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">3</th>
-                                <td>愛情</td>
-                                <td>想見你</td>
-                                <td>8.6/10</td>
-                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -165,6 +146,49 @@
                     
                 </div>
 
+
+                <div class="box-s1">
+                    <h5>影集資料 修改</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-3 mx-3">
+                            <label class="col-form-label">影集編號</label>
+                            <input class="form-control" type="text"  id="id-update"/>
+                        </div>
+                        <div class="form-group col-md-3 mx-3">
+                            <label class="col-form-label">劇名</label>
+                            <input class="form-control" type="text"  id="name-update"/>
+                        </div>
+                        <div class="form-group col-md-3 mx-3">
+                            <label class="col-form-label">評價</label>
+                            <input class="form-control" type="number" 
+                                onKeyDown="return false" step="0.5"
+                                id="score-update"
+                                min=1 max=10 />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-3 mx-3">
+                            <button type="button" class="btn btn-outline-info" id="drama-update-btn">修改</button>
+                        </div>
+                    </div>
+                    
+                </div>
+
+
+                <div class="box-s1">
+                    <h5>影集資料 刪除</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-3 mx-3">
+                            <label class="col-form-label">影集編號</label>
+                            <input class="form-control" type="text"  id="id-delete"/>
+                        </div>
+                        <div class="form-group col-md-3 d-flex mx-3">
+                            <button type="button" class="btn btn-outline-danger align-self-end" id="drama-delete-btn">刪除</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -180,7 +204,7 @@
 
 
     <script type="text/javascript" src="/js/main.js"></script>
-    <script type="text/javascript" src="/js/dramas-frontend.js"></script>
+    <script type="text/javascript" src="/js/dramas.js"></script>
 </body>
 
 </html>
