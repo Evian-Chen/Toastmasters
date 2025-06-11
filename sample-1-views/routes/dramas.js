@@ -4,7 +4,7 @@ const fs = require("fs");
 
 const validator = require("../utils/validator");
 
-const model = require("../models");
+const model = require("../models"); // require 資料夾的話，預設回傳 index.js
 
 // /dramas/page -> return dramas.html
 router.get("/page", (req, res) => {
@@ -14,33 +14,55 @@ router.get("/page", (req, res) => {
 // 取得影集資料
 router.get("/list", async (req, res) => {
   try {
-    let data = await model.dramas.find();
+    let type = req.query.type === "全" ? {} : { category: req.query.type };
+    let data = await model.dramas.find(type);
     res.json({ result: data });
-  } catch(err) {
+  } catch (err) {
     res.status(500).json({ error: "server error" });
   }
 });
 
 // // 新增影集資料
-// router.post("/data", (req, res) => {
-
-// });
+router.post("/detail", async (req, res) => {
+  try {
+    let lastEle = await model.dramas
+      .findOne({}, { dramaId: 1 })
+      .sort({ dramaId: -1 });
+    let newDramaId = Number(lastEle["dramaId"]) + 1;
+    req.body["dramaId"] = String(newDramaId);
+    let ressult = await model.dramas.create(req.body);
+    console.log(ressult);
+    res.json({ message: "ok." });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "server error" });
+  }
+});
 
 // // 修改影集資料
-// router.put("/detail")
+router.put("/detail/:dramaId", async (req, res) => {
+  try {
+    let dramaId = req.params.dramaId;
+    let result = await model.dramas.updateOne(
+      { dramaId: dramaId },
+      { $set: { name: req.body.name, score: req.body.score } }
+    );
+    res.json({ message: "ok." });
+  } catch (err) {
+    res.status(500).json({ error: "server error" });
+  }
+});
 
-// // 刪除影集資料
-// router.delete("/detail")
-
-
-
-
-
-
-
-
-
-
+// 刪除影集資料
+router.delete("/detail/:dramaId", async (req, res) => {
+  try {
+    let dramaId = req.params.dramaId;
+    let result = await model.dramas.deleteOne({ dramaId: dramaId });
+    res.json({ message: "ok." });
+  } catch (err) {
+    res.status(500).json({ error: "server error" });
+  }
+});
 
 module.exports = router;
 
@@ -66,7 +88,7 @@ module.exports = router;
 //   validator.isTokenValid
 // );
 
-// router.get("/list", 
+// router.get("/list",
 //   // 檢查參數存在
 //   (req, res, next) => {
 //     if (!req.query.type) {
@@ -104,7 +126,7 @@ module.exports = router;
 //   }
 // );
 
-// router.post("/data", 
+// router.post("/data",
 //   async (req, res) => {
 //     try {
 //         let data = await readFilePromise("models/sample2.json");
