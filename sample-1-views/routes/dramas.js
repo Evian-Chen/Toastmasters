@@ -12,14 +12,14 @@ router.get("/page", (req, res) => {
 });
 
 // 取得影集資料
-// router.get("/list", async (req, res) => {
-//   try {
-//     let data = await model.dramas.find();
-//     res.json({ result: data });
-//   } catch(err) {
-//     res.status(500).json({ error: "server error" });
-//   }
-// });
+router.get("/list", async (req, res) => {
+  try {
+    let data = await model.dramas.find();
+    res.json({ result: data });
+  } catch(err) {
+    res.status(500).json({ error: "server error" });
+  }
+});
 
 // // 新增影集資料
 // router.post("/data", (req, res) => {

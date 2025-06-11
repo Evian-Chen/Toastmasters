@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 // 建立連線
 const connConfig =
-  "mongodb+srv://EvianChen:921208kk@toastmastersapp.cxdjq5u.mongodb.net/";
+  "";
 const conn = mongoose.createConnection(connConfig);
 
 // 連線成功，觸發callback func
