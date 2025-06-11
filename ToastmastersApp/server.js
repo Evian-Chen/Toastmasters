@@ -1,6 +1,4 @@
 // 引入套件
-require("dotenv").config();
-
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -44,11 +42,14 @@ app.use(
 
 // ===================== //
 
-const userRouter = require("./routes/user.js");
+// const userRouter = require("./routes/user.js");
 
 app.get("/", (req, res) => {
-  res.send("hi, this is node.js server");
+  res.render("index.html");
 });
 
-app.use("/user", userRouter);
+// app.use("/user", userRouter);
 
+app.listen(portNum,() => {
+  console.log(`running on port: ${portNum}`);
+});
