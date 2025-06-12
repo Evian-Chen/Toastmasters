@@ -28,30 +28,6 @@ elements = chrome_browser.find_element(By.CLASS_NAME, "c-content-box")
 table = elements.find_element(By.TAG_NAME, "table")
 clubs = table.find_elements(By.TAG_NAME, "tr")
 
-# count = 0
-# for club in clubs:
-#     tds = club.find_elements(By.TAG_NAME, "td")
-    
-#     club_data = tds[0].text.split("\n")
-    
-#     for idx, a in enumerate(tds[0].find_elements(By.TAG_NAME, "a")):
-#         href = a.get_attribute("href")
-#         if valid_maps_url in href and tw in href:
-#             address_url = href
-#             break
-    
-
-#     if len(tds) >= 2:
-#         html = tds[1].get_attribute("innerHTML")
-#         all_lang = []
-#         if "、" in html:
-#             lang = html.strip().split()[-1].split("、")
-#             lang[0] = lang[0][1:]
-#             lang[-1] = lang[-1][:-1]
-#             print(lang)
-#             exit()
-
-
 # 確認地圖導航網址是對的
 valid_maps_url = "https://www.google.com/maps/place"
 tw = "zh-TW"
@@ -80,16 +56,18 @@ for club in clubs:
             lang = html.split()[-1]
     
     addr = club_data[-1]
-    print("city: ", club_data[-3])
-    print("city -3: ", club_data[-3][:3])
     if addr[:3] in cities:
         city = addr[:3] 
     elif club_data[-3][:3] in cities:
         city = club_data[-3][:3]
     else:
         city = ""
-        
-    print("final city: ", city)
+    
+    fee_line = ''
+    for item in club_data:
+        if '場地費' in item:
+            fee_line = item
+            break
         
     data = {
         "name": club_data[0],
@@ -100,7 +78,7 @@ for club in clubs:
         "address": club_data[-1],
         "addressGoogleMaps": href,
         "language": lang,
-        "fee": "",
+        "fee": fee_line,
         "president": "",
         "phoneNumber": "",
         "city": city

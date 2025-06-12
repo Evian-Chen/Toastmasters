@@ -134,7 +134,7 @@
         "address": "No. 128, Sec. 2, Zhongshan N. Rd., Zhongshan Dist., Taipei",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E5%B1%B1%E5%8D%80%E4%B8%AD%E5%B1%B1%E5%8C%97%E8%B7%AF%E4%BA%8C%E6%AE%B5128%E8%99%9F3%E6%A8%93?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 100元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -148,7 +148,7 @@
         "address": "No. 314, Section 2, Neihu Rd., Neihu District, Taipei City 114",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E5%85%A7%E6%B9%96%E5%8D%80%E5%85%A7%E6%B9%96%E8%B7%AF%E4%BA%8C%E6%AE%B5314%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 免費",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -176,7 +176,7 @@
         "address": "Rm. 918, 9F., No. 150, Fuxing N. Rd., Zhongshan Dist., Taipei City 104509, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E5%B1%B1%E5%8D%80%E5%BE%A9%E8%88%88%E5%8C%97%E8%B7%AF150%E8%99%9F9%E6%A8%93-918%E6%88%BF?hl=zh-TW",
         "language": "國語)",
-        "fee": "",
+        "fee": "場地費 Fee: 150元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -190,7 +190,7 @@
         "address": "No. 115., Lide Rd., Beitou Dist., Taipei 11259 Taiwan",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E5%8C%97%E6%8A%95%E5%8D%80%E7%AB%8B%E5%BE%B7%E8%B7%AF115%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: Free",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -204,7 +204,7 @@
         "address": "No. 96, Ligong St., Beitou District, Taipei, 11261 Taiwan",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E5%8C%97%E6%8A%95%E5%8D%80%E7%AB%8B%E5%8A%9F%E8%A1%9796%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 免場地費 Free Admission fee(非員工需事先預約)",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -232,7 +232,7 @@
         "address": "6F., No. 153, Longjiang Rd., Zhongshan Dist., Taipei City",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E5%B1%B1%E5%8D%80%E9%BE%8D%E6%B1%9F%E8%B7%AF153%E8%99%9F6%E6%A8%93?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 會員150元，非會員200元(含點心、飲料、調酒)",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -246,7 +246,7 @@
         "address": "1F, No. 119, Section 1 Chongqing South Road Zhongzheng District Taipei",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E9%87%8D%E6%85%B6%E5%8D%97%E8%B7%AF%E4%B8%80%E6%AE%B5119%20%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 150元 (含場地、點心) / 學生100元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -260,7 +260,7 @@
         "address": "3F-2, 105, No.1,Fuxing North Road,Songshan District, Taipei City",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E6%9D%BE%E5%B1%B1%E5%8D%80%E5%BE%A9%E8%88%88%E5%8C%97%E8%B7%AF1%E8%99%9F3%E6%A8%93%E4%B9%8B2?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 每人150元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -274,7 +274,7 @@
         "address": "B2, No. 145, Section 1, Xiyuan Rd, Wanhua District, Taipei City, 108",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E8%A5%BF%E5%9C%92%E8%B7%AF%E4%B8%80%E6%AE%B5145%E8%99%9FB2F?hl=zh-TW",
         "language": "國語",
-        "fee": "",
+        "fee": "場地費 Fee: TWD100 for TMC member, TWD150 for non TMC member",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -330,7 +330,7 @@
         "address": "台中：文心會議室(台中市北屯區文心路四段936號3樓之1）海外線上Zoom",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E5%A4%A7%E5%90%8C%E5%8D%80%E5%8D%97%E4%BA%AC%E8%A5%BF%E8%B7%AF62%E8%99%9F?hl=zh-TW",
         "language": "國語",
-        "fee": "",
+        "fee": "場地費 Fee: 台北-來賓200元/學生50元、台中-來賓100元/學生50元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -344,7 +344,7 @@
         "address": "Rm. 905, 9F., No. 150, Fuxing N. Rd., Zhongshan Dist., Taipei City, Taiwan (ROC)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E5%B1%B1%E5%8D%80%E5%BE%A9%E8%88%88%E5%8C%97%E8%B7%AF150%E8%99%9F9%E6%A8%93905%E5%AE%A4(%E6%AF%8F%E6%9C%88%E7%AC%AC%E4%B8%80%E5%80%8B%E5%91%A8%E4%B8%89%E5%AF%A6%E9%AB%94%E6%B4%BB%E5%8B%95%E5%A0%B4%E5%9C%B0)?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 會員和其他分會工作人員50元, 其他分會會員100元, 非會員訪客150元 https://www.facebook.com/share/g/5jHwzwFithfzNihN/",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -361,7 +361,7 @@
             "英語",
             "國語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 來賓 150元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -375,7 +375,7 @@
         "address": "2F, No. 116, Sec. 2, Zhongxiao E. Rd, Taipei",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E5%BF%A0%E5%AD%9D%E6%9D%B1%E8%B7%AF%E4%BA%8C%E6%AE%B5116%E8%99%9F2%E6%A8%93%20(%E6%B8%85%E6%B6%BC%E9%9F%B3%E4%BA%BA%E6%96%87%E7%A9%BA%E9%96%93)?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 150元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -389,7 +389,7 @@
         "address": "27F., No. 333, Sec. 1, Keelung Rd., Xinyi Dist., Taipei City, Taiwan",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E5%9F%BA%E9%9A%86%E8%B7%AF%E3%84%A7%E6%AE%B5333%E8%99%9F%E5%9C%8B%E8%B2%BF%E5%A4%A7%E6%A8%9327%E6%A8%93?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: NT$100/guest; NT$50/member or student",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -403,7 +403,7 @@
         "address": "Rm. 813, 8F, No. 163-1, Sec. 5, Minsheng E. Rd., Songshan District, Taipei, Taiwan",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E6%9D%BE%E5%B1%B1%E5%8D%80%E6%B0%91%E7%94%9F%E6%9D%B1%E8%B7%AF%E4%BA%94%E6%AE%B5163-1%E8%99%9F8%E6%A8%93813%E5%AE%A4?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: All free (including 會員和非會員)",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -417,7 +417,7 @@
         "address": "6F, No. 99, Fuxing North Rd., Urban One, Songshan District, Taipei City, 105",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E6%9D%BE%E5%B1%B1%E5%8D%80%E5%BE%A9%E8%88%88%E5%8C%97%E8%B7%AF%2099%20%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 150元，含點心",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -490,7 +490,7 @@
             "英語",
             "國語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: NT$100 非會員 ; NT$100 for non-toastmasters",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -507,7 +507,7 @@
             "英語",
             "國語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: Guest NT$100 來賓 100 元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -524,7 +524,7 @@
             "英語",
             "國語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 會員、來賓 NT$100/ person",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -538,7 +538,7 @@
         "address": "台北市臺北市中山區中山北路二段112號13樓之5-1301",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E8%87%BA%E5%8C%97%E5%B8%82%E4%B8%AD%E5%B1%B1%E5%8D%80%E4%B8%AD%E5%B1%B1%E5%8C%97%E8%B7%AF%E4%BA%8C%E6%AE%B5112%E8%99%9F13%E6%A8%93%E4%B9%8B5-1301?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 50元，學生免費",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -555,7 +555,7 @@
             "英語",
             "國語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: $100",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -611,7 +611,7 @@
         "address": "Rm A, 2F., No. 21, Ln. 59, Sec. 2, Zhongshan N. Rd., Zhongshan Dist., Taipei City",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E5%B1%B1%E5%8D%80?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 其他分會來賓50元；非Toastmasters來賓100元 (NTD$50 for guests from other clubs; NTD$100 for non-Toastmasters guests)",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -653,7 +653,7 @@
         "address": "10F., No. 77, Nanjing W. Rd., Datong Dist., Taipei City , Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E5%8F%B0%E5%8C%97%E5%B8%82%E5%A4%A7%E5%90%8C%E5%8D%80%E5%8D%97%E4%BA%AC%E8%A5%BF%E8%B7%AF66%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 100元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -670,7 +670,7 @@
             "英語",
             "國語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 場地費：100元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -684,7 +684,7 @@
         "address": "4F, No. 1, Ningbo E. st., Zhongzheng Dist., Taipei City",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E6%AD%A3%E5%8D%80%E5%AF%A7%E6%B3%A2%E6%9D%B1%E8%A1%97%E4%B8%80%E8%99%9F%E5%9B%9B%E6%A8%93?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 50元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -698,7 +698,7 @@
         "address": "No. 11, Ln. 6, Sec. 2, Jianguo N. Rd., Zhongshan Dist., Taipei City",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E5%B1%B1%E5%8D%80%E5%BB%BA%E5%9C%8B%E5%8C%97%E8%B7%AF%E4%BA%8C%E6%AE%B56%E5%B7%B711%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 非會員NTD 200 /場次，會員NTD 150 /場次",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -729,7 +729,7 @@
             "英語",
             "國語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 免場地費",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -743,7 +743,7 @@
         "address": "Rm. 204, 2F., No.27, Sec. 1, Chang'an E. Rd., Zhongshan Dist., Taipei City 104, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E5%B1%B1%E5%8D%80%E9%95%B7%E5%AE%89%E6%9D%B1%E8%B7%AF%E4%B8%80%E6%AE%B527%E8%99%9F2%E6%A8%93202%E5%AE%A4?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 會員100元, 學生100元, 社會人士 150元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -771,7 +771,7 @@
         "address": "2F., No. 150, Sec. 1, Zhongxiao E. Rd., Zhongzheng Dist., Taipei City(Near Shandao Temple MRT. Station Exit.5 about walking for 3 minutes)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E6%AD%A3%E5%8D%80%E5%BF%A0%E5%AD%9D%E6%9D%B1%E8%B7%AF%E4%B8%80%E6%AE%B5150%E8%99%9F2%E6%A8%93%E6%88%963%E6%A8%93?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 來賓150元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -785,7 +785,7 @@
         "address": "No. 119, Sec. 1, Chongqing S. Rd., Zhongzheng Dist., Taipei City , Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E5%8F%B0%E5%8C%97%E5%B8%82%E9%87%8D%E6%85%B6%E5%8D%97%E8%B7%AF%E4%B8%80%E6%AE%B5119%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 150元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -813,7 +813,7 @@
         "address": "2F.-1, No. 7, Qingdao E. Rd., Zhongzheng Dist., Taipei City 100 , Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E9%9D%92%E5%B3%B6%E6%9D%B1%E8%B7%AF7%E8%99%9F2%E6%A8%93%E4%B9%8B%E4%B8%80?hl=zh-TW",
         "language": "(英語)",
-        "fee": "",
+        "fee": "場地費 Fee: 來賓 100元、學生50元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -841,7 +841,7 @@
         "address": "162, Section 1, Heping E. Rd., Taipei City 106, Taiwan",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E5%A4%A7%E5%AE%89%E5%8D%80%E5%92%8C%E5%B9%B3%E6%9D%B1%E8%B7%AF%E4%B8%80%E6%AE%B5162%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 免收場地費",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -872,7 +872,7 @@
         "address": "10F., No. 63, Sec. 1, Hangzhou S. Rd., Zhongzheng Dist., Taipei City",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E6%AD%A3%E5%8D%80%E6%9D%AD%E5%B7%9E%E5%8D%97%E8%B7%AF%E4%B8%80%E6%AE%B563%E8%99%9F10%E6%A8%93?hl=zh-TW",
         "language": "(英語,國語)",
-        "fee": "",
+        "fee": "場地費 Fee: 會員100元、非會員150元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -928,7 +928,7 @@
         "address": "69F,No. 7, Section 5, Xinyi Rd, Taipei City",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E4%BF%A1%E7%BE%A9%E5%8D%80%E4%BF%A1%E7%BE%A9%E8%B7%AF%E4%BA%94%E6%AE%B57%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 來賓 50元，TM會員免費 聯絡人電話:0987167150 Forster Lin",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -942,7 +942,7 @@
         "address": "Taipei 101 69F (meet at 1st floor lobby)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E5%8F%B0%E5%8C%97101%20-%2069F%20(%E4%B8%80%E6%A8%93%E5%A4%A7%E5%BB%B3%E9%9B%86%E5%90%88%EF%BC%89?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 0元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -956,7 +956,7 @@
         "address": "No. 1 Sec. 4 Roosevelt Road Taipei 10617 Taiwan(R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E5%A4%A7%E5%AE%89%E5%8D%80%E7%BE%85%E6%96%AF%E7%A6%8F%E8%B7%AF%20%E5%9B%9B%E6%AE%B5%2085%20%E8%99%9F%207%20%E6%A8%93?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 來賓 50 元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -1012,7 +1012,7 @@
         "address": "台北市基隆路一段200號22樓",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E5%9F%BA%E9%9A%86%E8%B7%AF%E4%B8%80%E6%AE%B5200%E8%99%9F22%E6%A8%93?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: no fee, unless specify for lunch order",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -1071,7 +1071,7 @@
         "address": "No.168, Jingmao 2nd Road, Nangang Dist., Taipei (1st&3rd Wed 19:20~21:00) Conference Room 2403",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E5%8D%97%E6%B8%AF%E5%8D%80%E7%B6%93%E8%B2%BF%E4%BA%8C%E8%B7%AF168%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 免場地費 Free Admission fee (除特殊活動酌收輕食費）",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -1099,7 +1099,7 @@
         "address": "1F., No. 9, Ln. 118, Minquan W. Rd., Datong Dist., Taipei City 103 , Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E5%A4%A7%E5%90%8C%E5%8D%80%E6%B0%91%E6%AC%8A%E8%A5%BF%E8%B7%AF118%E5%B7%B79%E8%99%9F1%E6%A8%93?hl=zh-TW",
         "language": ")",
-        "fee": "",
+        "fee": "場地費 Fee: 會員150元、來賓 200元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -1116,7 +1116,7 @@
             "英語",
             "國語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 非學生100元，學生50元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -1158,7 +1158,7 @@
         "address": "2F., No. 7-2, Qingdao E. Rd., Zhongzheng Dist., Taipei City",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E9%9D%92%E5%B3%B6%E6%9D%B1%E8%B7%AF7%E8%99%9F%E4%B9%8B2-2F?hl=zh-TW",
         "language": "雙語",
-        "fee": "",
+        "fee": "場地費 Fee: 150",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -1186,7 +1186,7 @@
         "address": "No. 162, Section 1, Heping East Road, Da’an District 106",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E6%AD%A3%E5%8D%80%E5%8D%80%E5%AF%A7%E6%B3%A2%E6%9D%B1%E8%A1%971%E8%99%9F4%E6%A8%93?hl=zh-TW",
         "language": "國語",
-        "fee": "",
+        "fee": "場地費 Fee: 100元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -1200,7 +1200,7 @@
         "address": "Rm. 3, 9F., No. 150, Sec. 1, Zhongxiao E. Rd., Zhongzheng Dist., Taipei City 100",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E6%AD%A3%E5%8D%80%E5%BF%A0%E5%AD%9D%E6%9D%B1%E8%B7%AF%E4%B8%80%E6%AE%B5150%E8%99%9F9%E6%A8%93?hl=zh-TW",
         "language": "國語",
-        "fee": "",
+        "fee": "場地費 Fee: 100元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -1228,7 +1228,7 @@
         "address": "3F.,No.150.,Section 1,Zhongxiao East Road.,Taipei City. 100, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E6%AD%A3%E5%8D%80%E5%BF%A0%E5%AD%9D%E6%9D%B1%E8%B7%AF%E4%B8%80%E6%AE%B5150%E8%99%9F?hl=zh-TW",
         "language": "閩南語",
-        "fee": "",
+        "fee": "場地費 Fee: 100元，學生50元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -1242,7 +1242,7 @@
         "address": "2F.,No.150.,Section 1,Zhongxiao East Road.,Taipei City. 100, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E6%AD%A3%E5%8D%80%E5%BF%A0%E5%AD%9D%E6%9D%B1%E8%B7%AF%E4%B8%80%E6%AE%B5150%E8%99%9F?hl=zh-TW",
         "language": "國語",
-        "fee": "",
+        "fee": "場地費 Fee: 100元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -1259,7 +1259,7 @@
             "國語",
             "台語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 100元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -1273,7 +1273,7 @@
         "address": "台北市6F.,No. 54, Sec. 1, MinShen East Road, Taipei",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E6%B0%91%E7%94%9F%E6%9D%B1%E8%B7%AF1%E6%AE%B554%E8%99%9F6F?hl=zh-TW",
         "language": "國語",
-        "fee": "",
+        "fee": "場地費 Fee: 來賓100、會員免費",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -1287,7 +1287,7 @@
         "address": "台北市復興北路57號11樓之2　捷運南京復興站5号口 步行2分(目前為【現場とzoomのハイブリッドとも】) ZOOM MEETING ID:609 286 5860",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E5%BE%A9%E8%88%88%E5%8C%97%E8%B7%AF57%E8%99%9F11%E6%A8%93%E4%B9%8B2%E3%80%80%E6%8D%B7%E9%81%8B%E5%8D%97%E4%BA%AC%E5%BE%A9%E8%88%88%E7%AB%995%E5%8F%B7%E5%8F%A3%20%E6%AD%A5%E8%A1%8C2%E5%88%86(%E7%9B%AE%E5%89%8D%E7%82%BA%E3%80%90%E7%8F%BE%E5%A0%B4%E3%81%A8zoom%E3%81%AE%E3%83%8F%E3%82%A4%E3%83%96%E3%83%AA%E3%83%83%E3%83%89%E3%81%A8%E3%82%82%E3%80%91)?hl=zh-TW",
         "language": "日語",
-        "fee": "",
+        "fee": "場地費 Fee: 每人100元",
         "president": "",
         "phoneNumber": "",
         "city": "台北市"
@@ -1315,7 +1315,7 @@
         "address": "No. 22, Ln. 250, Yuemei Rd., Xinyi Dist., Keelung City, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%9F%BA%E9%9A%86%E5%B8%82%E4%BB%81%E4%B8%80%E8%B7%AF261%E4%B9%8B1%E8%99%9F1%E6%A8%93?hl=zh-TW",
         "language": "(國語.台語)",
-        "fee": "",
+        "fee": "場地費 Fee: 50元",
         "president": "",
         "phoneNumber": "",
         "city": "基隆市"
@@ -1329,7 +1329,7 @@
         "address": "No. 47, Lane 35, Dongxin Road, Xinyi District., Keelung City 201, Taiwan",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%9F%BA%E9%9A%86%E5%B8%82%E5%9F%BA%E9%9A%86%E5%B8%82%E4%BF%A1%E7%BE%A9%E5%8D%80%E6%9D%B1%E4%BF%A1%E8%B7%AF35%E5%B7%B747%E8%99%9F1%E6%A8%93?hl=zh-TW",
         "language": "閩南語",
-        "fee": "",
+        "fee": "場地費 Fee: 50元",
         "president": "",
         "phoneNumber": "",
         "city": "基隆市"
@@ -1343,7 +1343,7 @@
         "address": "No. 510, Zhongzheng Rd, Fu Jen Catholic University, Xinzhuang District, New Taipei City, 242",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E6%96%B0%E5%8C%97%E5%B8%82%E6%96%B0%E8%8E%8A%E5%8D%80%E4%B8%AD%E6%AD%A3%E8%B7%AF%20510%20%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee:",
         "president": "",
         "phoneNumber": "",
         "city": "新北市"
@@ -1357,7 +1357,7 @@
         "address": "29F.-9, No. 27, Sec. 2, Zhongzheng E. Rd., Tamsui Dist., New Taipei City 251, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E6%96%B0%E5%8C%97%E5%B8%82%E6%B7%A1%E6%B0%B4%E5%8D%80%E4%B8%AD%E6%AD%A3%E6%9D%B1%E8%B7%AF%E4%BA%8C%E6%AE%B527%E8%99%9F29%E6%A8%93%E4%B9%8B9?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 免費",
         "president": "",
         "phoneNumber": "",
         "city": "新北市"
@@ -1413,7 +1413,7 @@
         "address": "2F., No. 2, Ren'an St., Sanchong Dist., New Taipei City 241",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E6%96%B0%E5%8C%97%E5%B8%82%E4%B8%89%E9%87%8D%E5%8D%80%E4%BB%81%E5%AE%89%E8%A1%97%202%20%E8%99%9F%202%20%E6%A8%93?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 100 元",
         "president": "",
         "phoneNumber": "",
         "city": "新北市"
@@ -1472,7 +1472,7 @@
             "英語",
             "台語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 100",
         "president": "",
         "phoneNumber": "",
         "city": "宜蘭縣"
@@ -1500,7 +1500,7 @@
         "address": "桃園市大園區高鐵南路一段52號 寶徠花園 恩膏長老教會",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E6%A1%83%E5%9C%92%E5%B8%82%E5%A4%A7%E5%9C%92%E5%8D%80%E9%AB%98%E9%90%B5%E5%8D%97%E8%B7%AF%E4%B8%80%E6%AE%B552%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 會員免費，12歲以上來賓 $150",
         "president": "",
         "phoneNumber": "",
         "city": "桃園市"
@@ -1514,7 +1514,7 @@
         "address": "Rm. 201, 2F., No. 88, Jiancheng St., Taoyuan Dist., Taoyuan City 330049 , Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E6%A1%83%E5%9C%92%E5%B8%82%E6%A1%83%E5%9C%92%E5%8D%80%E5%BB%BA%E6%88%90%E8%A1%9788%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 會員免費,來賓50元",
         "president": "",
         "phoneNumber": "",
         "city": "桃園市"
@@ -1528,7 +1528,7 @@
         "address": "No. 66, Yongfu Rd., Zhongli Dist., Taoyuan City 320046, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E6%A1%83%E5%9C%92%E5%B8%82%E4%B8%AD%E5%A3%A2%E5%8D%80%E6%B0%B8%E7%A6%8F%E8%B7%AF66%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 免費參加",
         "president": "",
         "phoneNumber": "",
         "city": "桃園市"
@@ -1556,7 +1556,7 @@
         "address": "15F, No. 30, Section 2, Zhongyang W Rd, Zhongli District, Taoyuan City, 320",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E6%A1%83%E5%9C%92%E5%B8%82%E4%B8%AD%E5%A3%A2%E5%8D%80%E4%B8%AD%E5%A4%AE%E8%A5%BF%E8%B7%AF%E4%BA%8C%E6%AE%B530%E8%99%9F15%E6%A8%93?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 免費 None",
         "president": "",
         "phoneNumber": "",
         "city": "桃園市"
@@ -1598,7 +1598,7 @@
         "address": "桃園市桃園區中平路102號9樓之一",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E6%A1%83%E5%9C%92%E5%B8%82%E6%A1%83%E5%9C%92%E5%8D%80%E4%B8%AD%E5%B9%B3%E8%B7%AF102%E8%99%9F9%E6%A8%93%E4%B9%8B%E4%B8%80?hl=zh-TW",
         "language": "國語",
-        "fee": "",
+        "fee": "場地費 Fee: 1100",
         "president": "",
         "phoneNumber": "",
         "city": "桃園市"
@@ -1612,7 +1612,7 @@
         "address": "15F.-1, No.398, Huanbei Rd., Zhongli Dist., Taoyuan City 320, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E6%A1%83%E5%9C%92%E5%B8%82%E4%B8%AD%E5%A3%A2%E5%8D%80%E7%92%B0%E5%8C%97%E8%B7%AF398%E8%99%9F15%E6%A8%93%E4%B9%8B1?hl=zh-TW",
         "language": "客語",
-        "fee": "",
+        "fee": "場地費 Fee: 100元",
         "president": "",
         "phoneNumber": "",
         "city": "桃園市"
@@ -1626,7 +1626,7 @@
         "address": "3F, No. 31, Qihe 1st St., Zhongli Dist., Taoyuan City 320, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E6%A1%83%E5%9C%92%E5%B8%82%E4%B8%AD%E5%A3%A2%E5%8D%80%E4%B8%83%E5%92%8C%E4%B8%80%E8%A1%9731%E8%99%9F3%E6%A8%93?hl=zh-TW",
         "language": "國語",
-        "fee": "",
+        "fee": "場地費 Fee: 100元",
         "president": "",
         "phoneNumber": "",
         "city": "桃園市"
@@ -1640,7 +1640,7 @@
         "address": "Room 6C, No. 180, Fuxing Rd., Taoyuan Dist., Taoyuan City 330, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E6%A1%83%E5%9C%92%E5%B8%82%E6%A1%83%E5%9C%92%E5%8D%80%E5%BE%A9%E8%88%88%E8%B7%AF180%E8%99%9F6%E6%A8%93C%E5%AE%A4?hl=zh-TW",
         "language": "閩南語",
-        "fee": "",
+        "fee": "場地費 Fee: 場地費100元",
         "president": "",
         "phoneNumber": "",
         "city": "桃園市"
@@ -1671,7 +1671,7 @@
             "英語",
             "國語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 100元",
         "president": "",
         "phoneNumber": "",
         "city": "桃園市"
@@ -1688,7 +1688,7 @@
             "英語",
             "國語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 100",
         "president": "",
         "phoneNumber": "",
         "city": "桃園市"
@@ -1716,7 +1716,7 @@
         "address": "No. 101, Section 2, Kuang-Fu Road, Hsinchu, Taiwan 30013",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E6%96%B0%E7%AB%B9%E5%B8%82%E5%85%89%E5%BE%A9%E8%B7%AF2%E6%AE%B5101%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 免費參加",
         "president": "",
         "phoneNumber": "",
         "city": "新竹市"
@@ -1747,7 +1747,7 @@
             "英語",
             "國語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 來賓 150元",
         "president": "",
         "phoneNumber": "",
         "city": "新竹縣"
@@ -1764,7 +1764,7 @@
             "英語",
             "台語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 會員、來賓 120元",
         "president": "",
         "phoneNumber": "",
         "city": "新竹縣"
@@ -1778,7 +1778,7 @@
         "address": "No.140, Zhongzheng Rd., Miaoli City, Miaoli County",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E8%8B%97%E6%A0%97%E7%B8%A3%E8%8B%97%E6%A0%97%E5%B8%82%E4%B8%AD%E6%AD%A3%E8%B7%AF140%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: Free",
         "president": "",
         "phoneNumber": "",
         "city": "苗栗縣"
@@ -1809,7 +1809,7 @@
             "英語",
             "國語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 會員免費、來賓100元",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -1823,7 +1823,7 @@
         "address": "4F., No. 89, Sec. 3, Tianjin Rd., Beitun Dist., Taichung City",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E4%B8%AD%E5%B8%82%E5%8C%97%E5%B1%AF%E5%8D%80%E5%A4%A9%E6%B4%A5%E8%B7%AF%E4%B8%89%E6%AE%B589%E8%99%9F4%E6%A8%93?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 無",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -1837,7 +1837,7 @@
         "address": "Rm. 304, 3F., No. 2, Sec. 2, Taiwan Blvd., West Dist., Taichung City , Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E4%B8%AD%E5%B8%82%E8%A5%BF%E5%8D%80%E5%8F%B0%E7%81%A3%E5%A4%A7%E9%81%93%E4%BA%8C%E6%AE%B52%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 來賓(非幹部)100NTD",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -1851,7 +1851,7 @@
         "address": "No. 386, Dadun 11th St., Nantun Dist., Taichung City 408034, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E4%B8%AD%E5%B8%82%E5%8F%B0%E4%B8%AD%E5%B8%82%E5%8D%97%E5%B1%AF%E5%8D%80%E5%A4%A7%E5%A2%A9%E5%8D%81%E4%B8%80%E8%A1%97%20386%20%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 會員免費，來賓 100元",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -1865,7 +1865,7 @@
         "address": "No. 598, Section 2, Wenxin Rd., Xitun District, Taichung City 407",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E4%B8%AD%E5%B8%82%E8%A5%BF%E5%B1%AF%E5%8D%80%E6%96%87%E5%BF%83%E8%B7%AF%E4%BA%8C%E6%AE%B5598%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 非會員、來賓 100元",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -1879,7 +1879,7 @@
         "address": "No. 73, Datong 9th St., Wuri Dist., Taichung City 414007 , Taiwan",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E4%B8%AD%E5%B8%82%E7%83%8F%E6%97%A5%E5%8D%80%E5%A4%A7%E5%90%8C%E4%B9%9D%E8%A1%9773%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 來賓100",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -1893,7 +1893,7 @@
         "address": "2F., No. 554, Sec. 2, Guoguang Rd., Dali Dist., Taichung City",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E4%B8%AD%E5%B8%82%E5%A4%A7%E9%87%8C%E5%8D%80%E5%9C%8B%E5%85%89%E8%B7%AF%E4%BA%8C%E6%AE%B5554%E8%99%9F2%E6%A8%93?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: Free 免費",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -1907,7 +1907,7 @@
         "address": "No. 521, Sec. 1, Wenxin Rd., Nantun Dist., Taichung City 408343 , Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E4%B8%AD%E5%B8%82%E5%8D%97%E5%B1%AF%E5%8D%80%E6%96%87%E5%BF%83%E8%B7%AF%E4%B8%80%E6%AE%B5%E6%AE%B5521%E8%99%9F6%E6%A8%93%E6%9C%83%E8%AD%B0%E5%AE%A4?hl=zh-TW",
         "language": "國語",
-        "fee": "",
+        "fee": "場地費 Fee: 非會員NTD 100/人/次",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -1938,7 +1938,7 @@
         "address": "No. 521, Sec. 1, Wenxin Rd., Nantun Dist., Taichung City 408, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E4%B8%AD%E5%B8%82%E5%8D%97%E5%B1%AF%E5%8D%80%E6%96%87%E5%BF%83%E8%B7%AF%E4%B8%80%E6%AE%B5521%E8%99%9F?hl=zh-TW",
         "language": "閩南語",
-        "fee": "",
+        "fee": "場地費 Fee: 來賓每位每次收場地費100元 / Admission fee : NT$100 each guest/each meeting",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -1986,7 +1986,7 @@
             "英語",
             "國語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 來賓免費",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -2000,7 +2000,7 @@
         "address": "No. 521, Sec. 1, Wenxin Rd., Nantun Dist., Taichung City 408, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E4%B8%AD%E5%B8%82%E5%8D%97%E5%B1%AF%E5%8D%80%E6%96%87%E5%BF%83%E8%B7%AF%E4%B8%80%E6%AE%B5521%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 來賓 100元，會員免費",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -2014,7 +2014,7 @@
         "address": "23F, No. 530, Yingcai Rd, Xi District Taichung City, 403",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E4%B8%AD%E5%B8%82%E8%A5%BF%E5%B1%AF%E5%8D%80%E6%96%87%E5%BF%83%E8%B7%AF%E4%BA%8C%E6%AE%B5%20598%20%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: NT$100",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -2070,7 +2070,7 @@
         "address": "No. 500, Liufeng Rd., Wufeng Dist., Taichung City 413, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E4%B8%AD%E5%B8%82%E9%9C%A7%E5%B3%B0%E5%8D%80%E6%9F%B3%E8%B1%90%E8%B7%AF500%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 學生免費",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -2084,7 +2084,7 @@
         "address": "2F, No.81, Yuren Rd., Fengyuan Dist., Taichung City 420, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E4%B8%AD%E5%B8%82%E8%B1%90%E5%8E%9F%E5%8D%80%E8%82%B2%E4%BB%81%E8%B7%AF81%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 來賓免費",
         "president": "",
         "phoneNumber": "",
         "city": ""
@@ -2098,7 +2098,7 @@
         "address": "2F, No.81, Yuren Rd., Fengyuan Dist., Taichung City 420, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E4%B8%AD%E5%B8%82%E8%B1%90%E5%8E%9F%E5%8D%80%E8%82%B2%E4%BB%81%E8%B7%AF81%E8%99%9F2%E6%A8%93?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 會員免費、來賓免費",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -2115,7 +2115,7 @@
             "國語",
             "台語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 來賓100元",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -2132,7 +2132,7 @@
             "英語",
             "國語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 免費 , 附有免費停車場",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -2160,7 +2160,7 @@
         "address": "No. 88, Hebei W. St., Beitun Dist., Taichung City , Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E4%B8%AD%E5%B8%82%E5%8C%97%E5%B1%AF%E5%8D%80%E6%B2%B3%E5%8C%97%E8%A5%BF%E8%A1%9788%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 來賓費用100元",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -2188,7 +2188,7 @@
         "address": "Venue: 6F, No.521, Sec. 1, Wenxin Rd., Nantun Dist., Taichung City, Taiwan",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E4%B8%AD%E5%B8%82%E6%96%87%E5%BF%83%E8%B7%AF%E4%B8%80%E6%AE%B5521%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 來賓 100元",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -2216,7 +2216,7 @@
         "address": "No. 5, Ln. 255, Shude St., Daya Dist., Taichung City 428009, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E4%B8%AD%E5%B8%82%E5%A4%A7%E9%9B%85%E5%8D%80%E6%A8%B9%E5%BE%B7%E8%A1%97255%E5%B7%B75%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 免費",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -2230,7 +2230,7 @@
         "address": "No.250, Aofeng Rd., Qingshui Dist., Taichung City 436, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E4%B8%AD%E5%B8%8243648%E8%87%BA%E4%B8%AD%E5%B8%82%E6%B8%85%E6%B0%B4%E5%8D%80%E9%B0%B2%E5%B3%B0%E8%B7%AF250%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 來賓免費",
         "president": "",
         "phoneNumber": "",
         "city": "台中市"
@@ -2340,7 +2340,7 @@
         "address": "online",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%BD%B0%E5%8C%96%E7%B8%A3%E7%B7%9A%E4%B8%8A?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: Vice President Membership (VPM) : (Mon.-Fri.:18:00-22:00/Sat.-Sun.:10:00-22:00)",
         "president": "",
         "phoneNumber": "",
         "city": "彰化縣"
@@ -2416,7 +2416,7 @@
             "國語",
             "台語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 來賓免場地費",
         "president": "",
         "phoneNumber": "",
         "city": "南投縣"
@@ -2506,7 +2506,7 @@
         "address": "No. 60, Sinyi Rd., Huwei Township, Yunlin County, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E9%9B%B2%E6%9E%97%E7%B8%A3%E8%99%8E%E5%B0%BE%E9%8E%AE%E4%BF%A1%E7%BE%A9%E8%B7%AF60%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 線上會議：免費 / 實體會議：會員免費，來賓 100 元",
         "president": "",
         "phoneNumber": "",
         "city": "雲林縣"
@@ -2534,7 +2534,7 @@
         "address": "2F., No. 283, Daren St., West Central Dist., Tainan City 700, Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8D%97%E5%B8%82%E4%B8%AD%E8%A5%BF%E5%8D%80%E5%BA%9C%E5%89%8D%E8%B7%AF%E4%B8%80%E6%AE%B5283%E8%99%9F2%E6%A8%93?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 來賓100元",
         "president": "",
         "phoneNumber": "",
         "city": "台南市"
@@ -2548,7 +2548,7 @@
         "address": "2F, No.283, Sec.1, Fuqian Rd., West Central Dist., Tainan 70016, Taiwan",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8D%97%E5%B8%82%E4%B8%AD%E8%A5%BF%E5%8D%80%E5%BA%9C%E5%89%8D%E8%B7%AF%E4%B8%80%E6%AE%B5283%E8%99%9F2%E6%A8%93?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 來賓 100元",
         "president": "",
         "phoneNumber": "",
         "city": "台南市"
@@ -2593,7 +2593,7 @@
             "英語",
             "台語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 來賓 50元",
         "president": "",
         "phoneNumber": "",
         "city": "台南市"
@@ -2610,7 +2610,7 @@
             "國語",
             "台語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 來賓 50元",
         "president": "",
         "phoneNumber": "",
         "city": "台南市"
@@ -2624,7 +2624,7 @@
         "address": "Deguang Community Center, East Dist. (Room.201)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8D%97%E5%B8%82%E6%9D%B1%E5%8D%80%E5%B4%87%E5%BE%B7%E8%B7%AF111%E8%99%9F%20(%E7%9B%A3%E7%90%86%E7%AB%99%E6%97%81)%20(201%E6%95%99%E5%AE%A4)?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 來賓50元",
         "president": "",
         "phoneNumber": "",
         "city": "台南市"
@@ -2652,7 +2652,7 @@
         "address": "Briefing Room, No. 195, Dacheng Road, Shanhua District, Tainan City",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8D%97%E5%B8%82%E5%96%84%E5%8C%96%E5%8D%80%E5%A4%A7%E6%88%90%E8%B7%AF195%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 來賓 50元，善化高中教職員生免費",
         "president": "",
         "phoneNumber": "",
         "city": "台南市"
@@ -2694,7 +2694,7 @@
         "address": "Hotel Urban 33: 3F.,No 33 Minzu 2nd Rd.,Sinsing District, Kaohsiung.800",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E9%AB%98%E9%9B%84%E5%B8%82%E6%96%B0%E8%88%88%E5%8D%80%E6%B0%91%E6%97%8F%E4%BA%8C%E8%B7%AF33%E8%99%9F3%E6%A8%93?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: Guest Fee for 100NT",
         "president": "",
         "phoneNumber": "",
         "city": "高雄市"
@@ -2725,7 +2725,7 @@
             "英語",
             "國語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 來賓 50元",
         "president": "",
         "phoneNumber": "",
         "city": "高雄市"
@@ -2756,7 +2756,7 @@
             "英語",
             "國語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 來賓 100元",
         "president": "",
         "phoneNumber": "",
         "city": "高雄市"
@@ -2784,7 +2784,7 @@
         "address": "No.77, FuDe 2nd Rd, Lingya District,Kaohsiung City, 802",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E9%AB%98%E9%9B%84%E5%B8%82%E8%8B%93%E9%9B%85%E5%8D%80%E7%A6%8F%E5%BE%B7%E4%BA%8C%E8%B7%AF77%E8%99%9F2%E6%A8%93?hl=zh-TW",
         "language": "閩南語",
-        "fee": "",
+        "fee": "場地費 Fee:",
         "president": "",
         "phoneNumber": "",
         "city": "高雄市"
@@ -2798,7 +2798,7 @@
         "address": "高雄市高雄市新興區中正三路55號 28樓 （Wee威易聯合辦公室-中正店）",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E9%AB%98%E9%9B%84%E5%B8%82%E9%AB%98%E9%9B%84%E5%B8%82%E6%96%B0%E8%88%88%E5%8D%80%E4%B8%AD%E6%AD%A3%E4%B8%89%E8%B7%AF55%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 來賓 50元",
         "president": "",
         "phoneNumber": "",
         "city": "高雄市"
@@ -2826,7 +2826,7 @@
         "address": "Online",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E9%AB%98%E9%9B%84%E5%B8%82%E7%B7%9A%E4%B8%8A%E5%88%86%E6%9C%83?hl=zh-TW",
         "language": "(英語)",
-        "fee": "",
+        "fee": "場地費 Fee: 0",
         "president": "",
         "phoneNumber": "",
         "city": "高雄市"
@@ -2868,7 +2868,7 @@
         "address": "116, Ho Ping 1st road,.Kaohsiung",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E9%AB%98%E9%9B%84%E5%B8%82%E8%8B%93%E9%9B%85%E5%8D%80%E5%92%8C%E5%B9%B3%E4%B8%80%E8%B7%AF116%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: Guest fee-100NT$",
         "president": "",
         "phoneNumber": "",
         "city": "高雄市"
@@ -2941,7 +2941,7 @@
         "address": "No. 13, Ruizhong St., Pingtung City, Pingtung County , Taiwan (R.O.C.)",
         "addressGoogleMaps": "https://www.google.com/maps/place/%E5%B1%8F%E6%9D%B1%E7%B8%A3%E5%B1%8F%E6%9D%B1%E5%B8%82%E7%91%9E%E4%B8%AD%E8%B7%AF13%E8%99%9F?hl=zh-TW",
         "language": "英語",
-        "fee": "",
+        "fee": "場地費 Fee: 會員免費、來賓 100元",
         "president": "",
         "phoneNumber": "",
         "city": "屏東縣"
@@ -2958,7 +2958,7 @@
             "華語",
             "台語"
         ],
-        "fee": "",
+        "fee": "場地費 Fee: 來賓 100元、會員免費",
         "president": "",
         "phoneNumber": "",
         "city": "屏東縣"
