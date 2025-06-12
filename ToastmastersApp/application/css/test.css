@@ -1,0 +1,23 @@
+.prod-img{
+    width: 100%;
+}
+
+ /* class=prod-box ���撅祆�扳����� */
+.prod-box{
+    border: 1px solid #000; /*  ���蝺� ������ */
+    padding: 10px ;  /*  ��折�券��頝� ������ */
+    margin: 10px;     /*  憭���券��頝� ������ */
+}
+
+
+/* id=first-prod ���撅祆�扳����� */
+#first-prod{
+    border: 1px solid #ea2;
+    border-radius: 25px;
+}
+
+/* id=second-prod ���撅祆�扳����� */
+#second-prod{
+    border: 1px solid #0aa;
+    border-radius: 35px;
+}
