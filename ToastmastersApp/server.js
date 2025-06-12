@@ -42,11 +42,13 @@ app.use(
 
 // ===================== //
 
-// const userRouter = require("./routes/user.js");
+const clubRouter = require("./routes/club.js");
 
 app.get("/", (req, res) => {
   res.render("index.html");
 });
+
+app.use("/club", clubRouter);
 
 // app.use("/user", userRouter);
 

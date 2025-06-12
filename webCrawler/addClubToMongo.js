@@ -1,4 +1,7 @@
-const mongoose = require("mongoose");
+/**
+ * 這個檔案把 json 裡面的東西送到資料庫
+ */
+
 const fs = require("fs");
 const model = require("../ToastmastersApp/models");
 
