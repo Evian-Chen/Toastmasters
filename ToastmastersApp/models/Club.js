@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const conn = require("./db");
 
 const culbInfoSchema = new mongoose.Schema({
     name: {
@@ -11,12 +12,12 @@ const culbInfoSchema = new mongoose.Schema({
         unique: true
     },
     type: String,
-    meetingDate: String || "not provided",
-    meetingTime: String || "not provided",
+    meetingDate: String,
+    meetingTime: String,
     address: String,
     addressGoogleMaps: String,
     languages: [String],
-    fee: Number,
+    fee: String,
     president: String,
     phoneNumber: String,
     city: String
@@ -25,4 +26,5 @@ const culbInfoSchema = new mongoose.Schema({
     collection: "club-table"
  });
 
-module.exports = mongoose.model("clubInfoModel", culbInfoSchema);
+const clubModel = conn.model("clubModel", culbInfoSchema);
+module.exports = clubModel;

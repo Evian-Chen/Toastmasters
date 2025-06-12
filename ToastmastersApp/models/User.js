@@ -1,37 +1,46 @@
 const mongoose = require("mongoose");
 const conn = require("./db");
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema(
+  {
     email: {
-        type: String,
-        required: true,
-        unique: true
+      type: String,
+      required: true,
+      unique: true,
     },
     googleId: {
-        type: String,
-        required: true,
-        unique: true
+      type: String,
+      required: true,
+      unique: true,
     },
     name: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     bio: {
-        type: String,
-        default: ''
+      type: String,
+      default: "",
     },
-    club: [{
+    club: [
+      {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'club'
-    }],
+        ref: "club",
+      },
+    ],
     role: {
-        type: String, 
-        default: 'member'
-    }
-}, { 
+      type: String,
+      default: "member",
+    },
+    avatarUrl: {
+      type: String,
+      default: "",
+    },
+  },
+  {
     timestamps: true,
-    collection: "user-table"
-});
+    collection: "user-table",
+  }
+);
 
 const userModel = mongoose.model("user", userSchema);
 
