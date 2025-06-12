@@ -1,0 +1,122 @@
+[
+    {
+        "name": "English Conversation Toastmasters Club English Conversation Toastmasters Club",
+        "type": "社區",
+        "clubId": "No.5518097",
+        "date": "每月第一、第三個星期二 1st,3rd Tuesday",
+        "time": "8:00- 9:30 PM Online",
+        "address": "Online club whole Taiwan ",
+        "addressGoogleMaps": "https://www.google.com/maps/place/Online%20club%20whole%20Taiwan?hl=zh-TW",
+        "fee": "",
+        "president": "",
+        "phoneNumber": ""
+    },
+    {
+        "name": "國際崇她台北一社 Zonta Club of Taipei Ι",
+        "type": "社區",
+        "clubId": "No.523",
+        "date": "每月第一、第三個星期二 1st,3rd Tuesday",
+        "time": "",
+        "address": "台北市 ",
+        "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82?hl=zh-TW",
+        "fee": "",
+        "president": "",
+        "phoneNumber": ""
+    },
+    {
+        "name": "國際崇她花蓮社 Zonta Club of Hualien",
+        "type": "社區",
+        "clubId": "No.1189",
+        "date": "每月第一、第三個星期二 1st,3rd Tuesday",
+        "time": "",
+        "address": "花蓮市國聯二路15號 ",
+        "addressGoogleMaps": "https://www.google.com/maps/place/%E8%8A%B1%E8%93%AE%E5%B8%82%E5%9C%8B%E8%81%AF%E4%BA%8C%E8%B7%AF15%E8%99%9F?hl=zh-TW",
+        "fee": "",
+        "president": "",
+        "phoneNumber": ""
+    },
+    {
+        "name": "國際崇她台北欣社 Zonta Club of Taipei Shin",
+        "type": "社區",
+        "clubId": "No.1343",
+        "date": "每月第一、第三個星期二 1st,3rd Tuesday",
+        "time": "",
+        "address": "台北市中山區市民大道三段83號 美麗信花園酒店",
+        "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E5%B1%B1%E5%8D%80%E5%B8%82%E6%B0%91%E5%A4%A7%E9%81%93%E4%B8%89%E6%AE%B583%E8%99%9F?hl=zh-TW",
+        "fee": "",
+        "president": "",
+        "phoneNumber": ""
+    },
+    {
+        "name": "國際崇她臺北彩虹社 Zonta Club Of Taipei Rainbow",
+        "type": "社區",
+        "clubId": "No.1895",
+        "date": "每月第一、第三個星期二 1st,3rd Tuesday",
+        "time": "",
+        "address": "台北市 ",
+        "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82?hl=zh-TW",
+        "fee": "",
+        "president": "",
+        "phoneNumber": ""
+    },
+    {
+        "name": "國際崇她桃園牡丹社 Zonta Club of Taoyuan Peony",
+        "type": "社區",
+        "clubId": "No.2009",
+        "date": "每月第一、第三個星期二 1st,3rd Tuesday",
+        "time": "",
+        "address": "台北市 ",
+        "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82?hl=zh-TW",
+        "fee": "",
+        "president": "",
+        "phoneNumber": ""
+    },
+    {
+        "name": "國際崇她花蓮二社 Zonta Club of Hualien II",
+        "type": "社區",
+        "clubId": "No.2047",
+        "date": "每月第一、第三個星期二 1st,3rd Tuesday",
+        "time": "",
+        "address": "花蓮市 ",
+        "addressGoogleMaps": "https://www.google.com/maps/place/%E8%8A%B1%E8%93%AE%E5%B8%82?hl=zh-TW",
+        "fee": "",
+        "president": "",
+        "phoneNumber": ""
+    },
+    {
+        "name": "Zonta Club of Tainan Phoenix Zonta Club of Tainan Phoenix",
+        "type": "社區",
+        "clubId": "No.1963",
+        "date": "每月第一、第三個星期二 1st,3rd Tuesday",
+        "time": "",
+        "address": "台南市701東區崇善路25巷 ",
+        "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8D%97%E5%B8%82701%E6%9D%B1%E5%8D%80%E5%B4%87%E5%96%84%E8%B7%AF25%E5%B7%B7?hl=zh-TW",
+        "fee": "",
+        "president": "",
+        "phoneNumber": ""
+    },
+    {
+        "name": "國際崇她台中社 Zonta Club of Taichung",
+        "type": "社區",
+        "clubId": "No.692",
+        "date": "每月第一、第三個星期二 1st,3rd Tuesday",
+        "time": "",
+        "address": "台中市 ",
+        "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E4%B8%AD%E5%B8%82?hl=zh-TW",
+        "fee": "",
+        "president": "",
+        "phoneNumber": ""
+    },
+    {
+        "name": "台北英語國際演講會 Taipei Toastmasters Club",
+        "type": "社區",
+        "clubId": "No.1890",
+        "date": "每月第二、第四個星期二 2nd,4th Tuesday",
+        "time": "19：00-21：00",
+        "address": "No. 128, Sec. 2, Zhongshan N. Rd., Zhongshan Dist., Taipei",
+        "addressGoogleMaps": "https://www.google.com/maps/place/%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E5%B1%B1%E5%8D%80%E4%B8%AD%E5%B1%B1%E5%8C%97%E8%B7%AF%E4%BA%8C%E6%AE%B5128%E8%99%9F3%E6%A8%93?hl=zh-TW",
+        "fee": "",
+        "president": "",
+        "phoneNumber": ""
+    }
+]
