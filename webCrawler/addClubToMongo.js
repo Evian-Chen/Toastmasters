@@ -20,7 +20,7 @@ clubs.forEach(async (club, index) => {
             meetingTime: club.meetingTime,
             address: club.address,
             addressGoogleMaps: club.addressGoogleMaps,
-            languages: club.languages,
+            languages: club.language,
             fee: club.fee,
             president: club.president,
             phoneNumber: club.phoneNumber,

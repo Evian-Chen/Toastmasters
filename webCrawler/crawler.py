@@ -18,10 +18,14 @@ valid_maps_url = "https://www.google.com/maps/place"
 tw = "zh-TW"
 
 cities = [
-    "台北市", "臺北市", "新北市", "基隆市", "桃園市", "新竹市", "新竹縣",
+    "台北市", "新北市", "基隆市", "桃園市", "新竹市", "新竹縣",
     "苗栗縣", "台中市", "彰化縣", "南投縣", "雲林縣", "嘉義市", "嘉義縣",
     "台南市", "高雄市", "屏東縣", "宜蘭縣", "花蓮縣", "花蓮市", "台東縣",
     "澎湖縣", "金門縣", "連江縣"
+]
+
+all_langs = [
+    "英語", "華語", "台語", "日語", "客語"
 ]
 
 elements = chrome_browser.find_element(By.CLASS_NAME, "c-content-box")
@@ -54,6 +58,10 @@ for club in clubs:
             lang[-1] = lang[-1][:-1]
         else:
             lang = html.split()[-1]
+            
+        if not lang:  # lang == []
+            for l in all_langs:
+                if l in club_data[0]: lang.append(l)
     
     addr = club_data[-1]
     if addr[:3] in cities:
