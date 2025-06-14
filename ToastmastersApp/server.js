@@ -43,12 +43,14 @@ app.use(
 // ===================== //
 
 const clubRouter = require("./routes/club.js");
+const authRouter = require("./routes/auth.js");
 
 app.get("/", (req, res) => {
   res.render("index.html");
 });
 
 app.use("/club", clubRouter);
+app.use("/auth", authRouter);
 
 // app.use("/user", userRouter);
 
