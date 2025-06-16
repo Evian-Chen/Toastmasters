@@ -7,13 +7,14 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const cors = require("cors");  // 處理vite的跨網域問題
 
-const portNum = 8888;
+const portNum = 3000;
 
 // ===================== //
 // 基本設定
 
 app.use(cors({
   origin: "http://localhost:5173", // 開發中的vue預設server
+  methods: ["GET", "POST"],
   credential: true
 }));
 
@@ -47,6 +48,9 @@ app.use("/club", clubRouter);
 // app.use("/auth", authRouter);
 
 // // app.use("/user", userRouter);
+
+// ===================== //
+
 
 app.listen(portNum,() => {
   console.log(`running on port: ${portNum}`);

@@ -11,7 +11,7 @@ const results = ref([])
 
 const fetchCities = async () => {
   try {
-    const res = await fetch('http://localhost:8888/club/cities')
+    const res = await fetch('/api/club/cities')
     console.log(res)
     cities.value = await res.json()
   } catch (err) {
@@ -22,7 +22,7 @@ const fetchCities = async () => {
 const searchClubs = async () => {
   try {
     const query = new URLSearchParams(filters.value).toString()
-    const res = await fetch(`http://localhost:8888/club/list?${query}`)
+    const res = await fetch(`/api/club/list?${query}`)
     results.value = await res.json()
   } catch (err) {
     console.error('查詢錯誤', err)
@@ -79,8 +79,8 @@ onMounted(() => {
         </div>
       </div>
 
-      <table class="table table-hover table-striped mt-4" v-if="results.length > 0">
-        <thead class="thead-dark">
+      <table class="club-table" v-if="results.length > 0">
+        <thead>
           <tr>
             <th>#</th>
             <th>分會名稱</th>
@@ -104,9 +104,10 @@ onMounted(() => {
         </tbody>
       </table>
 
-      <div v-else class="no-result mt-4">
+      <div v-else class="no-result">
         <i class="far fa-frown me-2"></i>尚無查詢結果，請調整篩選條件。
       </div>
+
     </div>
   </div>
 </template>
@@ -153,6 +154,48 @@ h2 {
   display: flex;
   align-items: center;
 }
+
+.club-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.club-table thead {
+  background-color: #f7f7f7;
+  color: #333;
+  font-weight: bold;
+  text-align: left;
+}
+
+.club-table th,
+.club-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.club-table tbody tr:hover {
+  background-color: #f1f5ff;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.club-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.no-result {
+  margin-top: 2rem;
+  color: #888;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+}
+
 </style>
 
 <!-- 引入 font awesome（建議放在 index.html 全域載入） -->

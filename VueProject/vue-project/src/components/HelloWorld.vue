@@ -9,7 +9,7 @@ defineProps({
 
 <template>
   <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
+    <h1 class="blue">{{ msg }}</h1>
     <h3>
       尋找離你最近的 Toastmasters 社團！
       <!-- <a href="https://vite.dev/" target="_blank" rel="noopener">Vite</a> +

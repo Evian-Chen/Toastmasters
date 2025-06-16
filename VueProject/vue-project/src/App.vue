@@ -7,14 +7,14 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="150" />
+    <img alt="Vue logo" class="logo" src="../logo.svg" width="150" />
 
     <div class="wrapper">
       <HelloWorld msg="Look for clubs!" />
 
       <nav>
         <RouterLink to="/search">Search</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/">About</RouterLink>
       </nav>
     </div>
   </header>
