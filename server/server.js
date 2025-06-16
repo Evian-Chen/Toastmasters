@@ -5,23 +5,20 @@ const path = require("path");
 const hbs = require("hbs");
 const bodyParser = require("body-parser");
 const session = require("express-session");
+const cors = require("cors");  // 處理vite的跨網域問題
+const history = require("connect-history-api-fallback");
 
-const portNum = 8888;
+const portNum = 3000;
 
 // ===================== //
 // 基本設定
 
-// 設定模板引擎 -> 讓express解析html
-app.engine("html", hbs.__express);
-
-// 設定html template位置
-app.set("views", path.join(__dirname, "application", "views"));
-
-// 設定靜態檔(*.css, *.js, *.png...)位置
-app.use(express.static(path.join(__dirname, "application")));
-
-// 解析application/json (前端傳來的資料)
-app.use(bodyParser.json());
+// 跨域設定
+app.use(cors({
+  origin: "http://localhost:5173", // 開發中的vue預設server
+  methods: ["GET", "POST"],
+  credential: true
+}));
 
 app.use(session({
   secret: "c90dis90",  // session加密
@@ -43,17 +40,17 @@ app.use(
 // ===================== //
 
 const clubRouter = require("./routes/club.js");
-const authRouter = require("./routes/auth.js");
 
-app.get("/", (req, res) => {
-  res.render("index.html");
-});
+app.use("/api/club", clubRouter);
 
-app.use("/club", clubRouter);
-app.use("/auth", authRouter);
+// ===================== //
 
-// app.use("/user", userRouter);
+// history 中介器
+app.use(history());
 
-app.listen(portNum,() => {
+// 連接靜態檔案
+app.use(express.static(path.join(__dirname, '../vue-project/dist')));
+
+app.listen(portNum, () => {
   console.log(`running on port: ${portNum}`);
 });
