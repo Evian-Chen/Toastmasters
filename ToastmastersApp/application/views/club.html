@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+    integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
+
+  <!-- Our Custom CSS -->
+  <link rel="stylesheet" href="/css/layout.css" />
+
+  <title>查詢附近分會</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo mt-1"> <a href="/">Toastmasters 查詢</a></div>
+      </div>
+      <div class="sidebar-content">
+        <ul class="list-unstyled components">
+          <li><a href="/profile.html"><i class="far fa-user mr-2"></i>個人資料</a></li>
+          <li><a href="/edit-profile.html"><i class="fas fa-user-edit mr-2"></i>編輯資料</a></li>
+          <li><a href="/club/page"><i class="fas fa-map-marker-alt mr-2"></i>附近社團</a></li>
+          <li><a href="/articles.html"><i class="fas fa-comments mr-2"></i>活動交流區</a></li>
+          <li><a href="/chat.html"><i class="fas fa-comment-dots mr-2"></i>即時訊息</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div id="content-container">
+      <div class="menu-header">
+        <button type="button" id="sidebarCollapse" class="btn menu-btn m-1 text-white">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+      <div class="m-2 p-2" style="overflow-y: scroll">
+        <div class="box-s1">
+          <h5>查詢附近分會</h5>
+          <div class="form-row mx-1">
+            <div class="form-group col-md-3 mr-2">
+              <label class="col-form-label">城市</label>
+              <select class="form-control" id="city-select">
+                <option value="全">全</option>
+              </select>
+            </div>
+            <div class="form-group col-md-3 mr-2">
+              <label class="col-form-label">類型</label>
+              <select class="form-control" id="type-select">
+                <option value="全">全</option>
+                <option value="社區">社區</option>
+                <option value="校園">校園</option>
+                <option value="公司">公司</option>
+              </select>
+            </div>
+            <div class="form-group col-md-3 mr-2">
+              <label class="col-form-label">語言</label>
+              <select class="form-control" id="language-select">
+                <option value="全">全</option>
+                <option value="英語">英語</option>
+                <option value="華語">華語</option>
+                <option value="國語">國語</option>
+                <option value="台語">台語</option>
+                <option value="日語">日語</option>
+                <option value="客家">客家</option>
+              </select>
+            </div>
+            <div class="form-group col-md-1">
+              <label class="col-form-label text-white">空白</label>
+              <button type="button" class="btn btn-outline-primary" id="club-search-btn">查詢</button>
+            </div>
+          </div>
+
+          <table class="table col-md-12 mx-2" id="club-result-table">
+            <thead class="thead-light">
+              <tr>
+                <th>#</th>
+                <th>分會名稱</th>
+                <th>城市</th>
+                <th>類型</th>
+                <th>語言</th>
+                <th>開會時間</th>
+                <th>地址</th>
+              </tr>
+            </thead>
+            </thead>
+            <tbody>
+              <!-- 查詢結果會動態插入這裡 -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/club.js"></script>
+</body>
+
+</html>
