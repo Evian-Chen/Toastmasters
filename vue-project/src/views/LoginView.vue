@@ -9,10 +9,10 @@ const CLIENT_URL = "http://localhost:5173"
 const auth = userAuthStore()
 
 // const userData = ref({
-//   name: "",
-//   email: "",
-//   email_verified: "",
-//   picture: "",
+  // name: "",
+  // email: "",
+  // email_verified: "",
+  // picture: "",
 // })
 
 const onLogin = (res) => {
@@ -23,7 +23,7 @@ const onLogin = (res) => {
   axios
     .post("/api/user/verify-token", res, axiosOptions)
     .then((res) => {
-      console.log("res: ", res);
+      console.log("res data: ", res.data);
       auth.setData(res.data);
       // userData.value = res.data;
     })

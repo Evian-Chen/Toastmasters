@@ -17,6 +17,7 @@ router.post("/logout", (req, res) => {
     //
 })
 
+// TODO: 尚未加入session
 /** Handle the POST request from onLogin callback in frontend */
 router.post('/verify-token', async (req, res) => {
   const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);

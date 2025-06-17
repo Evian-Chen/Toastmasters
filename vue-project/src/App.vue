@@ -5,6 +5,8 @@ import HelloWorld from './components/HelloWorld.vue'
 
 const auth = userAuthStore()
 
+console.log(`current user data: ${auth.userData}`)
+
 </script>
 
 <template>
@@ -19,7 +21,7 @@ const auth = userAuthStore()
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/search">Search</RouterLink>
 
-        <div v-if="!auth.userData">
+        <div v-if="auth.userData === undefined">
           <RouterLink to="/login">Log In</RouterLink>
         </div>
         <div v-else>
