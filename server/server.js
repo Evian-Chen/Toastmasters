@@ -8,7 +8,7 @@ const session = require("express-session");
 const cors = require("cors");  // 處理vite的跨網域問題
 const history = require("connect-history-api-fallback");
 
-const portNum = 3000;
+const portNum = process.env.port || 3000;
 
 // ===================== //
 // 基本設定
@@ -40,8 +40,10 @@ app.use(
 // ===================== //
 
 const clubRouter = require("./routes/club.js");
+const userRouter = require("./routes/user.js");
 
-app.use("/api/club", clubRouter);
+app.use("/club", clubRouter);
+app.use("/user", userRouter);
 
 // ===================== //
 

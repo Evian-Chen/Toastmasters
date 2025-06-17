@@ -1,3 +1,4 @@
 module.exports = {
-    club: require("./club")
+    club: require("./club"),
+    user: require("./user")
 };

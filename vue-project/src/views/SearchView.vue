@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import axios from 'axios'
 
 const cities = ref([])
 const filters = ref({
@@ -11,9 +12,10 @@ const results = ref([])
 
 const fetchCities = async () => {
   try {
-    const res = await fetch('/api/club/cities')
-    console.log(res)
-    cities.value = await res.json()
+    const res = await axios.get('/api/club/cities')
+    console.log(`res: ${res}`)
+    console.log(`res.data: ${res.data}`)
+    cities.value = await res.data
   } catch (err) {
     console.error('取得城市失敗', err)
   }
@@ -22,8 +24,8 @@ const fetchCities = async () => {
 const searchClubs = async () => {
   try {
     const query = new URLSearchParams(filters.value).toString()
-    const res = await fetch(`/api/club/list?${query}`)
-    results.value = await res.json()
+    const res = await axios(`/api/club/list?${query}`)
+    results.value = await res.data
   } catch (err) {
     console.error('查詢錯誤', err)
   }
