@@ -28,6 +28,8 @@ app.use(session({
   ttl: 20*60*60*1  // session的有效時間
 }));
 
+app.use(express.json());
+
 // 解析urlencoded的資料型態 (前端傳來的資料)
 app.use(
   bodyParser.urlencoded({

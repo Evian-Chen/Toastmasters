@@ -24,7 +24,7 @@ const onLogin = (res) => {
   axios
     .post("/api/user/verify-token", res, axiosOptions)
     .then((res) => {
-      console.log("res", res);
+      console.log("res: ", res);
       userData.value = res.data;
     })
     .catch((error) => {

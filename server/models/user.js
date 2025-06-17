@@ -15,7 +15,11 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    picture: String
+    picture: String,
+    hasLogined: {
+        type: Boolean,
+        default: false
+    }
 }, { 
     timestamps: true,
     collection: "user-table"

@@ -1,4 +1,5 @@
 const express = require("express");
+const { OAuth2Client } = require('google-auth-library');
 const router = express.Router();
 const model = require("../models");
 
@@ -6,39 +7,56 @@ require("dotenv").config();
 
 const CLIENT_ID = process.env.VITE_GOOGLE_CLIENT_ID;
 
-console.log(`backend google client id: ${VITE_GOOGLE_CLIENT_ID}`);
+console.log(`backend google client id: ${CLIENT_ID}`);
 
 router.get("/", (req, res) => {
     res.json({ message: "server is on" });
 });
 
 /** Handle the POST request from onLogin callback in frontend */
-router.post('/verify-token', (req, res) => {
-  // use google-auth-library to verify token
-  const { OAuth2Client } = require('google-auth-library')
-  const client = new OAuth2Client(CLIENT_ID);
+router.post('/verify-token', async (req, res) => {
+  const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-  async function verify() {
-    // get credential from google
-    const token = req.body.credential
-
-    console.log('token from credential', token);
+  try {
+    const token = req.body.credential;
+    if (!token) return res.status(400).json({ error: 'Missing credential token' });
 
     const ticket = await client.verifyIdToken({
       idToken: token,
-      audience: CLIENT_ID
-    })
+      audience: process.env.GOOGLE_CLIENT_ID
+    });
 
-    const payload = ticket.getPayload()
+    const payload = ticket.getPayload();
+    const userData = {
+        email: payload.email,
+        email_verified: payload.email_verified,
+        picture: payload.picture,
+        name: payload.name,
+    };
 
-    // You can store user data in DB and return Authorization Token here.
-    res.json({
+    let result = await model.user.find(userData);
+
+    if (result.length === 0) {
+        // 該使用者不存在(第一次登入)
+        userData.hasLogined = true;
+        const newUser = await model.user.create(userData)
+        console.log(newUser);
+    } else {
+        // 使用者存在(曾經登入)
+        console.log("user exists");
+    }
+
+    // 回傳目前的使用者給前端
+    return res.json({
       email: payload.email,
       email_verified: payload.email_verified,
       picture: payload.picture,
       name: payload.name,
-    })
+    });
+  } catch (err) {
+    console.error('Verify token failed:', err);
+    res.status(500).json({ error: 'Token verification failed' });
   }
+});
 
-  verify().catch(console.error);
-})
+module.exports = router;

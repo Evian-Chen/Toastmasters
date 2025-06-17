@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '../.env' });
+require('dotenv').config();
 
 // 連線到整個 mongoDB
 const mongoose = require("mongoose");
