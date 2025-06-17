@@ -23,5 +23,7 @@ export const userAuthStore = defineStore('auth', () => {
     userData.picture = ""
   }
 
-  return [userData, setData, logOut]
+  console.log(`userData: ${JSON.stringify(userData)}`)
+
+  return { userData, setData, logOut }
 })

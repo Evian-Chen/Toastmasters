@@ -1,11 +1,14 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { userAuthStore } from './stores/auth'
+import { storeToRefs } from 'pinia'
 import HelloWorld from './components/HelloWorld.vue'
 
 const auth = userAuthStore()
-
 console.log(`current user data: ${auth.userData}`)
+
+const { userData } = storeToRefs(auth)
+console.log(`after store: ${userData}`)
 
 </script>
 
@@ -21,7 +24,7 @@ console.log(`current user data: ${auth.userData}`)
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/search">Search</RouterLink>
 
-        <div v-if="auth.userData === undefined">
+        <div v-if="!userData.email">
           <RouterLink to="/login">Log In</RouterLink>
         </div>
         <div v-else>
