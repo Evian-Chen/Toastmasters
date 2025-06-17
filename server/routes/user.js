@@ -13,6 +13,10 @@ router.get("/", (req, res) => {
     res.json({ message: "server is on" });
 });
 
+router.post("/logout", (req, res) => {
+    //
+})
+
 /** Handle the POST request from onLogin callback in frontend */
 router.post('/verify-token', async (req, res) => {
   const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);

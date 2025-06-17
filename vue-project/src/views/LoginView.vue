@@ -1,31 +1,31 @@
 <script setup>
-import { onMounted, ref } from "vue"
+import { onMounted } from "vue"
 import axios from "axios"
+import { userAuthStore } from "@/stores/auth"
 
 const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID
 const CLIENT_URL = "http://localhost:5173"
 
-console.log(`clientid: ${CLIENT_ID}`)
+const auth = userAuthStore()
 
-const userData = ref({
-  name: "",
-  email: "",
-  email_verified: "",
-  picture: "",
-})
+// const userData = ref({
+//   name: "",
+//   email: "",
+//   email_verified: "",
+//   picture: "",
+// })
 
 const onLogin = (res) => {
   const axiosOptions = {
     headers: { "Access-Control-Allow-Origin": CLIENT_URL },
   }
 
-  console.log(res)
-
   axios
     .post("/api/user/verify-token", res, axiosOptions)
     .then((res) => {
       console.log("res: ", res);
-      userData.value = res.data;
+      auth.setData(res.data);
+      // userData.value = res.data;
     })
     .catch((error) => {
       console.log("error", error);
@@ -57,20 +57,20 @@ onMounted(() => {
 
 <template>
   <div class="container">
-    <template v-if="!userData.email_verified">
+    <template v-if="!auth.userData.email_verified">
       <h1>Hello, This is an example of google sign in.</h1>
       <div id="googleButton"></div>
     </template>
     <template v-else>
       <img
         class="profile"
-        :title="userData.name"
-        :src="userData.picture"
+        :title="auth.userData.name"
+        :src="auth.userData.picture"
         alt="Profile"
       />
-      <h2>Hello, {{ userData.name }}!</h2>
-      <p>Email Verified: {{ userData.email_verified }}</p>
-      <p>Email: {{ userData.email }}</p>
+      <h2>Hello, {{ auth.userData.name }}!</h2>
+      <p>Email Verified: {{ auth.userData.email_verified }}</p>
+      <p>Email: {{ auth.userData.email }}</p>
     </template>
   </div>
 </template>

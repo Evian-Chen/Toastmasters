@@ -1,7 +1,9 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { userAuthStore } from './stores/auth'
 import HelloWorld from './components/HelloWorld.vue'
 
+const auth = userAuthStore()
 
 </script>
 
@@ -16,7 +18,14 @@ import HelloWorld from './components/HelloWorld.vue'
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/search">Search</RouterLink>
-        <RouterLink to="/login">Log In</RouterLink>
+
+        <div v-if="!auth.userData">
+          <RouterLink to="/login">Log In</RouterLink>
+        </div>
+        <div v-else>
+          <RouterLink to="/logout">Log Out</RouterLink>
+        </div>
+
       </nav>
     </div>
   </header>
