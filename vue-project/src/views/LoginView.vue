@@ -2,11 +2,14 @@
 import { onMounted } from "vue"
 import axios from "axios"
 import { userAuthStore } from "@/stores/auth"
+import { storeToRefs } from "pinia"
+
 
 const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID
 const CLIENT_URL = "http://localhost:5173"
 
 const auth = userAuthStore()
+const { isLoggedIn } = storeToRefs(auth)
 
 const onLogin = (res) => {
   const axiosOptions = {
@@ -18,6 +21,7 @@ const onLogin = (res) => {
     .then((res) => {
       console.log("res data: ", res.data);
       auth.setData(res.data);
+      console.log(`is logged in: ${isLoggedIn.value}`)
     })
     .catch((error) => {
       console.log("error", error);
@@ -47,15 +51,15 @@ onMounted(() => {
 
 <template>
   <div class="container">
-    <template v-if="!auth.userData.email_verified">
+    <template v-if="!isLoggedIn.value">
       <h1>Hello, This is an example of google sign in.</h1>
       <div id="googleButton"></div>
     </template>
     <template v-else>
-      <img class="profile" :title="auth.userData.name" :src="auth.userData.picture" alt="Profile" />
-      <h2>Hello, {{ auth.userData.name }}!</h2>
-      <p>Email Verified: {{ auth.userData.email_verified }}</p>
-      <p>Email: {{ auth.userData.email }}</p>
+      <img class="profile" :title="auth.userData.value.name" :src="auth.userData.value.picture" alt="Profile" />
+      <h2>Hello, {{ auth.userData.value.name }}!</h2>
+      <p>Email Verified: {{ auth.userData.value.email_verified }}</p>
+      <p>Email: {{ auth.userData.value.email }}</p>
     </template>
   </div>
 </template>

@@ -2,18 +2,18 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { userAuthStore } from './stores/auth'
 import { onMounted } from 'vue'
-import { storeToRefs } from 'pinia'
 import HelloWorld from './components/HelloWorld.vue'
 import axios from 'axios'
+import { storeToRefs } from "pinia"
 
 const auth = userAuthStore()
-const { userData } = storeToRefs(auth)
+const { isLoggedIn } = storeToRefs(auth)
+
+console.log(`APP is logged in: ${isLoggedIn.value}`)
 
 onMounted(async () => {
-  console.log(`使用者資訊: ${JSON.stringify(auth.userData)}`)
   await axios.get("/api/user/me")
   .then((res) => {
-    console.log(`/user/me data: ${JSON.stringify(res.data)}`)
     auth.setData(res.data)
   })
   .catch(() => {
@@ -36,7 +36,7 @@ onMounted(async () => {
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/search">Search</RouterLink>
 
-        <div v-if="!userData.email">
+        <div v-if="!isLoggedIn">
           <RouterLink to="/login">Log In</RouterLink>
         </div>
         <div v-else>

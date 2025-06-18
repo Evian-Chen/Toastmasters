@@ -1,29 +1,36 @@
 import { defineStore } from "pinia";
-import { reactive } from 'vue'
+import { ref } from 'vue'
 
 export const userAuthStore = defineStore('auth', () => {
-  const userData = reactive({
+  const userData = ref({
     name: "",
     email: "",
     email_verified: "",
     picture: "",
   })
 
+  const isLoggedIn = ref(false)
+
   const setData = (data) => {
-    userData.name = data.name,
-    userData.email = data.email,
-    userData.email_verified = data.email_verified,
-    userData.picture = data.picture
+    userData.value = {
+      name: data.name,
+      email: data.email,
+      email_verified: data.email_verified,
+      picture: data.picture
+    }
+    isLoggedIn.value = true
   }
 
   const logOut = () => {
-    userData.name = "",
-    userData.email = "",
-    userData.email_verified = "",
-    userData.picture = ""
+    userData.value = {
+      name: "",
+      email: "",
+      email_verified: "",
+      picture: ""
+    }
+    isLoggedIn.value = false
+    console.log("auth.js log out")
   }
 
-  console.log(`userData: ${JSON.stringify(userData)}`)
-
-  return { userData, setData, logOut }
+  return { userData, setData, logOut, isLoggedIn }
 })
