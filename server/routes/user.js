@@ -13,10 +13,17 @@ router.get("/", (req, res) => {
     res.json({ message: "server is on" });
 });
 
-router.post("/logout", (req, res) => {
-    // 只有一個cookie(id: _toastmasters_id)，直接清除session
+router.post("/logout", async (req, res) => {
+  try {
     req.session.destroy();
     console.log("destroy session");
+    res.json({ message: "log out ok" });
+  } catch(err) {
+    console.log(`back end error: ${err}`);
+    res.json({ error: err });
+  }
+    // 只有一個cookie(id: _toastmasters_id)，直接清除session
+    
 })
 
 router.get("/me", (req, res) => {
