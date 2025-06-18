@@ -14,10 +14,20 @@ router.get("/", (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
-    //
+    // 只有一個cookie(id: _toastmasters_id)，直接清除session
+    req.session.destroy();
+    console.log("destroy session");
 })
 
-// TODO: 尚未加入session
+router.get("/me", (req, res) => {
+  if (req.session.user) {
+    console.log(`session user: ${req.session.user}`);
+    res.json(req.session.user);
+  } else {
+    res.json({ error: "not loggoin in" });
+  }
+})
+
 /** Handle the POST request from onLogin callback in frontend */
 router.post('/verify-token', async (req, res) => {
   const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -50,6 +60,9 @@ router.post('/verify-token', async (req, res) => {
         // 使用者存在(曾經登入)
         console.log("user exists");
     }
+
+    // 設定session
+    req.session.user = userData;
 
     // 回傳目前的使用者給前端
     return res.json({

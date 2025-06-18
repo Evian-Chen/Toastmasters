@@ -24,7 +24,7 @@ app.use(session({
   secret: "c90dis90",  // session加密
   resave: true,        // 儲存到store上面
   saveUninitialized: false, // 初始化的session是否要存到store
-  name: "_ntust_tutorial_id", // cokkie的key
+  name: "_toastmasters_id", // cokkie的key
   ttl: 20*60*60*1  // session的有效時間
 }));
 

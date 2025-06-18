@@ -1,14 +1,26 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { userAuthStore } from './stores/auth'
+import { onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import HelloWorld from './components/HelloWorld.vue'
+import axios from 'axios'
 
 const auth = userAuthStore()
-console.log(`current user data: ${auth.userData}`)
-
 const { userData } = storeToRefs(auth)
-console.log(`after store: ${userData}`)
+
+onMounted(async () => {
+  console.log(`使用者資訊: ${JSON.stringify(auth.userData)}`)
+  await axios.get("/api/user/me")
+  .then((res) => {
+    console.log(`/user/me data: ${JSON.stringify(res.data)}`)
+    auth.setData(res.data)
+  })
+  .catch(() => {
+    auth.logOut()
+    console.log("log out")
+  })
+})
 
 </script>
 
