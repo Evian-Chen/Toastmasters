@@ -1,18 +1,30 @@
 <script setup>
 import { reactive } from "vue";
+import axios from "axios";
 
 const user = reactive({
   email: "",
   password: ""
 })
 
-const onLogIn = () => {
-  console.log(`email: ${user.email}, pd: ${user.password}`);
+// 使用者登入過，直接登入，沒有找到登入資料的話，要求使用者註冊
+const onLogIn = async () => {
   if (!user.email || !user.password) {
     alert("輸入欄不得空白");
+    return;
   }
+
+  await axios.post('/api/user/login', user)
+  .then((res) => {
+    //
+    console.log(`frontend login ok: ${res.status}`);
+  })
+  .catch((err) => {
+    console.log(`error: ${err}`);
+  })
 }
 
+// 沒有使用者資料，要註冊
 const onSignUp = () => {
   //
 }
