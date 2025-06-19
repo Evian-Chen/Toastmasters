@@ -15,14 +15,14 @@ const logOutAccount = async () => {
   console.log("try log out account")
   try {
     // await axios.post("/api/user/logout")
-    await axios.post("/user/logout")
+    await axios.post("/api/user/logout")
     .then((res) => {
       console.log(`log out success: ${res.data}`)
     })
     .catch((err) => {
       console.log(`log out error: ${err}`)
-    }) // 向後端請求清除 session
-    auth.logOut()                        // 清除前端 Pinia 狀態
+    })
+    auth.logOut()
     console.log("try logout function")
   } catch (err) {
     console.error("登出失敗", err)
