@@ -16,8 +16,9 @@ const onLogIn = async () => {
 
   await axios.post('/api/user/login', user)
   .then((res) => {
-    //
-    console.log(`frontend login ok: ${res.status}`);
+    if (res.status === 201) { console.log("new user is created"); }
+    else { console.log("user exists"); }
+    // 進行頁面跳轉
   })
   .catch((err) => {
     console.log(`error: ${err}`);
