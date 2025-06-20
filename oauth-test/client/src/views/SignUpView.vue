@@ -1,3 +1,148 @@
+<script setup>
+import { reactive } from 'vue';
+
+const user = reactive({
+  name: "",
+  email: "",
+  password: "",
+});
+
+const error = reactive({
+  email: "",
+  password: "",
+  confirmPassword: ""
+})
+
+const submit = () => {
+  // 註冊邏輯，1. 檢查輸入，若有錯誤則給出紅字，2. 使用者是否已經存在，3. 驗證電子郵件
+  error.name = user.name ? '' : '請輸入姓名'
+  error.email = user.email ? '' : '請輸入電子郵件'
+  error.password = user.password ? '' : '請輸入密碼'
+  error.confirmPassword = user.confirmPassword === user.password ? '' : '密碼不一致'
+  console.log("submit")
+}
+</script>
 <template>
-  <h>This is signup view</h>
+  <div class="wrapper">
+    <div class="card">
+      <h1 class="title">註冊帳號</h1>
+      <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="100" />
+
+      <div class="form">
+        <div class="form-group">
+          <label for="name">姓名</label>
+          <input id="name" v-model="user.name" :class="{ invalid: error.name }" />
+          <p class="error" v-if="error.name">{{ error.name }}</p>
+        </div>
+
+        <div class="form-group">
+          <label for="email">電子郵件</label>
+          <input id="email" v-model="user.email" :class="{ invalid: error.email }" />
+          <p class="error" v-if="error.email">{{ error.email }}</p>
+        </div>
+
+        <div class="form-group">
+          <label for="password">密碼</label>
+          <input id="password" type="password" v-model="user.password" :class="{ invalid: error.password }" />
+          <p class="error" v-if="error.password">{{ error.password }}</p>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">確認密碼</label>
+          <input id="confirmPassword" type="password" v-model="user.password" :class="{ invalid: error.confirmPassword }" />
+          <p class="error" v-if="error.confirmPassword">{{ error.confirmPassword }}</p>
+        </div>
+
+        <button class="submit-btn" @click="submit">建立帳號</button>
+      </div>
+    </div>
+  </div>
 </template>
+
+<style scoped>
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.card {
+  background: white;
+  padding: 3rem 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-size: 24px;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 2rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 15px;
+  margin-bottom: 0.4rem;
+  color: #333;
+}
+
+.form-group input {
+  padding: 14px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  border-color: #42b983;
+  outline: none;
+}
+
+.invalid {
+  border-color: red !important;
+}
+
+.error {
+  color: red;
+  font-size: 13px;
+  margin-top: 0.3rem;
+}
+
+.submit-btn {
+  padding: 14px;
+  font-size: 16px;
+  background-color: #42b983;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #369870;
+}
+</style>

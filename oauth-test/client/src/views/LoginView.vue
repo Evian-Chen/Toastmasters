@@ -1,11 +1,14 @@
 <script setup>
 import { reactive } from "vue";
+import { useRouter } from "vue-router";
 import axios from "axios";
 
 const user = reactive({
   email: "",
   password: ""
 })
+
+const router = useRouter();
 
 // 使用者登入過，直接登入，沒有找到登入資料的話，要求使用者註冊
 const onLogIn = async () => {
@@ -18,7 +21,7 @@ const onLogIn = async () => {
   .then((res) => {
     if (res.status === 201) { console.log("new user is created"); }
     else { console.log("user exists"); }
-    // 進行頁面跳轉
+    router.push('/');  // 回到首頁後，畫面配置一樣，帶有使用者資訊
   })
   .catch((err) => {
     console.log(`error: ${err}`);
@@ -27,7 +30,7 @@ const onLogIn = async () => {
 
 // 沒有使用者資料，要註冊
 const onSignUp = () => {
-  //
+  router.push('/signup');
 }
 </script>
 
