@@ -39,12 +39,14 @@ const inputIsValid = () => {
 const submit = async () => {
   // 註冊邏輯，1. 檢查輸入，若有錯誤則給出紅字，2. 使用者是否已經存在，3. 驗證電子郵件
   if (inputIsValid()) {
-    try {
-      // /auth/mail/verify
-      await axios.post("/api/auth/mail/verify");
-    } catch(err) {
-      console.log(`err: ${err}`);
-    }
+    await axios.post("/api/auth/mail/sent", user)
+    .then((res) => {
+      //
+      console.log(res.status);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 
     console.log("submit")
   }
