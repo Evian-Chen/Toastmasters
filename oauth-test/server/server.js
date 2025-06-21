@@ -28,9 +28,9 @@ app.use(
 
 // ===================== //
 
-const userRouter = require("./routes/user.js");
+const authRouter = require("./routes/auth.js");
 
-app.use("/user", userRouter);
+app.use("/auth", authRouter);
 
 // ===================== //
 

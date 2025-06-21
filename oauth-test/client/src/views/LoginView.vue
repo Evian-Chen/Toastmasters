@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from "vue";
+import { reactive, watch } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
 
@@ -8,20 +8,31 @@ const user = reactive({
   password: ""
 })
 
+const state = reactive({
+  userExist: true,
+  warning: ""
+})
+
 const router = useRouter();
 
 // 使用者登入過，直接登入，沒有找到登入資料的話，要求使用者註冊
 const onLogIn = async () => {
   if (!user.email || !user.password) {
-    alert("輸入欄不得空白");
+    state.warning = "輸入欄不得空白";
     return;
   }
 
-  await axios.post('/api/user/login', user)
+  await axios.post('/api/auth/login', user)
   .then((res) => {
-    if (res.status === 201) { console.log("new user is created"); }
-    else { console.log("user exists"); }
-    router.push('/');  // 回到首頁後，畫面配置一樣，帶有使用者資訊
+    if (res.status === 201) {
+      console.log("前端導向註冊頁面");
+      state.userExist = false;
+      state.warning = "使用者不存在";
+    } else {
+      console.log("user exists");
+      router.push('/');  // 回到首頁後，畫面配置一樣，帶有使用者資訊
+    }
+
   })
   .catch((err) => {
     console.log(`error: ${err}`);
@@ -32,6 +43,11 @@ const onLogIn = async () => {
 const onSignUp = () => {
   router.push('/signup');
 }
+
+watch([() => user.email, () => user.password], () => {
+  state.warning = "";
+})
+
 </script>
 
 <template>
@@ -44,8 +60,13 @@ const onSignUp = () => {
         <input v-model="user.password" placeholder="enter password here...">
       </div>
 
+      <!-- 輸入欄是空的就按下了login -->
+      <div v-if="state.warning">
+        <p class="error">{{ state.warning }}</p>
+      </div>
+
       <div class="btn">
-        <button @click="onSignUp">Sign Up</button>
+        <button v-if="!state.userExist" @click="onSignUp">Sign Up</button>
         <button @click="onLogIn">Log In</button>
       </div>
     </div>
@@ -114,6 +135,12 @@ const onSignUp = () => {
 
 .btn button:hover {
   background-color: #369870;
+}
+
+.error {
+  color: red;
+  font-size: 13px;
+  margin-top: 0.3rem;
 }
 
 </style>

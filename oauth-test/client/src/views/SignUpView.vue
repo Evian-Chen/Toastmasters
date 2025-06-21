@@ -22,6 +22,7 @@ const submit = () => {
   console.log("submit")
 }
 </script>
+
 <template>
   <div class="wrapper">
     <div class="card">

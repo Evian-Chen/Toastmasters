@@ -11,12 +11,12 @@ router.post("/login", async (req, res) => {
         const result = await model.user.find({
             email: req.body.email
         })
-        console.log(`findone res: ${JSON.stringify(result)}`);
+
+        // 沒有使用者的資料，前端導向signup註冊頁面
         if (result.length === 0) {
-            const createRes = await model.user.create(req.body);
-            console.log(`createUser res: ${createRes}`);
-            res.status(201).json({ message: "created a new user" });
-        } else {
+            console.log("無使用者資料，需導向註冊頁面");
+            res.status(201).json({ message: "redirect to signup" });
+        } else {  // 有使用者資料，前端重新導向
             res.status(200).json({ message: "user exists" });
         }
     } catch(err) {
