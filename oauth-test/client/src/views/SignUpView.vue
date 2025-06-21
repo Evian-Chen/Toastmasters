@@ -1,25 +1,53 @@
 <script setup>
+import axios from 'axios';
 import { reactive } from 'vue';
 
 const user = reactive({
   name: "",
   email: "",
   password: "",
+  confirmPassword: ""
 });
 
+// 針對欄位的錯誤提示
 const error = reactive({
+  name: "",
   email: "",
   password: "",
   confirmPassword: ""
 })
 
-const submit = () => {
+// 檢查每個輸入欄位都合法
+const inputIsValid = () => {
+  error.name = user.name ? '' : '請輸入姓名';
+  error.password = user.password ? '' : '請輸入密碼';
+  error.confirmPassword = user.confirmPassword === user.password ? '' : '密碼不一致';
+
+  if (user.email) {
+    const emailRule = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    error.email = user.email.search(emailRule) !== -1 ? '' : '電子郵件格式錯誤';
+  } else {
+    error.email = '請輸入電子郵件';
+  }
+
+  if (!error.name && !error.email && !error.password && !error.confirmPassword) {
+    return true;
+  }
+  return false;
+}
+
+const submit = async () => {
   // 註冊邏輯，1. 檢查輸入，若有錯誤則給出紅字，2. 使用者是否已經存在，3. 驗證電子郵件
-  error.name = user.name ? '' : '請輸入姓名'
-  error.email = user.email ? '' : '請輸入電子郵件'
-  error.password = user.password ? '' : '請輸入密碼'
-  error.confirmPassword = user.confirmPassword === user.password ? '' : '密碼不一致'
-  console.log("submit")
+  if (inputIsValid()) {
+    try {
+      // /auth/mail/verify
+      await axios.post("/api/auth/mail/verify");
+    } catch(err) {
+      console.log(`err: ${err}`);
+    }
+
+    console.log("submit")
+  }
 }
 </script>
 
@@ -50,7 +78,7 @@ const submit = () => {
 
         <div class="form-group">
           <label for="confirmPassword">確認密碼</label>
-          <input id="confirmPassword" type="password" v-model="user.password" :class="{ invalid: error.confirmPassword }" />
+          <input id="confirmPassword" type="password" v-model="user.confirmPassword" :class="{ invalid: error.confirmPassword }" />
           <p class="error" v-if="error.confirmPassword">{{ error.confirmPassword }}</p>
         </div>
 

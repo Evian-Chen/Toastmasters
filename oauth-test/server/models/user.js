@@ -14,8 +14,11 @@ const userSchema = new mongoose.Schema({
     },
     birthday: { type: Date },  // example: '2002-12-09'
     bio: { type: String, default: "" },
-    verifiedToekn: String,
-    tokenExpiredAt: Date
+    emailToken: String,
+    emailVerified: {
+        type: Boolean,
+        default: false
+    }
     // add custom data type，日記功能，另外定義日記的物件
 }, { 
     timestamps: true,
