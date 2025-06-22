@@ -25,6 +25,7 @@ app.use(session({
   resave: true,        // 儲存到store上面
   saveUninitialized: false, // 初始化的session是否要存到store
   name: "_toastmasters_id", // cokkie的key
+  cookie: { secure: false }, // 測試的時候要設false才能用session
   ttl: 20*60*60*1  // session的有效時間
 }));
 

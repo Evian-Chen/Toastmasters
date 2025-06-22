@@ -14,8 +14,10 @@ router.post("/login", async (req, res) => {
             email: req.body.email
         })
 
+        console.log(`find result: ${result[0].emailVerified}`);
+
         // 沒有使用者的資料
-        if (result.length === 0) {
+        if (result.length === 0 || !result[0].emailVerified) {
             console.log("後端無使用者資料");
             res.status(201).json({ message: "redirect to signup" });
         } else {  // 有使用者資料，前端重新導向
@@ -27,12 +29,15 @@ router.post("/login", async (req, res) => {
     }
 })
 
-router.post("/mail/sent", (req, res) => {
+router.post("/mail/sent", async (req, res) => {
     // 生成驗證token
     const token = crypto.randomBytes(32).toString("hex");
     req.body.emailToken = token;
+    req.body.emailVerified = false;
 
-    console.log(`user: ${process.env.GMAIL_USER}, pw: ${process.env.GAMIL_PW}`)
+    // 先把使用者存到資料庫
+    const result = await model.user.create(req.body);
+    console.log(`create user: ${JSON.stringify(result)}`);
 
     const transporter = nodemailer.createTransport({
         service: "Gmail",
@@ -61,14 +66,24 @@ router.post("/mail/sent", (req, res) => {
     });
 })
 
-router.get("/mail/verify", (req, res) => {
-    console.log("at mail/verify");
-    const token = req.query.token;
-    console.log(`user token: ${token}`);
+router.get("/mail/verify", async (req, res) => {
+  console.log("at mail/verify");
+  const token = req.query.token;
+  console.log(`user token: ${token}`);
 
-    // TODO: 把東西存入mongo
+  try {
+    console.log("ready to update");
+    const result = await model.user.updateOne(
+      { emailToken: token },
+      { $set: { emailVerified: true } }
+    );
 
+    console.log("update result:", result);
     res.redirect("http://localhost:5173/verify-success");
-})
+  } catch (err) {
+    console.error(`updateOne error: ${err}`);
+    res.status(500).send("伺服器錯誤");
+  }
+});
 
 module.exports = router;
