@@ -1,25 +1,25 @@
 <script setup>
 import { RouterLink, RouterView, useRouter } from 'vue-router';
 import axios from 'axios';
-import { reactive } from 'vue';
+// import { reactive } from 'vue';
 import { onMounted } from 'vue';
+import { userAuthStore } from "@/stores/user";
+import { storeToRefs } from "pinia";
+
+const userStore = userAuthStore();
+const { isLoggedIn } = storeToRefs(userStore);
 
 const router = useRouter();
-
-const state = reactive({
-  isLogIn: false
-});
 
 onMounted(async () => {
   await axios.get("/api/auth/me", { withCredentials: true })
   .then((res) => {
-    console.log(`current user: ${res.user}`);
-    state.isLogIn = true;
+    console.log(`current user: ${res.user}`);  // 使用者之前有登入過
+    userStore.setData(res.user);
   })
   .catch((err) => {
     router.push("/");
     console.log(`auth/me error: ${err}`);
-    state.isLogIn = false;
   })
 })
 </script>
@@ -28,10 +28,10 @@ onMounted(async () => {
   <header class="navbar">
     <nav class="nav-container">
       <RouterLink to="/" class="nav-link">Home</RouterLink>
-      <RouterLink v-if="!state.isLogIn" to="/login" class="nav-link">Login</RouterLink>
-      <RouterLink v-if="state.isLogIn" to="/logout" class="nav-link">Logout</RouterLink>
+      <RouterLink v-if="!isLoggedIn" to="/login" class="nav-link">Login</RouterLink>
+      <RouterLink v-if="isLoggedIn" to="/logout" class="nav-link">Logout</RouterLink>
       <RouterLink to="/signup" class="nav-link">Signup</RouterLink>
-      <RouterLink v-if="state.isLogIn" to="/clubs" class="nav-link">Clubs</RouterLink>
+      <RouterLink v-if="isLoggedIn" to="/clubs" class="nav-link">Clubs</RouterLink>
     </nav>
   </header>
 

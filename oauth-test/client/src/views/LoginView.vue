@@ -2,6 +2,11 @@
 import { reactive, watch } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
+import { userAuthStore } from "@/stores/user";
+// import { storeToRefs } from "pinia";
+
+const userStore = userAuthStore();
+// const { isLoggedIn } = storeToRefs(userStore);
 
 const user = reactive({
   email: "",
@@ -29,7 +34,8 @@ const onLogIn = async () => {
       state.userExist = false;
       state.warning = "使用者不存在";
     } else {
-      console.log("user exists");
+      console.log("user exists in database " + JSON.stringify(res.data.user));
+      userStore.setData(res.data.user);
       router.push('/');  // 回到首頁後，
       // 畫面配置一樣，帶有使用者資訊
     }

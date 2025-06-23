@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken');
 const model = require("../models");
 const verifyToken = require("../middlewares/auth");
 
+// 登入並使用JWT紀錄登入狀況
 router.post("/login", async (req, res) => {
     console.log(`data from frontend: ${JSON.stringify(req.body)}, ${req.body.email}`);
     try {
@@ -17,12 +18,6 @@ router.post("/login", async (req, res) => {
         })
 
         // 沒有使用者的資料
-        // if (result.length === 0 || !result[0].emailVerified) {
-        //     console.log("後端無使用者資料");
-        //     res.status(201).json({ message: "redirect to signup" });
-        // } else {  // 有使用者資料，前端重新導向
-        //     res.status(200).json({ message: "user exists" });
-        // }
         if (result.length === 0 || !result[0].emailVerified) {
             return res.status(201).json({ message: "redirect to signup" });
         }
@@ -34,7 +29,7 @@ router.post("/login", async (req, res) => {
 
         // 建立 JWT payload
         const payload = req.body;
-        console.log("payload" + payload);
+        console.log("payload" + JSON.stringify(payload));
 
         // 簽發 token（可設定過期時間）
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' });
@@ -55,6 +50,21 @@ router.post("/login", async (req, res) => {
     }
 })
 
+router.post("/logout", (req, res) => {
+    console.log("try to logout");
+    try {
+        res.clearCookie('token', {
+            httpOnly: true,
+            secure: false, // 若部署後改成true
+            sameSite: 'Lax'
+        });
+        res.json({ message: "logout ok." });
+    } catch(err) {
+        res.status(500).json({ message: "logout error" });   
+    }
+})
+
+// 寄出email驗證信
 router.post("/mail/sent", async (req, res) => {
     // 生成驗證token
     const token = crypto.randomBytes(32).toString("hex");
@@ -92,6 +102,7 @@ router.post("/mail/sent", async (req, res) => {
     });
 })
 
+// 確認這個使用者的email是可以使用的，並且重新導向
 router.get("/mail/verify", async (req, res) => {
   console.log("at mail/verify");
   const token = req.query.token;
@@ -112,6 +123,7 @@ router.get("/mail/verify", async (req, res) => {
   }
 })
 
+// 透過這個api檢查是否有使用者的登入
 router.get('/me',
     verifyToken,
     (req, res) => {
