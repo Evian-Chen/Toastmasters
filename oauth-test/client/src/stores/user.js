@@ -20,10 +20,14 @@ export const userAuthStore = defineStore('auth', () => {
       email: data.email || "",
       bio: data.bio || "",
       emailToken: data.emailToken || "",
-      emailVerified: data.email_verified || ""
+      emailVerified: data.email_verified || false
     }
-    isLoggedIn.value = true
 
+    // 只有在email是驗證的情況下才會允許登入
+    if (!userData.value.emailVerified) {
+      isLoggedIn.value = true
+    }
+    console.log(`in pinia isLoggedIn: ${isLoggedIn.value}`);
     console.log(`in pinia: ${JSON.stringify(userData.value)}`);
   };
 

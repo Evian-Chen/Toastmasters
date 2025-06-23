@@ -17,15 +17,25 @@ router.post("/login", async (req, res) => {
             email: req.body.email
         })
 
+        console.log(`login res: ${JSON.stringify(result)}`);
+
         // 沒有使用者的資料
-        if (result.length === 0 || !result[0].emailVerified) {
-            return res.status(201).json({ message: "redirect to signup" });
+        if (result.length === 0) {
+            return res.status(201).json({ message: "使用者不存在" });
+        } 
+
+        // 使用者信箱未驗證
+        if (!result[0].emailVerified) {
+            return res.status(210).json({ message: "信箱未驗證" });
         }
 
         // 檢查拿到的使用者資料和目前的使用者登入密碼一樣
         if (result[0].password !== req.body.password) {
             return res.status(401).json({ message: "password incorrect" });
         }
+
+        // TODO: 要先確認如果bio(或者email/pw除外的資料)有被更改的時候
+        // 下次登入必須還是有資料
 
         // 建立 JWT payload
         const payload = req.body;
@@ -70,6 +80,14 @@ router.post("/mail/sent", async (req, res) => {
     const token = crypto.randomBytes(32).toString("hex");
     req.body.emailToken = token;
     req.body.emailVerified = false;
+
+    const findResult = await model.user.find({
+        email: req.body.email
+    });
+    if (findResult.length !== 0) {
+        console.log("註冊者已經存在");
+        return res.status(201).json({ message: "註冊的使用者資料已經存在" });
+    }
 
     // 先把使用者存到資料庫
     const result = await model.user.create(req.body);

@@ -1,6 +1,11 @@
 <script setup>
 import axios from 'axios';
 import { reactive } from 'vue';
+import { userAuthStore } from "@/stores/user";
+import { useRouter } from 'vue-router';
+
+const userStore = userAuthStore();
+const router = useRouter();
 
 const user = reactive({
   name: "",
@@ -41,14 +46,23 @@ const submit = async () => {
   if (inputIsValid()) {
     await axios.post("/api/auth/mail/sent", user)
     .then((res) => {
-      //
-      console.log(res.status);
+      if (res.status === 201) {  // 使用者已經存在了
+        alert("使用者已註冊");
+      } else {
+        userStore.setData({
+          name: user.name,
+          password: user.password,
+          email: user.email
+        });
+        console.log(`sign up status: ${res.status}`);
+        alert("請點擊email中的驗證連結，頁面將為您自動跳轉");
+        router.push('/login');
+      }
+
     })
     .catch((err) => {
       console.log(err);
     })
-
-    console.log("submit")
   }
 }
 </script>

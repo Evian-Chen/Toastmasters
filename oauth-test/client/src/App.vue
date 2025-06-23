@@ -28,9 +28,9 @@ onMounted(async () => {
   <header class="navbar">
     <nav class="nav-container">
       <RouterLink to="/" class="nav-link">Home</RouterLink>
-      <RouterLink v-if="!isLoggedIn" to="/login" class="nav-link">Login</RouterLink>
-      <RouterLink v-if="isLoggedIn" to="/logout" class="nav-link">Logout</RouterLink>
-      <RouterLink to="/signup" class="nav-link">Signup</RouterLink>
+      <RouterLink v-if="!isLoggedIn" to="/login" class="nav-link">Log In</RouterLink>
+      <RouterLink v-if="isLoggedIn" to="/logout" class="nav-link">Log Out</RouterLink>
+      <RouterLink to="/signup" class="nav-link">Sign Up</RouterLink>
       <RouterLink v-if="isLoggedIn" to="/clubs" class="nav-link">Clubs</RouterLink>
     </nav>
   </header>

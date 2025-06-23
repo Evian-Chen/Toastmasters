@@ -33,7 +33,10 @@ const onLogIn = async () => {
       console.log("前端導向註冊頁面");
       state.userExist = false;
       state.warning = "使用者不存在";
-    } else {
+    } else if (res.status === 210) {
+      alert("請去信箱檢查驗證信，點擊驗證連結後，帳號才能啟用");
+      state.warning = "信箱未驗證";
+    }else {
       console.log("user exists in database " + JSON.stringify(res.data.user));
       userStore.setData(res.data.user);
       router.push('/');  // 回到首頁後，
