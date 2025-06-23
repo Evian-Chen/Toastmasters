@@ -14,8 +14,8 @@ const router = useRouter();
 onMounted(async () => {
   await axios.get("/api/auth/me", { withCredentials: true })
   .then((res) => {
-    console.log(`current user: ${res.user}`);  // 使用者之前有登入過
-    userStore.setData(res.user);
+    console.log(`current user: ${res.data.user}`);  // 使用者之前有登入過
+    userStore.setData(res.data.user);
   })
   .catch((err) => {
     router.push("/");

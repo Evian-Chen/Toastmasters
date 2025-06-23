@@ -144,8 +144,24 @@ router.get("/mail/verify", async (req, res) => {
 // 透過這個api檢查是否有使用者的登入
 router.get('/me',
     verifyToken,
-    (req, res) => {
-        res.json({ user: req.user });
+    async (req, res) => {
+        const result = await model.user.find({
+            email: req.user.email
+        });
+        console.log(`get /me result: ${JSON.stringify(result[0])}`);
+        const user = result[0];
+
+        console.log(`get /me result: ${JSON.stringify(user)}`);
+
+        res.json({
+            message: "/me ok.",
+            user: {
+                name: user.name,
+                email: user.email,
+                emailVerified: user.emailVerified,
+                bio: user.bio
+            }
+        });
     }
 )
 
