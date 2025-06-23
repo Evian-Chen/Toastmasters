@@ -1,12 +1,37 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router';
+import { RouterLink, RouterView, useRouter } from 'vue-router';
+import axios from 'axios';
+import { reactive } from 'vue';
+import { onMounted } from 'vue';
+
+const router = useRouter();
+
+const state = reactive({
+  isLogIn: false
+});
+
+onMounted(async () => {
+  await axios.get("/api/auth/me", { withCredentials: true })
+  .then((res) => {
+    console.log(`current user: ${res.user}`);
+    state.isLogIn = true;
+  })
+  .catch((err) => {
+    router.push("/");
+    console.log(`auth/me error: ${err}`);
+    state.isLogIn = false;
+  })
+})
 </script>
 
 <template>
   <header class="navbar">
     <nav class="nav-container">
       <RouterLink to="/" class="nav-link">Home</RouterLink>
-      <RouterLink to="/login" class="nav-link">Login</RouterLink>
+      <RouterLink v-if="!state.isLogIn" to="/login" class="nav-link">Login</RouterLink>
+      <RouterLink v-if="state.isLogIn" to="/logout" class="nav-link">Logout</RouterLink>
+      <RouterLink to="/signup" class="nav-link">Signup</RouterLink>
+      <RouterLink v-if="state.isLogIn" to="/clubs" class="nav-link">Clubs</RouterLink>
     </nav>
   </header>
 

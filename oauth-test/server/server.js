@@ -3,7 +3,7 @@ const cors = require("cors");
 const path = require("path");
 const bodyParser = require("body-parser");
 const history = require("connect-history-api-fallback");
-
+const cookieParser = require("cookie-parser");
 const portNum = 3000;
 
 const app = express();
@@ -16,6 +16,8 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+app.use(cookieParser());
 
 // 解析urlencoded的資料型態 (前端傳來的資料)
 app.use(

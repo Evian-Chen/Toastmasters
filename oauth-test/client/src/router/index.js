@@ -29,6 +29,14 @@ const router = createRouter({
       path: '/verify-success',
       name: 'verify-success',
       component: () => import('../views/VerifySuccessView.vue')
+    },{
+      path: '/clubs',
+      name: 'clubs',
+      component: () => import('../views/FindClubsView.vue')
+    },{
+      path: '/logout',
+      name: 'logout',
+      component: () => import('../views/LogoutView.vue')
     }
   ],
 })

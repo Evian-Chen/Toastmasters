@@ -56,6 +56,7 @@ const submit = async () => {
 <template>
   <div class="wrapper">
     <div class="card">
+      <!-- TODO: 如果在登入的狀態點入註冊區，那應該是要先要求登出 -->
       <h1 class="title">註冊帳號</h1>
       <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="100" />
 

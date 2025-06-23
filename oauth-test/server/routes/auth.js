@@ -4,8 +4,10 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const router = express.Router();
 
+const jwt = require('jsonwebtoken');
+
 const model = require("../models");
-const googleOAuth2Client = require('../config/googleOAuth2Client');
+const verifyToken = require("../middlewares/auth");
 
 router.post("/login", async (req, res) => {
     console.log(`data from frontend: ${JSON.stringify(req.body)}, ${req.body.email}`);
@@ -14,15 +16,39 @@ router.post("/login", async (req, res) => {
             email: req.body.email
         })
 
-        console.log(`find result: ${result[0].emailVerified}`);
-
         // 沒有使用者的資料
+        // if (result.length === 0 || !result[0].emailVerified) {
+        //     console.log("後端無使用者資料");
+        //     res.status(201).json({ message: "redirect to signup" });
+        // } else {  // 有使用者資料，前端重新導向
+        //     res.status(200).json({ message: "user exists" });
+        // }
         if (result.length === 0 || !result[0].emailVerified) {
-            console.log("後端無使用者資料");
-            res.status(201).json({ message: "redirect to signup" });
-        } else {  // 有使用者資料，前端重新導向
-            res.status(200).json({ message: "user exists" });
+            return res.status(201).json({ message: "redirect to signup" });
         }
+
+        // 檢查拿到的使用者資料和目前的使用者登入密碼一樣
+        if (result[0].password !== req.body.password) {
+            return res.status(401).json({ message: "password incorrect" });
+        }
+
+        // 建立 JWT payload
+        const payload = req.body;
+        console.log("payload" + payload);
+
+        // 簽發 token（可設定過期時間）
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' });
+
+        // 將 token 放在 HttpOnly cookie（安全性較高）
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: false,  // 部署後改成true
+            sameSite: 'Lax',
+            maxAge: 24 * 60 * 60 * 1000 // 7 天
+        });
+
+        return res.status(200).json({ message: "login success", user: payload });
+
     } catch(err) {
         console.log(`post login error: ${err}`);
         res.status(500);
@@ -84,6 +110,13 @@ router.get("/mail/verify", async (req, res) => {
     console.error(`updateOne error: ${err}`);
     res.status(500).send("伺服器錯誤");
   }
-});
+})
+
+router.get('/me',
+    verifyToken,
+    (req, res) => {
+        res.json({ user: req.user });
+    }
+)
 
 module.exports = router;

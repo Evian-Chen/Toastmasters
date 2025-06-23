@@ -22,7 +22,7 @@ const onLogIn = async () => {
     return;
   }
 
-  await axios.post('/api/auth/login', user)
+  await axios.post('/api/auth/login', user, { withCredentials: true })
   .then((res) => {
     if (res.status === 201) {
       console.log("前端導向註冊頁面");
@@ -30,18 +30,27 @@ const onLogIn = async () => {
       state.warning = "使用者不存在";
     } else {
       console.log("user exists");
-      router.push('/');  // 回到首頁後，畫面配置一樣，帶有使用者資訊
+      router.push('/');  // 回到首頁後，
+      // 畫面配置一樣，帶有使用者資訊
     }
 
   })
   .catch((err) => {
     console.log(`error: ${err}`);
+    if (err.response.status === 401) {
+      state.warning = "使用者密碼錯誤";
+    }
   })
 }
 
 // 沒有使用者資料，要註冊
 const onSignUp = () => {
   router.push('/signup');
+}
+
+const forgetPassword = () => {
+  // do sth
+  console.log("forget pw");
 }
 
 watch([() => user.email, () => user.password], () => {
@@ -68,6 +77,9 @@ watch([() => user.email, () => user.password], () => {
       <div class="btn">
         <button v-if="!state.userExist" @click="onSignUp">Sign Up</button>
         <button @click="onLogIn">Log In</button>
+      </div>
+      <div class="btn">
+        <button v-if="state.warning === '使用者密碼錯誤'" @click="forgetPassword">忘記密碼</button>
       </div>
     </div>
   </div>
@@ -119,6 +131,7 @@ watch([() => user.email, () => user.password], () => {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .btn button {
@@ -141,6 +154,7 @@ watch([() => user.email, () => user.password], () => {
   color: red;
   font-size: 13px;
   margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
 }
 
 </style>
