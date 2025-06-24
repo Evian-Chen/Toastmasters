@@ -58,8 +58,7 @@ const onSignUp = () => {
 }
 
 const forgetPassword = () => {
-  // do sth
-  console.log("forget pw");
+  router.push("/forgetPassword");
 }
 
 watch([() => user.email, () => user.password], () => {

@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema({
     birthday: { type: Date },  // example: '2002-12-09'
     bio: { type: String, default: "" },
     emailToken: String,
+    tokenExpires: { type: Date },
     emailVerified: {
         type: Boolean,
         default: false

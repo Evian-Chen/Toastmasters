@@ -122,7 +122,6 @@ router.post("/mail/sent", async (req, res) => {
 
 // 確認這個使用者的email是可以使用的，並且重新導向
 router.get("/mail/verify", async (req, res) => {
-  console.log("at mail/verify");
   const token = req.query.token;
   console.log(`user token: ${token}`);
 

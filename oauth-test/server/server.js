@@ -32,9 +32,11 @@ app.use(
 
 const authRouter = require("./routes/auth.js");
 const dataRouter = require("./routes/data.js");
+const forgetRouter = require("./routes/forget.js");
 
 app.use("/auth", authRouter);
 app.use("/data", dataRouter);
+app.use("/forget", forgetRouter);
 
 // ===================== //
 
