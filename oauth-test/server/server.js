@@ -31,8 +31,10 @@ app.use(
 // ===================== //
 
 const authRouter = require("./routes/auth.js");
+const dataRouter = require("./routes/data.js");
 
 app.use("/auth", authRouter);
+app.use("/data", dataRouter);
 
 // ===================== //
 
