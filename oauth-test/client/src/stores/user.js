@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from 'vue'
+import axios from 'axios'
 
 export const userAuthStore = defineStore('auth', () => {
   const userData = ref({
@@ -13,27 +14,34 @@ export const userAuthStore = defineStore('auth', () => {
 
   const isLoggedIn = ref(false)
 
-  const setData = (data) => {
-    // 這邊應該改成跟資料庫請求這個人的所有資料
-    // 而不是靠前端去取得
+  const setData = async (data) => {
+    // 這邊應該改成跟資料庫請求這個人的所有資料，而不是靠前端去取得
     // 如果呼叫了這個函式，基本上就代表一定有這個人的資料
+    await axios.get("/api/data/info", {
+      params: data
+    })
+    .then((res) => {
+      const info = res.data.info;
 
+      userData.value = {
+        name: info.name || "",
+        password: info.password || "",
+        email: info.email || "",
+        bio: info.bio || "",
+        emailToken: info.emailToken || "",
+        emailVerified: info.email_verified || false
+      }
 
-    userData.value = {
-      name: data.name || "",
-      password: data.password || "",
-      email: data.email || "",
-      bio: data.bio || "",
-      emailToken: data.emailToken || "",
-      emailVerified: data.email_verified || false
-    }
-
-    // 只有在email是驗證的情況下才會允許登入
-    if (!userData.value.emailVerified) {
-      isLoggedIn.value = true
-    }
-    console.log(`in pinia isLoggedIn: ${isLoggedIn.value}`);
-    console.log(`in pinia: ${JSON.stringify(userData.value)}`);
+      // 只有在email是驗證的情況下才會允許登入
+      if (!userData.value.emailVerified) {
+        isLoggedIn.value = true
+      }
+      console.log(`in pinia isLoggedIn: ${isLoggedIn.value}`);
+      console.log(`in pinia setData user info: ${JSON.stringify(userData.value)}`);
+    })
+    .catch((err) => {
+      console.log(`in setData, get data/info error: ${err}`);
+    })
   };
 
   const logOut = () => {

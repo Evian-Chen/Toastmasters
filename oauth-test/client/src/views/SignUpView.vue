@@ -52,7 +52,7 @@ const submit = async () => {
         userStore.setData({
           name: user.name,
           password: user.password,
-          email: user.email
+          email: user.email,
         });
         console.log(`sign up status: ${res.status}`);
         alert("請點擊email中的驗證連結，頁面將為您自動跳轉");
