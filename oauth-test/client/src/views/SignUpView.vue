@@ -3,8 +3,11 @@ import axios from 'axios';
 import { reactive } from 'vue';
 import { userAuthStore } from "@/stores/user";
 import { useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia';
 
 const userStore = userAuthStore();
+const { isLoggedIn } = storeToRefs(userStore);
+
 const router = useRouter();
 
 const user = reactive({
@@ -65,16 +68,27 @@ const submit = async () => {
     })
   }
 }
+
+const logout = async () => {
+  await axios.post("/api/auth/logout", {}, {withCredentials: true})
+  .then((res) => {
+    console.log(`logout user ok: ${res.data}`);
+    userStore.logOut();
+    router.push('/');
+  })
+  .catch((err) => {
+    console.log(`error logout: ${err}`);
+  })
+};
 </script>
 
 <template>
   <div class="wrapper">
     <div class="card">
-      <!-- TODO: 如果在登入的狀態點入註冊區，那應該是要先要求登出 -->
       <h1 class="title">註冊帳號</h1>
       <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="100" />
 
-      <div class="form">
+      <div v-if="!isLoggedIn" class="form">
         <div class="form-group">
           <label for="name">姓名</label>
           <input id="name" v-model="user.name" :class="{ invalid: error.name }" />
@@ -100,6 +114,12 @@ const submit = async () => {
         </div>
 
         <button class="submit-btn" @click="submit">建立帳號</button>
+      </div>
+
+      <!-- 在已經登入的情況下要先要求登出 -->
+      <div v-else class="form-group">
+        <p class="logout-hint">目前已經登入帳號，如欲註冊新帳號請先登出</p>
+        <button class="submit-btn" @click="logout">登出帳號</button>
       </div>
     </div>
   </div>
@@ -174,6 +194,13 @@ const submit = async () => {
   color: red;
   font-size: 13px;
   margin-top: 0.3rem;
+}
+
+.logout-hint {
+  color: black;
+  font-size: 20px;
+  margin: 0.5rem;
+  text-align: center;
 }
 
 .submit-btn {
