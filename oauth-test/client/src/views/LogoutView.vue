@@ -13,7 +13,7 @@ const logout = async () => {
   .then((res) => {
     console.log(`logout user ok: ${res.data}`);
     userStore.logOut();
-    router.push('/');
+    router.push('/');  // 這裡有問題
   })
   .catch((err) => {
     console.log(`error logout: ${err}`);

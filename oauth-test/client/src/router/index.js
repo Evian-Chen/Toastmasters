@@ -9,6 +9,7 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: () => import('../views/HomeView.vue'),
+      meta: { requiresAuth: false }
     },
     {
       path: '/about',
@@ -28,6 +29,7 @@ const router = createRouter({
       path: '/signup',
       name: 'signup',
       component: () => import('../views/SignUpView.vue'),
+      meta: { requiresAuth: false }
     },{
       path: '/verify-success',
       name: 'verify-success',
@@ -35,11 +37,13 @@ const router = createRouter({
     },{
       path: '/clubs',
       name: 'clubs',
-      component: () => import('../views/FindClubsView.vue')
+      component: () => import('../views/FindClubsView.vue'),
+      meta: { requiresAuth: false }
     },{
       path: '/logout',
       name: 'logout',
-      component: () => import('../views/LogoutView.vue')
+      component: () => import('../views/LogoutView.vue'),
+      meta: { requiresAuth: true }
     },{
       path: '/forgetPassword',
       name: 'forgetPassword',
@@ -51,30 +55,47 @@ const router = createRouter({
     },{
       path: '/account',
       name: 'account',
-      component: () => import('../views/AccountView.vue')
+      component: () => import('../views/AccountView.vue'),
+      meta: { requiresAuth: true }
     }
   ],
 })
 
 router.beforeEach(async (to, from, next) => {
-  // console.log(`用戶來自 ${from.path}`);
-  // console.log(`用路想去 ${to.path}`);
+  console.log(`用戶來自 ${from.path}`);
+  console.log(`用戶想去 ${to.path}`);
 
-  const userStore = userAuthStore();  // 確保先啟用pinia
+  const token = await axios.get("/api/auth/cookie");
 
-  if (!to.meta.requiresAuth) { // 不需要經過JWT檢查
-    next();
-  } else {
-    await axios.get("/api/auth/me", { withCredentials: true })
-      .then((res) => {
-        console.log(`current user: ${res.data.user}`);  // 使用者之前有登入過
-        userStore.setData(res.data.user);
-      })
-      .catch((err) => {
-        router.push("/");
-        console.log(`auth/me error: ${err}`);
-      })
+  const userStore = userAuthStore();
+
+  // 外部請求帶有參數的話，不需要經過JWT認證
+  if (JSON.stringify(to.query) !== '{}') {
+    return next();
   }
-})
+
+  // 如果 user 已經存在於 pinia（登入過了），直接放行
+  if (userStore.user) {
+    console.log("exist in pinia");
+    return next();
+  }
+
+  console.log(`cookie msg: ${token.data.message}`);
+
+  if (token.data.message === "true") {  // 有這個cookie，而且pinia也還沒登入過
+    const res = await axios.get("/api/auth/me", { withCredentials: true });
+    userStore.setData(res.data.user);
+    return next();
+  } else { // 沒有cookie也還沒登入過
+    if (!to.meta.requiresAuth) {
+      console.log(`to.meta.requiresAuth: ${to.meta.requiresAuth}`);
+      next();
+    } else {
+      console.log("沒有跳轉權限");
+      next(false);
+    }
+  }
+});
+
 
 export default router

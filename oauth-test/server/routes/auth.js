@@ -140,6 +140,15 @@ router.get("/mail/verify", async (req, res) => {
   }
 })
 
+router.get("/cookie", (req, res) => {
+    console.log(`cookie: ${JSON.stringify(req.cookies)}`);
+    if (req.cookies.token) {
+        res.json({ message: "true" });
+    } else {
+        res.json({ message: "false" });
+    }
+})
+
 // 透過這個api檢查是否有使用者的登入
 router.get('/me',
     verifyToken,

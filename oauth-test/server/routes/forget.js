@@ -74,7 +74,7 @@ router.get("/password/verify", async (req, res) => {
         // 因為會有登入要求把頁面都擋下來
 
         // 導向一般的login，帶有reset參數
-        res.redirect(`http://localhost:5173/login?reset=true`);
+        res.redirect(`http://localhost:5173/login?reset=true$token=${token}`);
     } else {
         res.status(500).json({ message: "重設密碼驗證錯誤，找不到使用者的token" });
     }

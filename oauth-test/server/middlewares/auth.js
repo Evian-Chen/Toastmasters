@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const verifyToken = (req, res, next) => {
     if (!req.cookies) {
-        return res.status(401).json({ message: "unauthorized" });
+        return res.status(401).json({ message: "沒有cookies" });
     }
 
     try {
