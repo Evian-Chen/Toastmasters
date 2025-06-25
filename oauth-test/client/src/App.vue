@@ -1,28 +1,28 @@
 <script setup>
-import { RouterLink, RouterView, useRouter } from 'vue-router';
-import axios from 'axios';
+import { RouterLink, RouterView } from 'vue-router';
+// import axios from 'axios';
 // import { reactive } from 'vue';
-import { onMounted } from 'vue';
+// import { onMounted } from 'vue';
 import { userAuthStore } from "@/stores/user";
 import { storeToRefs } from "pinia";
 
 const userStore = userAuthStore();
 const { isLoggedIn } = storeToRefs(userStore);
 
-const router = useRouter();
+// const router = useRouter();
 
-onMounted(async () => {
-  console.log("current router:"+JSON.stringify(router.currentRoute.value));
-  await axios.get("/api/auth/me", { withCredentials: true })
-  .then((res) => {
-    console.log(`current user: ${res.data.user}`);  // 使用者之前有登入過
-    userStore.setData(res.data.user);
-  })
-  .catch((err) => {
-    router.push("/");
-    console.log(`auth/me error: ${err}`);
-  })
-})
+// onMounted(async () => {
+//   console.log("current router:"+JSON.stringify(router.currentRoute.value));
+//   await axios.get("/api/auth/me", { withCredentials: true })
+//   .then((res) => {
+//     console.log(`current user: ${res.data.user}`);  // 使用者之前有登入過
+//     userStore.setData(res.data.user);
+//   })
+//   .catch((err) => {
+//     router.push("/");
+//     console.log(`auth/me error: ${err}`);
+//   })
+// })
 </script>
 
 <template>

@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import axios from 'axios'
+import { userAuthStore } from "@/stores/user";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,7 +21,8 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/LoginView.vue')
+      component: () => import('../views/LoginView.vue'),
+      meta: { requiresAuth: false }
     },
     {
       path: '/signup',
@@ -51,6 +54,27 @@ const router = createRouter({
       component: () => import('../views/AccountView.vue')
     }
   ],
+})
+
+router.beforeEach(async (to, from, next) => {
+  // console.log(`用戶來自 ${from.path}`);
+  // console.log(`用路想去 ${to.path}`);
+
+  const userStore = userAuthStore();  // 確保先啟用pinia
+
+  if (!to.meta.requiresAuth) { // 不需要經過JWT檢查
+    next();
+  } else {
+    await axios.get("/api/auth/me", { withCredentials: true })
+      .then((res) => {
+        console.log(`current user: ${res.data.user}`);  // 使用者之前有登入過
+        userStore.setData(res.data.user);
+      })
+      .catch((err) => {
+        router.push("/");
+        console.log(`auth/me error: ${err}`);
+      })
+  }
 })
 
 export default router
