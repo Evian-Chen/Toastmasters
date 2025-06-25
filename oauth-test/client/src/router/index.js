@@ -24,7 +24,7 @@ const router = createRouter({
     {
       path: '/signup',
       name: 'signup',
-      component: () => import('../views/SignUpView.vue')
+      component: () => import('../views/SignUpView.vue'),
     },{
       path: '/verify-success',
       name: 'verify-success',
@@ -44,7 +44,11 @@ const router = createRouter({
     },{
       path: '/resetPassword',
       name: 'resetPassword',
-      component: () => import("../views/resetPasswordView.vue"),
+      component: () => import("../views/resetPasswordView.vue")
+    },{
+      path: '/account',
+      name: 'account',
+      component: () => import('../views/AccountView.vue')
     }
   ],
 })

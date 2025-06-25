@@ -3,14 +3,14 @@ import { reactive, watch } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
 import { userAuthStore } from "@/stores/user";
-// import { storeToRefs } from "pinia";
+import { onMounted } from "vue";
 
 const userStore = userAuthStore();
-// const { isLoggedIn } = storeToRefs(userStore);
 
 const user = reactive({
   email: "",
-  password: ""
+  password: "",
+  isReset: false
 })
 
 const state = reactive({
@@ -25,6 +25,11 @@ const onLogIn = async () => {
   if (!user.email || !user.password) {
     state.warning = "輸入欄不得空白";
     return;
+  }
+
+  // 如果是透過忘記密碼得到新密碼的，強制導向個人設定的重設密碼
+  if (user.isReset) {
+    router.push('/account')
   }
 
   await axios.post('/api/auth/login', user, { withCredentials: true })
@@ -57,6 +62,11 @@ const onSignUp = () => {
   router.push('/signup');
 }
 
+// 使用者點擊忘記密碼
+// 密碼重設流程:
+// -> 寄出驗證信，驗證信包含新密碼
+// -> 重新導向到login畫面，重設密碼
+// -> 進入個人設定，要求更新密碼
 const forgetPassword = () => {
   router.push("/forgetPassword");
 }
@@ -65,6 +75,11 @@ watch([() => user.email, () => user.password], () => {
   state.warning = "";
 })
 
+onMounted(() => {
+  if (router.query) { // 先確定帶有reset 的query
+    user.isReset = true;
+  }
+})
 </script>
 
 <template>
