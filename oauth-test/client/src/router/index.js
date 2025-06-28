@@ -62,8 +62,14 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  console.log(`用戶來自 ${from.path}`);
-  console.log(`用戶想去 ${to.path}`);
+  console.log(`用戶來自 ${from.path} -> ${to.path}`);
+
+  /**
+   * 檢查邏輯:
+   * 1. 先檢查cookie有沒有存登入，有的話進入使用pinia
+   * 2. 檢查請求是否帶有參數token，帶有token的話就進入
+   * 3. 沒有cookie也沒有token，代表是訪客，
+   */
 
   const token = await axios.get("/api/auth/cookie");
 
