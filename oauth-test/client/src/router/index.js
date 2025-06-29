@@ -71,37 +71,44 @@ router.beforeEach(async (to, from, next) => {
    * 3. 沒有cookie也沒有token，代表是訪客，
    */
 
-  const token = await axios.get("/api/auth/cookie");
-
   const userStore = userAuthStore();
 
-  // 外部請求帶有參數的話，不需要經過JWT認證
-  if (JSON.stringify(to.query) !== '{}') {
-    return next();
-  }
-
-  // 如果 user 已經存在於 pinia（登入過了），直接放行
-  if (userStore.user) {
-    console.log("exist in pinia");
-    return next();
-  }
-
-  console.log(`cookie msg: ${token.data.message}`);
-
-  if (token.data.message === "true") {  // 有這個cookie，而且pinia也還沒登入過
-    const res = await axios.get("/api/auth/me", { withCredentials: true });
-    userStore.setData(res.data.user);
-    return next();
-  } else { // 沒有cookie也還沒登入過
-    if (!to.meta.requiresAuth) {
-      console.log(`to.meta.requiresAuth: ${to.meta.requiresAuth}`);
-      next();
-    } else {
-      console.log("沒有跳轉權限");
-      next(false);
+  try {
+    if (to.query.resetToken) {  // 目前只有外部請求重設密碼的可以通過
+      console.log("有外部token");
+      return next();
     }
+
+    const authStatus = await checkAuthState();
+
+    if (authStatus === 'success') {  // 有這個cookie
+      const res = await axios.get("/api/auth/me", { withCredentials: true });
+      userStore.setData(res.data.user);
+
+      console.log("有cookie");
+      return next();
+    }
+
+    if (to.meta.requiresAuth) { // 沒有cookie，想去的頁面是需要認證的
+      console.log("沒有cookie");
+      return next('/');
+    }
+
+    console.log("next");
+    next();
+  } catch (err) {
+    console.log(`後端路由守門錯誤: ${err}`);
   }
 });
 
+async function checkAuthState() {
+  try {
+    const res = await axios.get('/api/auth/check', { withCredentials: true });
+    return res.data.status;
+  } catch (err) {
+    console.log(`後端路由authCheck錯誤: ${err}`);
+    return false;
+  }
+}
 
 export default router

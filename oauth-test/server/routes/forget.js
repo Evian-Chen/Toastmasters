@@ -37,9 +37,17 @@ router.post("/password", async (req, res) => {
         from: process.env.GMAIL_USER,
         to: email,
         subject: "重新設定密碼",
-        html: `<p>請點擊下方連結重設密碼：</p>
-        <p>這裡是您的新密碼: {{ newPassword }}，請點擊下面連結，以新密碼登入後，再重新設定密碼</p>
-        <a href="http://localhost:3000/forget/password/verify?token=${token}">重設密碼連結</a>`
+        html: `
+            <h2>密碼重設請求</h2>
+            <p>您好，</p>
+            <p>我們收到了您的密碼重設請求。請點擊下方連結來設定新密碼：</p>
+            <a href="http://localhost:3000/forget/reset-password?token=${resetToken}" 
+            style="background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+            重設密碼
+            </a>
+            <p><strong>注意：</strong>此連結將在1小時後失效。</p>
+            <p>如果您沒有要求重設密碼，請忽略此郵件。</p>
+        `
     };
 
     transporter.sendMail(mailOption, (err, info) => {
@@ -54,8 +62,8 @@ router.post("/password", async (req, res) => {
 })
 
 // 重設密碼驗證信請求的API
-router.get("/password/verify", async (req, res) => {
-    const token = req.query.token;
+router.get("/reset-password", async (req, res) => {
+    const token = req.query.resetToken;
 
     console.log(`重設密碼token: ${token}`);
 

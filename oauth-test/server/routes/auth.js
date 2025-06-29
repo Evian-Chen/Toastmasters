@@ -140,12 +140,14 @@ router.get("/mail/verify", async (req, res) => {
   }
 })
 
-router.get("/cookie", (req, res) => {
-    console.log(`cookie: ${JSON.stringify(req.cookies)}`);
-    if (req.cookies.token) {
-        res.json({ message: "true" });
+router.get("/check", (req, res) => {
+    const cookieToken = req.cookies.token;
+    console.log(`cookie: ${JSON.stringify(cookieToken)}`);
+    if (cookieToken) {
+        console.log("cookie exist, retunr success");
+        res.json({ status: "success" });
     } else {
-        res.json({ message: "false" });
+        res.json({ status: "failed" });
     }
 })
 
@@ -156,10 +158,10 @@ router.get('/me',
         const result = await model.user.find({
             email: req.user.email
         });
-        console.log(`get /me result: ${JSON.stringify(result[0])}`);
+        // console.log(`get /me result: ${JSON.stringify(result[0])}`);
         const user = result[0];
 
-        console.log(`get /me result: ${JSON.stringify(user)}`);
+        // console.log(`get /me result: ${JSON.stringify(user)}`);
 
         res.json({
             message: "/me ok.",
