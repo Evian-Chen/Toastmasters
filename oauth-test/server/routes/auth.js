@@ -105,6 +105,7 @@ router.post("/mail/sent", async (req, res) => {
     <p>請點擊下方連結驗證，驗證後請重新登入：</p>
     <p>但這個連結一直壞掉好難修，只能直接先把網址填上去，有些權限還沒關，部署好麻煩ㄛ</p>
     <p>我好喜歡好喜歡你ㄛUWU</p>
+    <p>明天想跟你吃飯</p>
     <a href="https://toastmasters.onrender.com/auth/mail/verify?token=${req.body.emailToken}">驗證連結</a>`
 
     // !! //
