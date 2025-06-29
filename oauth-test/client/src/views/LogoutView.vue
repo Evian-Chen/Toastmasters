@@ -9,7 +9,7 @@ const userStore = userAuthStore();
 const router = useRouter();
 
 const logout = async () => {
-  await axios.post("/api/auth/logout", {}, {withCredentials: true})
+  await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth/logout`, {}, {withCredentials: true})
   .then((res) => {
     console.log(`logout user ok: ${res.data}`);
     userStore.logOut();
