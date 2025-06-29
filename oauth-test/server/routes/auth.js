@@ -128,17 +128,14 @@ router.get("/mail/verify", async (req, res) => {
   console.log(`user token: ${token}`);
 
   try {
-    console.log("ready to update");
     const result = await model.user.updateOne(
       { emailToken: token },
       { $set: { emailVerified: true } }
     );
 
-    console.log("update result:", result);
-
     // !! //
     // 這邊是使用已經部署過的路由
-    res.redirect("https://toastmasters.onrender.com/verify-success");
+    res.redirect("https://toastmasters.onrender.com");
   } catch (err) {
     console.error(`updateOne error: ${err}`);
     res.status(500).send("伺服器錯誤");
