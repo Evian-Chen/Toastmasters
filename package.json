@@ -1,8 +1,0 @@
-{
-    "name": "Toastmasters-Fullstack",
-    "version": "1.0.0",
-    "scripts": {
-        "start": "npm --prefix server start",
-        "build": "npm --prefix vue-project install && npm --prefix vue-project run build && npm --prefix server install"
-    }
-}
