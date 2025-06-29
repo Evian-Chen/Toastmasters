@@ -5,12 +5,12 @@
   "main": "server/index.js",
   "scripts": {
     "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
-    "build": "cd oauth-test && cd client && npm run build",
-    "start": "cd oauth-test && cd server && node server.js",
-    "server:dev": "cd oauth-test && cd server && npm run dev",
-    "client:dev": "cd oauth-test && cd client && npm run dev",
-    "install:client": "cd oauth-test && cd client && npm install",
-    "install:server": "cd oauth-test && cd server && npm install",
+    "build": "npm run install:client && cd client && npm run build",
+    "start": "cd server && node server.js",
+    "server:dev": "cd server && npm run dev",
+    "client:dev": "cd client && npm run dev",
+    "install:client": "cd client && npm install",
+    "install:server": "cd server && npm install",
     "install:all": "npm run install:client && npm run install:server"
   },
   "dependencies": {
