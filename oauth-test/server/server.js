@@ -46,6 +46,6 @@ app.use("/forget", forgetRouter);
 // history 中介器
 app.use(history());
 
-app.listen(portNum, () => {
+app.listen(portNum, '0.0.0.0', () => {
   console.log(`running on port: ${portNum}`);
 });
