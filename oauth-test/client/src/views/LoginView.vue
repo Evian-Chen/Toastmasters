@@ -29,7 +29,7 @@ const onLogIn = async () => {
     return;
   }
 
-  await axios.post('/api/auth/login', user, { withCredentials: true })
+  await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth/login`, user, { withCredentials: true })
   .then((res) => {
     if (res.status === 201) {
       console.log("前端導向註冊頁面");

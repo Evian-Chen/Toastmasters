@@ -25,7 +25,7 @@ const checkEmail = async () => {
     params.emailWarning = ""
 
     // 檢查email是否已經被註冊過，都沒錯之後寄出信件
-    await axios.get("/api/data/info", {
+    await axios.get(`${import.meta.env.VITE_API_BASE_URL}/data/info`, {
       params: params
     })
     .then(() => {
@@ -45,11 +45,11 @@ const setNewPw = async () => {
   await checkEmail();
 
   if (params.emailExists) {
-    await axios.post('/api/forget/password', {
+    await axios.post(`${import.meta.env.VITE_API_BASE_URL}/forget/password`, {
       email: params.email
     })
     .then((res) => {
-      console.log(`呼叫/forgetr/password ${res.status}`);
+      console.log(`呼叫/forget/password ${res.status}`);
       params.emailSent = true;
     })
     .catch((err) => {
