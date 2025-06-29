@@ -101,12 +101,19 @@ router.post("/mail/sent", async (req, res) => {
         }
     });
 
+    if (import.meta.env.VITE_API_BASE_URL === '/api') {
+        const html = `<p>請點擊下方連結驗證：</p>
+         <a href="http://localhost:3000/auth/mail/verify?token=${req.body.emailToken}">驗證連結</a>`
+    } else {
+        const html = `<p>請點擊下方連結驗證：</p>
+         <a href="https://toastmasters.onrender.com/auth/mail/verify?token=${req.body.emailToken}">驗證連結</a>`
+    }
+
     const mailOption = {
         from: process.env.GMAIL_USER,
         to: req.body.email,
         subject: "驗證信測試",
-         html: `<p>請點擊下方連結驗證：</p>
-         <a href="http://localhost:3000/auth/mail/verify?token=${req.body.emailToken}">驗證連結</a>`
+         html: html
     };
 
     transporter.sendMail(mailOption, (err, info) => {
