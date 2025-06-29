@@ -58,8 +58,8 @@ const submit = async () => {
           email: user.email,
         });
         console.log(`sign up status: ${res.status}`);
-        alert("請點擊email中的驗證連結，頁面將為您自動跳轉");
-        router.push('/login');
+        alert("請點擊email中的驗證連結並重新登入，頁面將為您自動跳轉");
+        router.push('/');
       }
 
     })

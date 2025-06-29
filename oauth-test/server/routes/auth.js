@@ -102,10 +102,10 @@ router.post("/mail/sent", async (req, res) => {
     });
 
     if (import.meta.env.VITE_API_BASE_URL === '/api') {
-        const html = `<p>請點擊下方連結驗證：</p>
+        const html = `<p>請點擊下方連結驗證，驗證後請重新登入：</p>
          <a href="http://localhost:3000/auth/mail/verify?token=${req.body.emailToken}">驗證連結</a>`
     } else {
-        const html = `<p>請點擊下方連結驗證：</p>
+        const html = `<p>請點擊下方連結驗證，驗證後請重新登入：</p>
          <a href="https://toastmasters.onrender.com/auth/mail/verify?token=${req.body.emailToken}">驗證連結</a>`
     }
 
