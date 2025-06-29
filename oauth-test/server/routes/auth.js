@@ -135,7 +135,7 @@ router.get("/mail/verify", async (req, res) => {
 
     // !! //
     // 這邊是使用已經部署過的路由
-    res.redirect("https://toastmasters.onrender.com");
+    res.redirect("https://toastmasters.onrender.com/login");
   } catch (err) {
     console.error(`updateOne error: ${err}`);
     res.status(500).send("伺服器錯誤");
