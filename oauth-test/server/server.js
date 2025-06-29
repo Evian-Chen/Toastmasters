@@ -28,6 +28,9 @@ app.use(
   })
 );
 
+// 部署後連接靜態檔案
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
 // ===================== //
 
 const authRouter = require("./routes/auth.js");
@@ -42,9 +45,6 @@ app.use("/forget", forgetRouter);
 
 // history 中介器
 app.use(history());
-
-// 連接靜態檔案
-app.use(express.static(path.join(__dirname, '../vue-project/dist')));
 
 app.listen(portNum, () => {
   console.log(`running on port: ${portNum}`);
