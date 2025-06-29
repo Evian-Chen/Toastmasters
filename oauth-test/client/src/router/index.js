@@ -82,7 +82,7 @@ router.beforeEach(async (to, from, next) => {
     }
 
     if (authStatus === 'success') {  // 有這個cookie
-      const res = await axios.get("/auth/me", { withCredentials: true });
+      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/auth/me`, { withCredentials: true });
       userStore.setData(res.data.user);
 
       console.log("有cookie");
@@ -103,7 +103,7 @@ router.beforeEach(async (to, from, next) => {
 
 async function checkAuthState() {
   try {
-    const res = await axios.get('/auth/check', { withCredentials: true });
+    const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/auth/check`, { withCredentials: true });
     return res.data.status;
   } catch (err) {
     console.log(`後端路由authCheck錯誤: ${err}`);

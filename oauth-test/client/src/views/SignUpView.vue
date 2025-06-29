@@ -47,7 +47,7 @@ const inputIsValid = () => {
 const submit = async () => {
   // 註冊邏輯，1. 檢查輸入，若有錯誤則給出紅字，2. 使用者是否已經存在，3. 驗證電子郵件
   if (inputIsValid()) {
-    await axios.post("/api/auth/mail/sent", user)
+    await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth/mail/sent`, user)
     .then((res) => {
       if (res.status === 201) {  // 使用者已經存在了
         alert("使用者已註冊");
@@ -70,7 +70,7 @@ const submit = async () => {
 }
 
 const logout = async () => {
-  await axios.post("/api/auth/logout", {}, {withCredentials: true})
+  await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth/logout`, {}, {withCredentials: true})
   .then((res) => {
     console.log(`logout user ok: ${res.data}`);
     userStore.logOut();
