@@ -74,12 +74,12 @@ router.beforeEach(async (to, from, next) => {
   const userStore = userAuthStore();
 
   try {
-    if (to.query.resetToken) {  // 目前只有外部請求重設密碼的可以通過
-      console.log("有外部token");
+    const authStatus = await checkAuthState();
+
+    if (to.query.resetToken && authStatus !== 'success') {  // 目前只有外部請求重設密碼的可以通過
+      console.log("有外部token, 以及" + authStatus);
       return next();
     }
-
-    const authStatus = await checkAuthState();
 
     if (authStatus === 'success') {  // 有這個cookie
       const res = await axios.get("/api/auth/me", { withCredentials: true });

@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, watch } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import axios from "axios";
 import { userAuthStore } from "@/stores/user";
 import { onMounted } from "vue";
@@ -19,17 +19,14 @@ const state = reactive({
 })
 
 const router = useRouter();
+const route = useRoute();
 
 // 使用者登入過，直接登入，沒有找到登入資料的話，要求使用者註冊
 const onLogIn = async () => {
+  console.log(`重設密碼: ${user.isReset}`);
   if (!user.email || !user.password) {
     state.warning = "輸入欄不得空白";
     return;
-  }
-
-  // 如果是透過忘記密碼得到新密碼的，強制導向個人設定的重設密碼
-  if (user.isReset) {
-    router.push('/account')
   }
 
   await axios.post('/api/auth/login', user, { withCredentials: true })
@@ -44,8 +41,14 @@ const onLogIn = async () => {
     }else {
       console.log("user exists in database " + JSON.stringify(res.data.user));
       userStore.setData(res.data.user);
+
+      // 如果是透過忘記密碼得到新密碼的，強制導向個人設定的重設密碼
+      if (user.isReset) {
+        console.log(`重設密碼: ${user.isReset}，導航到個人設定`);
+        return router.push('/account')
+      }
+
       router.push('/');  // 回到首頁後，
-      // 畫面配置一樣，帶有使用者資訊
     }
 
   })
@@ -76,7 +79,8 @@ watch([() => user.email, () => user.password], () => {
 })
 
 onMounted(() => {
-  if (router.query) { // 先確定帶有reset 的query
+  user.isReset = false;
+  if (route.query.reset === 'true') {
     user.isReset = true;
   }
 })

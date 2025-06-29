@@ -37,17 +37,9 @@ router.post("/password", async (req, res) => {
         from: process.env.GMAIL_USER,
         to: email,
         subject: "重新設定密碼",
-        html: `
-            <h2>密碼重設請求</h2>
-            <p>您好，</p>
-            <p>我們收到了您的密碼重設請求。請點擊下方連結來設定新密碼：</p>
-            <a href="http://localhost:3000/forget/reset-password?token=${resetToken}" 
-            style="background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
-            重設密碼
-            </a>
-            <p><strong>注意：</strong>此連結將在1小時後失效。</p>
-            <p>如果您沒有要求重設密碼，請忽略此郵件。</p>
-        `
+        html: `<p>請點擊下方連結重設密碼：</p>
+        <p>這裡是您的新密碼: <strong>${newPassword}</strong>，請點擊下面連結，以新密碼登入後，再重新設定密碼</p>
+        <a href="http://localhost:3000/forget/reset-password?resetToken=${token}">重設密碼連結</a>`
     };
 
     transporter.sendMail(mailOption, (err, info) => {
@@ -78,11 +70,9 @@ router.get("/reset-password", async (req, res) => {
     // 確定有找到這個人
     if (result) { 
         // 前端帶有後端產生的驗證token
-        // TODO: 目前沒辦法導航到重新設定的頁面
-        // 因為會有登入要求把頁面都擋下來
 
         // 導向一般的login，帶有reset參數
-        res.redirect(`http://localhost:5173/login?reset=true$token=${token}`);
+        res.redirect(`http://localhost:5173/login?reset=true&token=${token}`);
     } else {
         res.status(500).json({ message: "重設密碼驗證錯誤，找不到使用者的token" });
     }
