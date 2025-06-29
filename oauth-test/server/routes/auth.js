@@ -101,6 +101,8 @@ router.post("/mail/sent", async (req, res) => {
         }
     });
 
+    // !! //
+    // 這邊是使用已經部署過的路由
     const mailOption = {
         from: process.env.GMAIL_USER,
         to: req.body.email,
@@ -133,7 +135,10 @@ router.get("/mail/verify", async (req, res) => {
     );
 
     console.log("update result:", result);
-    res.redirect("http://localhost:5173/verify-success");
+
+    // !! //
+    // 這邊是使用已經部署過的路由
+    res.redirect("https://toastmasters.onrender.com/verify-success");
   } catch (err) {
     console.error(`updateOne error: ${err}`);
     res.status(500).send("伺服器錯誤");
