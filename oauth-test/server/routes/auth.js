@@ -34,9 +34,6 @@ router.post("/login", async (req, res) => {
             return res.status(401).json({ message: "password incorrect" });
         }
 
-        // TODO: 要先確認如果bio(或者email/pw除外的資料)有被更改的時候
-        // 下次登入必須還是有資料
-
         // 建立 JWT payload
         const payload = req.body;
         console.log("payload" + JSON.stringify(payload));

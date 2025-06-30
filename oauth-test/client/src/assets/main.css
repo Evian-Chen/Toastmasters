@@ -7,6 +7,15 @@
   font-weight: normal;
 }
 
+/* 設定頁面特殊樣式 - 全屏顯示 */
+#app.settings-page {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
 a,
 .green {
   text-decoration: none;
@@ -27,9 +36,109 @@ a,
     place-items: center;
   }
 
-  #app {
+  /* 一般頁面的網格佈局 */
+  #app:not(.settings-page) {
     display: grid;
     /* grid-template-columns: 1fr 1fr; */
     padding: 0 2rem;
+  }
+
+  /* 設定頁面不使用flex center佈局 */
+  body:has(#app.settings-page) {
+    display: block;
+    place-items: unset;
+  }
+
+  #app.settings-page {
+    display: block;
+    padding: 0;
+  }
+}
+
+/* 暗色主題適配 */
+@media (prefers-color-scheme: dark) {
+  /* 為設定頁面提供暗色背景 */
+  #app.settings-page {
+    background-color: #0f172a;
+  }
+
+  /* 設定頁面內的容器暗色適配 */
+  #app.settings-page .settings-container {
+    background-color: #0f172a;
+  }
+
+  #app.settings-page .settings-nav {
+    background-color: #1e293b;
+    border-right-color: #334155;
+  }
+
+  #app.settings-page .nav-title {
+    color: #f1f5f9;
+  }
+
+  #app.settings-page .nav-list button {
+    color: #94a3b8;
+  }
+
+  #app.settings-page .nav-list button:hover {
+    background-color: #334155;
+    color: #f1f5f9;
+  }
+
+  #app.settings-page .nav-list button.active {
+    background-color: #1e40af;
+    color: #dbeafe;
+  }
+
+  #app.settings-page .settings-panel {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+  }
+
+  #app.settings-page .panel-title {
+    color: #f1f5f9;
+    border-bottom-color: #334155;
+  }
+
+  #app.settings-page .form-group label {
+    color: #e2e8f0;
+  }
+
+  #app.settings-page .form-group input,
+  #app.settings-page .form-group textarea,
+  #app.settings-page .form-group select {
+    background-color: #334155;
+    border-color: #475569;
+    color: #f1f5f9;
+  }
+
+  #app.settings-page .form-group input:focus,
+  #app.settings-page .form-group textarea:focus,
+  #app.settings-page .form-group select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  }
+
+  #app.settings-page .toggle-label {
+    color: #e2e8f0;
+  }
+
+  #app.settings-page .toggle-description {
+    color: #94a3b8;
+  }
+
+  #app.settings-page .toggle-item {
+    border-bottom-color: #334155;
+  }
+
+  #app.settings-page .security-section h3,
+  #app.settings-page .privacy-section h3,
+  #app.settings-page .notification-section h3 {
+    color: #f1f5f9;
+  }
+
+  #app.settings-page .danger-zone {
+    background-color: #450a0a;
+    border-color: #991b1b;
   }
 }

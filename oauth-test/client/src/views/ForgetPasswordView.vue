@@ -45,7 +45,7 @@ const setNewPw = async () => {
   await checkEmail();
 
   if (params.emailExists) {
-    await axios.post(`${import.meta.env.VITE_API_BASE_URL}/forget/password`, {
+    await axios.post(`/api/forget/password`, {
       email: params.email
     })
     .then((res) => {

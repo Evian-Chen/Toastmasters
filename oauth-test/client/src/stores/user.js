@@ -3,13 +3,28 @@ import { ref } from 'vue'
 import axios from 'axios'
 
 export const userAuthStore = defineStore('auth', () => {
+  // 一些高頻使用的設定先儲存在pinia
+  // 但是個人設定只有在設定頁面才會看到，所以不需要放在pinia
   const userData = ref({
-    name: "",
-    password: "",
+    avatar: "",
+    displayName: "",
     email: "",
-    bio: "",
-    emailToken: "",
-    emailVerified: "",
+    club: "",
+    role: "",
+    pathwayLevel: "",
+    emailVerified: false,
+
+    privacy: {
+      allowMessages: true,
+      showOnlineStatus: true,
+      publicProfile: true
+    },
+
+    notifications: {
+      emailNotifications: true,
+      messageNotifications: true,
+      postLikes: true,
+    }
   });
 
   const isLoggedIn = ref(false)
@@ -17,19 +32,32 @@ export const userAuthStore = defineStore('auth', () => {
   const setData = async (data) => {
     // 這邊應該改成跟資料庫請求這個人的所有資料，而不是靠前端去取得
     // 如果呼叫了這個函式，基本上就代表一定有這個人的資料
-    await axios.get(`${import.meta.env.VITE_API_BASE_URL}/data/info`, {
+    await axios.get(`/api/data/info`, {
       params: data
     })
     .then((res) => {
       const info = res.data.info;
 
       userData.value = {
-        name: info.name || "",
-        password: info.password || "",
+        avatar: info.avatar || "",
+        displayName: info.displayName || "",
         email: info.email || "",
-        bio: info.bio || "",
-        emailToken: info.emailToken || "",
-        emailVerified: info.email_verified || false
+        club: info.club || "",
+        role: info.role || "",
+        pathwayLevel: info.pathwayLevel || "",
+        emailVerified: info.email_verified || false,
+
+        privacy: {
+          allowMessages: info.privacy?.allowMessages || true,
+          showOnlineStatus: info.privacy?.showOnlineStatus || true,
+          publicProfile: info.privacy?.publicProfile || true
+        },
+
+        notifications: {
+          emailNotifications: info.notifications?.emailNotifications || true,
+          messageNotifications: info.notifications?.messageNotifications || true,
+          postLikes: info.notifications?.postLikes || true,
+        }
       }
 
       // 只有在email是驗證的情況下才會允許登入
@@ -47,10 +75,8 @@ export const userAuthStore = defineStore('auth', () => {
   const logOut = () => {
     userData.value = {
       name: "",
-      password: "",
       email: "",
       bio: "",
-      emailToken: "",
       emailVerified: "",
     }
     isLoggedIn.value = false

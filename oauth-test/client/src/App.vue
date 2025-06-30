@@ -8,21 +8,6 @@ import { storeToRefs } from "pinia";
 
 const userStore = userAuthStore();
 const { isLoggedIn } = storeToRefs(userStore);
-
-// const router = useRouter();
-
-// onMounted(async () => {
-//   console.log("current router:"+JSON.stringify(router.currentRoute.value));
-//   await axios.get("/api/auth/me", { withCredentials: true })
-//   .then((res) => {
-//     console.log(`current user: ${res.data.user}`);  // 使用者之前有登入過
-//     userStore.setData(res.data.user);
-//   })
-//   .catch((err) => {
-//     router.push("/");
-//     console.log(`auth/me error: ${err}`);
-//   })
-// })
 </script>
 
 <template>
@@ -30,10 +15,10 @@ const { isLoggedIn } = storeToRefs(userStore);
     <nav class="nav-container">
       <RouterLink to="/" class="nav-link">Home</RouterLink>
       <RouterLink v-if="!isLoggedIn" to="/login" class="nav-link">Log In</RouterLink>
-      <RouterLink v-if="isLoggedIn" to="/logout" class="nav-link">Log Out</RouterLink>
-      <RouterLink to="/signup" class="nav-link">Sign Up</RouterLink>
       <RouterLink v-if="isLoggedIn" to="/clubs" class="nav-link">Clubs</RouterLink>
       <RouterLink v-if="isLoggedIn" to="/account" class="nav-link">Account Setting</RouterLink>
+      <RouterLink v-if="isLoggedIn" to="/logout" class="nav-link">Log Out</RouterLink>
+      <RouterLink to="/signup" class="nav-link">Sign Up</RouterLink>
     </nav>
   </header>
 
