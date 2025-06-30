@@ -1,4 +1,5 @@
 <script setup>
+import { watch } from 'vue';
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
 
 // 個人資料
@@ -10,16 +11,14 @@ const profile = reactive({
   phone: '',
   birthday: '',
   bio: '',
-  location: ''
+  location: '',
+  clubs: []
 });
-
-// 修正分會邏輯：初始化為空陣列
-const clubs = reactive([]);
 
 // 新增分會
 const addClub = () => {
-  if (clubs.length < 5) {
-    clubs.push({
+  if (profile.clubs.length < 5) {
+    profile.clubs.push({
       clubName: '',
       role: 'member',
       memberSince: '',
@@ -32,8 +31,8 @@ const addClub = () => {
 
 // 刪除分會
 const removeClub = (index) => {
-  if (clubs.length > 1) {
-    clubs.splice(index, 1);
+  if (profile.clubs.length > 1) {
+    profile.clubs.splice(index, 1);
   } else {
     alert('至少需要保留一個分會');
   }
@@ -41,7 +40,7 @@ const removeClub = (index) => {
 
 // 初始化時添加一個分會
 onMounted(() => {
-  if (clubs.length === 0) {
+  if (profile.clubs.length === 0) {
     addClub();
   }
 
@@ -82,6 +81,8 @@ const notificationSettings = reactive({
 // 當前選中的設定分頁
 const activeTab = ref('profile');
 
+const saveHint = ref('資料已是最新！');
+
 // 方法
 const updateProfile = () => {
   // 驗證必填欄位
@@ -95,18 +96,19 @@ const updateProfile = () => {
   }
 
   // 驗證分會資料
-  for (let i = 0; i < clubs.length; i++) {
-    if (!clubs[i].clubName.trim()) {
+  for (let i = 0; i < profile.clubs.length; i++) {
+    if (!profile.clubs[i].clubName.trim()) {
       alert(`請填寫第 ${i + 1} 個分會名稱`);
       return;
     }
   }
 
   console.log("更新個人資料：", {
-    profile,
-    clubs
+    profile
   });
   alert('個人資料已更新！');
+
+  saveHint.value = "資料已儲存！";
 };
 
 const updatePassword = () => {
@@ -180,12 +182,19 @@ const memberRoles = [
 ];
 
 onUnmounted(() => {
+  if (saveHint.value === '儲存個人資料') {
+    alert('請先儲存個人資料變更！');
+  }
   // 當離開設定頁面時，移除 settings-page 類別
   const appElement = document.getElementById('app');
   if (appElement) {
     appElement.classList.remove('settings-page');
   }
 });
+
+watch(() => profile, () => {
+  saveHint.value = '儲存個人資料';
+}, { deep: true });
 </script>
 
 <template>
@@ -271,17 +280,17 @@ onUnmounted(() => {
         <div class="clubs-section">
           <div class="section-header">
             <h3>分會資訊</h3>
-            <button class="btn secondary" @click="addClub" :disabled="clubs.length >= 5">
+            <button class="btn secondary" @click="addClub" :disabled="profile.clubs.length >= 5">
               ➕ 新增分會
             </button>
           </div>
 
           <div class="clubs-list">
-            <div v-for="(club, index) in clubs" :key="index" class="club-card">
+            <div v-for="(club, index) in profile.clubs" :key="index" class="club-card">
               <div class="club-header">
                 <h4>分會 {{ index + 1 }}</h4>
                 <button
-                  v-if="clubs.length > 1"
+                  v-if="profile.clubs.length > 1"
                   class="btn danger small"
                   @click="removeClub(index)"
                   title="刪除分會"
@@ -339,7 +348,7 @@ onUnmounted(() => {
         </div>
 
         <button class="submit-btn primary" @click="updateProfile">
-          💾 儲存個人資料
+          💾 {{ saveHint }}
         </button>
       </div>
 
