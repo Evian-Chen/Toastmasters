@@ -35,10 +35,12 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 
 const authRouter = require("./routes/auth.js");
 const dataRouter = require("./routes/data.js");
+const accountRouter = require("./routes/account.js");
 const forgetRouter = require("./routes/forget.js");
 
 app.use("/auth", authRouter);
 app.use("/data", dataRouter);
+app.use("/account", accountRouter);
 app.use("/forget", forgetRouter);
 
 // ===================== //

@@ -55,7 +55,7 @@ const onLogIn = async () => {
 
   })
   .catch((err) => {
-    console.log(`error: ${err}`);
+    console.log(`login error: ${err}`);
     if (err.response.status === 401) {
       state.warning = "使用者密碼錯誤";
     }

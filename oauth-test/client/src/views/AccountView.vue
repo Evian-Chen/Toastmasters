@@ -1,6 +1,10 @@
 <script setup>
+import axios from 'axios';
 import { watch } from 'vue';
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
+import { userAuthStore } from '@/stores/user';
+
+const userStore = userAuthStore();
 
 // 個人資料
 const profile = reactive({
@@ -83,7 +87,11 @@ const activeTab = ref('profile');
 
 const saveHint = ref('資料已是最新！');
 
-// 方法
+const warning = reactive({
+  profileWarning: '',
+  pwWarning: ''
+})
+
 const updateProfile = () => {
   // 驗證必填欄位
   if (!profile.displayName.trim()) {
@@ -111,30 +119,52 @@ const updateProfile = () => {
   saveHint.value = "資料已儲存！";
 };
 
-const updatePassword = () => {
-  if (!passwordForm.currentPassword) {
-    alert('請輸入目前密碼');
+const updatePassword = async () => {
+  if (!passwordForm.currentPassword || !passwordForm.newPassword || !passwordForm.confirmPassword) {
+    warning.pwWarning = '請填寫所有密碼欄位';
     return;
   }
-  if (!passwordForm.newPassword) {
-    alert('請輸入新密碼');
-    return;
-  }
-  if (passwordForm.newPassword.length < 6) {
-    alert('新密碼至少需要6個字元');
-    return;
-  }
+
   if (passwordForm.newPassword !== passwordForm.confirmPassword) {
-    alert('新密碼與確認密碼不符');
+    warning.pwWarning = '新密碼與確認密碼不符';
     return;
   }
-  console.log("更新密碼");
-  alert('密碼已更新！');
-  // 清空表單
-  passwordForm.currentPassword = '';
-  passwordForm.newPassword = '';
-  passwordForm.confirmPassword = '';
+
+  if (passwordForm.newPassword === passwordForm.currentPassword) {
+    warning.pwWarning = '新密碼不能與舊密碼相同';
+    return;
+  }
+
+  // 檢查舊密碼是否正確
+  await axios.post("/api/account/password/new", {
+    currentPassword: passwordForm.currentPassword,
+    newPassword: passwordForm.newPassword,
+    email: userStore.userData.email
+  })
+  .then((res) => {
+    if (res.status === 201) {
+      console.log("201");
+      warning.pwWarning = '舊密碼輸入錯誤';
+      return;
+    }
+
+    alert('密碼已更新！');
+
+    // 成功後清空表單
+    warning.pwWarning = '';
+    passwordForm.currentPassword = '';
+    passwordForm.newPassword = '';
+    passwordForm.confirmPassword = '';
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 };
+
+const forgetPassword = () => {
+  // TODO
+  return;
+}
 
 const updatePrivacy = () => {
   console.log("更新隱私設定：", privacySettings);
@@ -373,8 +403,16 @@ watch(() => profile, () => {
             <input id="confirmPassword" v-model="passwordForm.confirmPassword" type="password" />
           </div>
 
+          <div v-if="warning.pwWarning">
+            <p class="error">{{ warning.pwWarning }}</p>
+          </div>
+
           <button class="submit-btn primary" @click="updatePassword">
             🔐 更新密碼
+          </button>
+
+          <button v-if="warning.pwWarning === '舊密碼輸入錯誤'" class="submit-btn primary" @click="forgetPassword">
+            忘記密碼
           </button>
         </div>
 
@@ -773,7 +811,7 @@ watch(() => profile, () => {
 }
 
 .submit-btn {
-  padding: 0.75rem 1.5rem;
+  padding: 1rem 1rem;
   border: none;
   border-radius: 6px;
   font-size: 1rem;
@@ -940,5 +978,12 @@ watch(() => profile, () => {
     align-items: stretch;
     gap: 1rem;
   }
+}
+
+.error {
+  color: red;
+  font-size: 17px;
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
 }
 </style>

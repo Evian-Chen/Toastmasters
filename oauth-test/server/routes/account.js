@@ -5,9 +5,33 @@ const model = require("../models");
 const router = express.Router();
 
 // 更新密碼
-router.post("/password/new", (req, res) => {
-    //
-    res.json({ message: "/account/password/new" });
+router.post("/password/new", async (req, res) => {
+    console.log(req.body);
+
+    const curUser = await model.user.findOne({
+        email: req.body.email,
+        password: req.body.currentPassword
+    });
+
+    // 舊密碼必須正確才能變更密碼
+    if (!curUser) {
+        console.log("201");
+        res.status(201).json({ message: "舊密碼錯誤" });
+        return;
+    }
+
+    try {
+        const newUser = await model.user.updateOne(
+            { email: req.body.email, password: req.body.currentPassword },
+            { password: req.body.newPassword }
+        );
+        if (newUser) {
+            res.json({ message: "更新密碼完成" });
+        }
+    } catch(err) {
+        console.log(`更新密碼錯誤: ${err}`);
+        res.status(500).json({ message: "更新密碼錯誤" });
+    }
 })
 
 // 更新個人資料
