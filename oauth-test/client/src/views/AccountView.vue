@@ -119,6 +119,7 @@ const updateProfile = () => {
   saveHint.value = "資料已儲存！";
 };
 
+// 更新密碼 OK
 const updatePassword = async () => {
   if (!passwordForm.currentPassword || !passwordForm.newPassword || !passwordForm.confirmPassword) {
     warning.pwWarning = '請填寫所有密碼欄位';
