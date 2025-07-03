@@ -9,9 +9,6 @@ export const userAuthStore = defineStore('auth', () => {
     avatar: "",
     displayName: "",
     email: "",
-    club: "",
-    role: "",
-    pathwayLevel: "",
     emailVerified: false,
 
     privacy: {
@@ -30,7 +27,7 @@ export const userAuthStore = defineStore('auth', () => {
   const isLoggedIn = ref(false)
 
   const setData = async (data) => {
-    // 這邊應該改成跟資料庫請求這個人的所有資料，而不是靠前端去取得
+    // 這邊應該改成跟資料庫請求這個人的存在Pinia的資料，而不是靠前端去取得
     // 如果呼叫了這個函式，基本上就代表一定有這個人的資料
     await axios.get(`/api/data/info`, {
       params: data
@@ -42,9 +39,6 @@ export const userAuthStore = defineStore('auth', () => {
         avatar: info.avatar || "",
         displayName: info.displayName || "",
         email: info.email || "",
-        club: info.club || "",
-        role: info.role || "",
-        pathwayLevel: info.pathwayLevel || "",
         emailVerified: info.email_verified || false,
 
         privacy: {

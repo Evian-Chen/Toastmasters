@@ -1,6 +1,6 @@
 <script setup>
 import axios from 'axios';
-import { watch } from 'vue';
+import { computed, watch } from 'vue';
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
 import { userAuthStore } from '@/stores/user';
 
@@ -8,52 +8,25 @@ const userStore = userAuthStore();
 
 // 個人資料
 const profile = reactive({
-  avatar: '',
-  displayName: '',
-  realName: '',
-  email: '',
-  phone: '',
-  birthday: '',
-  bio: '',
-  location: '',
+  avatar: "",
+  displayName: "",
+  realName: "",
+  email: "",
+  phone: "",
+  birthday: "",
+  bio: "",
+  location: "",
   clubs: []
 });
 
-// 新增分會
-const addClub = () => {
-  if (profile.clubs.length < 5) {
-    profile.clubs.push({
-      clubName: '',
-      role: 'member',
-      memberSince: '',
-      pathwayLevel: 'Level 1'
-    });
-  } else {
-    alert('最多只能添加5個分會');
-  }
-};
+// pathways的處理要另外做，因為官網的分級比較複雜
+const pathwayLevels = [
+  'Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5'
+];
 
-// 刪除分會
-const removeClub = (index) => {
-  if (profile.clubs.length > 1) {
-    profile.clubs.splice(index, 1);
-  } else {
-    alert('至少需要保留一個分會');
-  }
-};
-
-// 初始化時添加一個分會
-onMounted(() => {
-  if (profile.clubs.length === 0) {
-    addClub();
-  }
-
-  // 當進入設定頁面時，為 #app 添加 settings-page 類別
-  const appElement = document.getElementById('app');
-  if (appElement) {
-    appElement.classList.add('settings-page');
-  }
-});
+const memberRoles = [
+  'member', 'VPE', 'VPM', 'VPPR', 'Secretary', 'Treasurer', 'Sergeant at Arms', 'President'
+];
 
 // 密碼設定
 const passwordForm = reactive({
@@ -82,17 +55,24 @@ const notificationSettings = reactive({
   systemUpdates: false
 });
 
-// 當前選中的設定分頁
+// ref 變數設定區
 const activeTab = ref('profile');
-
 const saveHint = ref('資料已是最新！');
+const editMode = ref(false);
+
+const clubCount = computed(() => {
+  return profile.clubs?.length || 0;
+})
+const isMaxClub = computed(() => {
+  return clubCount.value >= 5;
+})
 
 const warning = reactive({
   profileWarning: '',
   pwWarning: ''
 })
 
-const updateProfile = () => {
+const updateProfile = async () => {
   // 驗證必填欄位
   if (!profile.displayName.trim()) {
     alert('請填寫顯示名稱');
@@ -111,12 +91,27 @@ const updateProfile = () => {
     }
   }
 
-  console.log("更新個人資料：", {
-    profile
-  });
-  alert('個人資料已更新！');
+  console.log("update profile");
+  editMode.value = false;
 
-  saveHint.value = "資料已儲存！";
+  // try {
+  //   await axios.post("/api/account/profile/new", {
+  //     profile: profile,
+  //     clubs: profile.clubs
+  //   })
+  //   .then((res) => {
+  //     //
+  //     console.log(`update profile ok: ${res}`);
+  //     alert('個人資料已更新！');
+  //     saveHint.value = "資料已儲存！";
+  //   })
+  //   .catch((err) => {
+  //     console.log(`frontend post profile error: ${err}`);
+  //   })
+  // } catch(err) {
+  //   console.log(`更新個人資料錯誤: ${err}`);
+  //   return;
+  // }
 };
 
 // 更新密碼 OK
@@ -142,24 +137,24 @@ const updatePassword = async () => {
     newPassword: passwordForm.newPassword,
     email: userStore.userData.email
   })
-  .then((res) => {
-    if (res.status === 201) {
-      console.log("201");
-      warning.pwWarning = '舊密碼輸入錯誤';
-      return;
-    }
+    .then((res) => {
+      if (res.status === 201) {
+        console.log("201");
+        warning.pwWarning = '舊密碼輸入錯誤';
+        return;
+      }
 
-    alert('密碼已更新！');
+      alert('密碼已更新！');
 
-    // 成功後清空表單
-    warning.pwWarning = '';
-    passwordForm.currentPassword = '';
-    passwordForm.newPassword = '';
-    passwordForm.confirmPassword = '';
-  })
-  .catch((err) => {
-    console.log(err);
-  })
+      // 成功後清空表單
+      warning.pwWarning = '';
+      passwordForm.currentPassword = '';
+      passwordForm.newPassword = '';
+      passwordForm.confirmPassword = '';
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 };
 
 const forgetPassword = () => {
@@ -203,14 +198,84 @@ const handleAvatarUpload = (event) => {
   }
 };
 
-// pathways的處理要另外做，因為官網的分級比較複雜
-const pathwayLevels = [
-  'Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5'
-];
+const toggleEdit = () => {
+  console.log(`editMode: ${editMode.value}`);
+  editMode.value = !editMode.value;
+}
 
-const memberRoles = [
-  'member', 'VPE', 'VPM', 'VPPR', 'Secretary', 'Treasurer', 'Sergeant at Arms', 'President'
-];
+const cancelEdit = () => {
+  editMode.value = false;
+}
+
+// 新增分會
+const addClub = () => {
+  if (clubCount.value < 5) {
+    // 確保 clubs 是陣列
+    if (!Array.isArray(profile.clubs)) {
+      profile.clubs = [];
+    }
+
+    profile.clubs.push({
+      clubName: '',
+      role: 'member',
+      memberSince: '',
+      pathwayLevel: 'Level 1'
+    });
+  } else {
+    alert('最多只能添加5個分會');
+  }
+};
+
+// 刪除分會
+const removeClub = (index) => {
+  if (profile.clubs.length > 1) {
+    profile.clubs.splice(index, 1);
+  } else {
+    alert('至少需要保留一個分會');
+  }
+};
+
+const setAllInfo = async () => {
+  console.log("in setAllInfo")
+  console.log(`email: ${userStore.userData.email}`);
+  await axios.get("/api/data/fullInfo", {
+    params: {
+      email: userStore.userData.email
+    }
+  })
+    .then((res) => {
+      // 後端資料放在res.data，根據後端資料更新設定頁面的資料
+      profile.avatar = res.data.avatar;
+      profile.displayName = res.data.displayName;
+      profile.realName = res.data.realName;
+      profile.email = res.data.email;
+      profile.phone = res.data.phone;
+      profile.birthday = res.data.birthday;
+      profile.bio = res.data.bio;
+      profile.location = res.data.location;
+      profile.clubs = res.data.clubs;
+
+      console.log("set all data in setting view");
+    })
+    .catch((err) => {
+      console.log(`setAllInfo error: ${err}`);
+    })
+}
+
+// 初始化時添加一個分會
+onMounted(async () => {
+  if (profile.clubs.length === 0) {
+    addClub();
+  }
+
+  await setAllInfo();
+
+  // 當進入設定頁面時，為 #app 添加 settings-page 類別
+  const appElement = document.getElementById('app');
+  if (appElement) {
+    appElement.classList.add('settings-page');
+  }
+});
 
 onUnmounted(() => {
   if (saveHint.value === '儲存個人資料') {
@@ -263,124 +328,124 @@ watch(() => profile, () => {
       <div v-if="activeTab === 'profile'" class="settings-panel">
         <h1 class="panel-title">個人資料</h1>
 
-        <!-- 頭像上傳 -->
-        <div class="avatar-section">
-          <div class="avatar-container">
-            <img :src="profile.avatar || '/default-avatar.png'" alt="個人頭像" class="avatar" />
-            <label for="avatar-upload" class="avatar-upload-btn">
-              📷 更換頭像
-            </label>
-            <input id="avatar-upload" type="file" accept="image/*" @change="handleAvatarUpload"
-              style="display: none;" />
-          </div>
-        </div>
+        <div class="settings-panel">
 
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="displayName">顯示名稱 *</label>
-            <input id="displayName" v-model="profile.displayName" type="text" placeholder="其他人看到的名稱" required />
+          <!-- 頭像上傳 -->
+          <div class="avatar-section">
+            <div class="avatar-container">
+              <img :src="profile.avatar || '/default-avatar.png'" alt="個人頭像" class="avatar" />
+              <label for="avatar-upload" class="avatar-upload-btn">
+                📷 更換頭像
+              </label>
+              <input id="avatar-upload" type="file" accept="image/*" @change="handleAvatarUpload"
+                style="display: none;" />
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="realName">真實姓名</label>
-            <input id="realName" v-model="profile.realName" type="text" placeholder="你的真實姓名" />
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="displayName">顯示名稱 *</label>
+              <input id="displayName" v-model="profile.displayName" type="text" placeholder="其他人看到的名稱" required />
+            </div>
+
+            <div class="form-group">
+              <label for="realName">真實姓名</label>
+              <input id="realName" v-model="profile.realName" type="text" placeholder="你的真實姓名" />
+            </div>
+
+            <div class="form-group">
+              <label for="email">電子郵件 *</label>
+              <input id="email" v-model="profile.email" type="email" placeholder="you@gmail.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="phone">聯絡電話</label>
+              <input id="phone" v-model="profile.phone" type="tel" placeholder="09XX-XXX-XXX" />
+            </div>
+
+            <div class="form-group">
+              <label for="birthday">生日</label>
+              <input id="birthday" v-model="profile.birthday" type="date" />
+            </div>
+
+            <div class="form-group">
+              <label for="location">所在地區</label>
+              <input id="location" v-model="profile.location" type="text" placeholder="台北市, 台灣" />
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="email">電子郵件 *</label>
-            <input id="email" v-model="profile.email" type="email" placeholder="your@email.com" required />
-          </div>
+          <!-- 分會資訊區域 -->
+          <div class="clubs-section">
+            <div class="section-header">
+              <h3>分會資訊</h3>
+              <button class="btn secondary" @click="addClub" :disabled="isMaxClub">
+                ➕ 新增分會
+              </button>
+            </div>
 
-          <div class="form-group">
-            <label for="phone">聯絡電話</label>
-            <input id="phone" v-model="profile.phone" type="tel" placeholder="09XX-XXX-XXX" />
-          </div>
-
-          <div class="form-group">
-            <label for="birthday">生日</label>
-            <input id="birthday" v-model="profile.birthday" type="date" />
-          </div>
-
-          <div class="form-group">
-            <label for="location">所在地區</label>
-            <input id="location" v-model="profile.location" type="text" placeholder="台北市, 台灣" />
-          </div>
-        </div>
-
-        <!-- 分會資訊區域 -->
-        <div class="clubs-section">
-          <div class="section-header">
-            <h3>分會資訊</h3>
-            <button class="btn secondary" @click="addClub" :disabled="profile.clubs.length >= 5">
-              ➕ 新增分會
-            </button>
-          </div>
-
-          <div class="clubs-list">
-            <div v-for="(club, index) in profile.clubs" :key="index" class="club-card">
-              <div class="club-header">
-                <h4>分會 {{ index + 1 }}</h4>
-                <button
-                  v-if="profile.clubs.length > 1"
-                  class="btn danger small"
-                  @click="removeClub(index)"
-                  title="刪除分會"
-                >
-                  🗑️
-                </button>
-              </div>
-
-              <div class="club-form-grid">
-                <div class="form-group">
-                  <label :for="`clubName-${index}`">分會名稱 *</label>
-                  <input
-                    :id="`clubName-${index}`"
-                    v-model="club.clubName"
-                    type="text"
-                    placeholder="Toastmasters分會名稱"
-                    required
-                  />
+            <div class="clubs-list">
+              <div v-for="(club, index) in profile.clubs" :key="index" class="club-card">
+                <div class="club-header">
+                  <h4>分會 {{ index + 1 }}</h4>
+                  <button v-if="clubCount > 1" class="btn danger small" @click="removeClub(index)"
+                    title="刪除分會">
+                    🗑️
+                  </button>
                 </div>
 
-                <div class="form-group">
-                  <label :for="`memberSince-${index}`">入會時間</label>
-                  <input
-                    :id="`memberSince-${index}`"
-                    v-model="club.memberSince"
-                    type="date"
-                  />
-                </div>
+                <div class="club-form-grid">
+                  <div class="form-group">
+                    <label :for="`clubName-${index}`">分會名稱 *</label>
+                    <input :id="`clubName-${index}`" v-model="club.clubName" type="text" placeholder="Toastmasters分會名稱"
+                      required />
+                  </div>
 
-                <div class="form-group">
-                  <label :for="`pathwayLevel-${index}`">Pathways等級</label>
-                  <select :id="`pathwayLevel-${index}`" v-model="club.pathwayLevel">
-                    <option v-for="level in pathwayLevels" :key="level" :value="level">
-                      {{ level }}
-                    </option>
-                  </select>
-                </div>
+                  <div class="form-group">
+                    <label :for="`memberSince-${index}`">入會時間</label>
+                    <input :id="`memberSince-${index}`" v-model="club.memberSince" type="date" />
+                  </div>
 
-                <div class="form-group">
-                  <label :for="`role-${index}`">分會職務</label>
-                  <select :id="`role-${index}`" v-model="club.role">
-                    <option v-for="role in memberRoles" :key="role" :value="role">
-                      {{ role }}
-                    </option>
-                  </select>
+                  <div class="form-group">
+                    <label :for="`pathwayLevel-${index}`">Pathways等級</label>
+                    <select :id="`pathwayLevel-${index}`" v-model="club.pathwayLevel">
+                      <option v-for="level in pathwayLevels" :key="level" :value="level">
+                        {{ level }}
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label :for="`role-${index}`">分會職務</label>
+                    <select :id="`role-${index}`" v-model="club.role">
+                      <option v-for="role in memberRoles" :key="role" :value="role">
+                        {{ role }}
+                      </option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+          <div class="form-group full-width">
+            <label for="bio">個人簡介</label>
+            <textarea id="bio" v-model="profile.bio" rows="4" placeholder="分享一些關於你的演講經驗、興趣或目標..."></textarea>
+          </div>
 
-        <div class="form-group full-width">
-          <label for="bio">個人簡介</label>
-          <textarea id="bio" v-model="profile.bio" rows="4" placeholder="分享一些關於你的演講經驗、興趣或目標..."></textarea>
+          <!-- 如果不是編輯，顯示原本的資料，進入編輯模式才能夠Input東西 -->
+          <div v-if="!editMode">
+            <button class="submit-btn primary" @click="toggleEdit">
+              編輯資料
+            </button>
+          </div>
+          <div v-else>
+            <button class="submit-btn primary" @click="updateProfile">
+              💾 {{ saveHint }}
+            </button>
+            <button class="submit-btn secondary" @click="cancelEdit" style="margin-left: 10px;">
+              取消
+            </button>
+          </div>
         </div>
-
-        <button class="submit-btn primary" @click="updateProfile">
-          💾 {{ saveHint }}
-        </button>
       </div>
 
       <!-- 帳號安全頁面 -->
@@ -922,11 +987,11 @@ watch(() => profile, () => {
   transition: transform 0.2s;
 }
 
-.toggle-label input[type="checkbox"]:checked + .toggle-switch {
+.toggle-label input[type="checkbox"]:checked+.toggle-switch {
   background-color: #3b82f6;
 }
 
-.toggle-label input[type="checkbox"]:checked + .toggle-switch::after {
+.toggle-label input[type="checkbox"]:checked+.toggle-switch::after {
   transform: translateX(20px);
 }
 

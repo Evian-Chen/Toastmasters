@@ -6,8 +6,6 @@ const router = express.Router();
 
 // 更新密碼
 router.post("/password/new", async (req, res) => {
-    console.log(req.body);
-
     const curUser = await model.user.findOne({
         email: req.body.email,
         password: req.body.currentPassword
@@ -35,7 +33,22 @@ router.post("/password/new", async (req, res) => {
 })
 
 // 更新個人資料
-router.post("/profile/new", (req, res) => {
+router.post("/profile/new", async (req, res) => {
+    const newProfile = {
+        avatar: req.body.profile.avatar,
+        displayName: req.body.profile.displayName,
+        realName: req.body.profile.realName,
+        email: req.body.profile.email,
+        phone: req.body.profile.phone,
+        birthday: req.body.profile.birthday,
+        bio: req.body.profile.bio,
+        location: req.body.profile.location
+    };
+
+    const clubs = req.body.profile.clubs;
+
+    const result = await model.user.findOne()
+
     res.json({ message: "/account/profile/new" });
 })
 
