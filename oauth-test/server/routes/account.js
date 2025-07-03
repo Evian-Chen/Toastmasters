@@ -34,20 +34,33 @@ router.post("/password/new", async (req, res) => {
 
 // 更新個人資料
 router.post("/profile/new", async (req, res) => {
-    const newProfile = {
-        avatar: req.body.profile.avatar,
-        displayName: req.body.profile.displayName,
-        realName: req.body.profile.realName,
-        email: req.body.profile.email,
-        phone: req.body.profile.phone,
-        birthday: req.body.profile.birthday,
-        bio: req.body.profile.bio,
-        location: req.body.profile.location
-    };
+    // const newProfile = {
+    //     avatar: req.body.newData.avatar,
+    //     displayName: req.body.newData.displayName,
+    //     realName: req.body.newData.realName,
+    //     email: req.body.newData.email,
+    //     phone: req.body.newData.phone,
+    //     birthday: req.body.newData.birthday,
+    //     bio: req.body.newData.bio,
+    //     location: req.body.newData.location
+    // };
+    // const newClubs = req.body.newData.clubs;
 
-    const clubs = req.body.profile.clubs;
+    const result = await model.user.findOneAndUpdate({
+        email: req.body.oldData.email
+    }, {
+        avatar: req.body.newData.avatar,
+        displayName: req.body.newData.displayName,
+        realName: req.body.newData.realName,
+        email: req.body.newData.email,
+        phone: req.body.newData.phone,
+        birthday: req.body.newData.birthday,
+        bio: req.body.newData.bio,
+        location: req.body.newData.location,
+        clubs: req.body.newData.clubs
+    });
 
-    const result = await model.user.findOne()
+    console.log(`個人資料更新結果: ${result}`);
 
     res.json({ message: "/account/profile/new" });
 })
