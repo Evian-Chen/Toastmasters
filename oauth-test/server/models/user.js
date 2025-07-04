@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
     location: { type: String, default: "" }, // example: 'Taipei, Taiwan'
     birthday: { type: Date, default: null }, 
 
-    clubs: { type: clubSchema, default: {} }, // 使用嵌套的clubSchema來儲存分會資訊
+    clubs: { type: [clubSchema], default: [] }, // 使用嵌套的clubSchema來儲存分會資訊
 
     emailToken: String,
     tokenExpires: { type: Date },

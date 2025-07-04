@@ -112,9 +112,7 @@ const updateProfile = async () => {
       oldData: profile,
       newData: newProfile
     })
-    .then((res) => {
-      //
-      console.log(`update profile ok: ${res}`);
+    .then(() => {
       alert('個人資料已更新！');
       saveHint.value = "資料已儲存！";
     })
@@ -740,7 +738,6 @@ watch(() => profile, () => {
 </template>
 
 <style scoped>
-
 /* 非編輯模式的樣式 */
 .profile-view {
   padding: 20px;
@@ -903,8 +900,9 @@ watch(() => profile, () => {
 
 .settings-container {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
   background-color: #f8fafc;
+  overflow: hidden;
 }
 
 /* 側邊導航 */
@@ -913,6 +911,8 @@ watch(() => profile, () => {
   background: white;
   border-right: 1px solid #e5e7eb;
   padding: 2rem 0;
+  flex-shrink: 0;
+  overflow-y: auto;
 }
 
 .nav-title {
@@ -959,6 +959,8 @@ watch(() => profile, () => {
   flex: 1;
   padding: 2rem;
   max-width: 800px;
+  overflow-y: auto;
+  height: 100vh;
 }
 
 .settings-panel {
@@ -966,6 +968,7 @@ watch(() => profile, () => {
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
 }
 
 .panel-title {
@@ -1151,7 +1154,7 @@ watch(() => profile, () => {
 }
 
 .submit-btn {
-  padding: 1rem 1rem;
+  padding: 1rem 2rem;
   border: none;
   border-radius: 6px;
   font-size: 1rem;
@@ -1159,6 +1162,8 @@ watch(() => profile, () => {
   cursor: pointer;
   transition: all 0.2s;
   margin-top: 1rem;
+  margin-bottom: 2rem;
+  width: 100%;
 }
 
 .submit-btn.primary {
@@ -1188,6 +1193,7 @@ watch(() => profile, () => {
   border: 1px solid #fecaca;
   border-radius: 8px;
   text-align: center;
+  margin-bottom: 2rem;
 }
 
 .warning-text {
@@ -1280,10 +1286,15 @@ watch(() => profile, () => {
 @media (max-width: 768px) {
   .settings-container {
     flex-direction: column;
+    height: auto;
   }
 
   .settings-nav {
     width: 100%;
+    height: auto;
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
 
   .nav-list {
@@ -1297,6 +1308,7 @@ watch(() => profile, () => {
     padding: 1rem;
     border-left: none;
     border-bottom: 3px solid transparent;
+    min-width: max-content;
   }
 
   .nav-list button.active {
@@ -1311,6 +1323,8 @@ watch(() => profile, () => {
 
   .settings-content {
     padding: 1rem;
+    height: auto;
+    overflow-y: visible;
   }
 
   .section-header {
@@ -1318,12 +1332,17 @@ watch(() => profile, () => {
     align-items: stretch;
     gap: 1rem;
   }
+
+  .submit-btn {
+    width: 100%;
+    margin-bottom: 4rem;
+  }
 }
 
 .error {
-  color: red;
-  font-size: 17px;
-  margin-top: 0.3rem;
-  margin-bottom: 0.3rem;
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 </style>
