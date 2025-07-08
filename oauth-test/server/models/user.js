@@ -1,11 +1,16 @@
 const mongoose = require("mongoose");
 const conn = require("./db");
 
+const pathwaysSchema = new mongoose.Schema({
+    path: { type: String, required: true },
+    level: { type: String, default: "" }
+})
+
 const clubSchema = new mongoose.Schema({
     clubName: { type: String, default: "" }, // example: 'Toastmasters Club'
     role: { type: String, default: "" }, // example: 'Member'
     memberSince: { type: Date, default: Date.now },
-    pathwayLevel: { type: String, default: "" }
+    pathwayLevel: { type: [pathwaysSchema], default: [] }
 }, {
     timestamps: true,
     _id: false // 不需要為嵌套的clubSchema生成_id

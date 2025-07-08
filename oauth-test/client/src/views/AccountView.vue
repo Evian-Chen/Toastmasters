@@ -33,10 +33,16 @@ const newProfile = reactive({
   clubs: []
 })
 
-// pathways的處理要另外做，因為官網的分級比較複雜
-const pathwayLevels = [
+// pathways
+const levels = [
   'Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5'
 ];
+
+const paths = [
+  'Dynamic Leadership', 'Effective Coaching', 'Engaging Humor', 'Innovative Planning',
+  'Leadership Development', 'Motivational Strategies', 'Persuasive Influence',
+  'Presentation Mastery', 'Strategic Relationships', 'Team Collaboration', 'Visionary Communication'
+]
 
 const memberRoles = [
   'member', 'VPE', 'VPM', 'VPPR', 'Secretary', 'Treasurer', 'Sergeant at Arms', 'President'
@@ -264,7 +270,7 @@ const addClub = () => {
       clubName: '',
       role: 'member',
       memberSince: '',
-      pathwayLevel: 'Level 1'
+      pathwayLevel: [{path: 'None', level: 'N/A'}]
     });
 
     console.log(`addclube: ${JSON.stringify(profile.clubs)}`);
@@ -281,6 +287,26 @@ const removeClub = (index) => {
     alert('至少需要保留一個分會');
   }
 };
+
+// 新增分會的pathways
+const addPathways = (index) => {
+  console.log(JSON.stringify(profile.clubs[index].pathwayLevel));
+  profile.clubs[index].pathwayLevel.push({
+    path: '',
+    level: ''
+  });
+  alert("新增pathways");
+}
+
+// 刪除分會的pathways
+const removePathways = (index, pIndex) => {
+  if (profile.clubs[index].pathwayLevel.length > 1) {
+    profile.clubs[index].pathwayLevel.splice(pIndex, 1);
+  } else {
+    alert("至少需保留一個 pathways");
+  }
+
+}
 
 const setAllInfo = async () => {
   console.log("in setAllInfo, email: " + userStore.userData.email);
@@ -462,7 +488,11 @@ watch(() => activeTab.value, () => {
                     </div>
                     <div class="club-detail-item">
                       <span class="label">Pathways等級：</span>
-                      <span class="value">{{ club.pathwayLevel || 'Level 1' }}</span>
+
+                      <span class="value" v-for="(item, index) in club.pathwayLevel" :key="index">
+                        {{ item.path }} - {{ item.level }}
+                      </span>
+
                     </div>
                   </div>
                 </div>
@@ -573,12 +603,39 @@ watch(() => activeTab.value, () => {
                     </div>
 
                     <div class="form-group">
-                      <label :for="`pathwayLevel-${index}`">Pathways等級</label>
-                      <select :id="`pathwayLevel-${index}`" v-model="club.pathwayLevel">
-                        <option v-for="level in pathwayLevels" :key="level" :value="level">
-                          {{ level }}
-                        </option>
-                      </select>
+                      <div class="pathways-header">
+                        <!-- TODO: addPathways(index) -> 傳入目前的club的index -->
+                        <h3>Pathways</h3>
+                        <button class="btn secondary" @click="addPathways(index)" :disabled="isMaxClub">
+                          ➕ 新增Pathways
+                        </button>
+                      </div>
+                      <div class="pathways-list">
+                        <div v-for="(pathway, pIndex) in club.pathwayLevel" :key="pIndex" class="pathways-card">
+                          <h4>pathways {{ pIndex + 1 }}</h4>
+                          <button v-if="club.pathwayLevel.length > 1" class="btn danger small" @click="removePathways(index, pIndex)"
+                            title="刪除Pathways">
+                            🗑️
+                          </button>
+
+                          <!-- path的選擇 -->
+                          <label :for="`path ${club.pathwayLevel[pIndex].path}`">path</label>
+                          <select :id="`path ${club.pathwayLevel[pIndex].path}`" v-model="club.pathwayLevel[pIndex].path">
+                            <option v-for="path in paths" :key="path" :value="path">
+                              {{ path }}
+                            </option>
+                          </select>
+
+                          <!-- level的選擇 -->
+                          <label :for="`level ${club.pathwayLevel[pIndex].level}`">level</label>
+                          <select :id="`level ${club.pathwayLevel[pIndex].level}`" v-model="club.pathwayLevel[pIndex].level">
+                            <option v-for="level in levels" :key="level" :value="level">
+                              {{ level }}
+                            </option>
+                          </select>
+
+                        </div>
+                      </div>
                     </div>
 
                     <div class="form-group">
@@ -1165,6 +1222,34 @@ watch(() => activeTab.value, () => {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
+}
+
+/* pathways 選擇樣式 */
+.pathways-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.pathways-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.pathways-card {
+  border: 1px dashed #d1d5db;
+  padding: 1rem;
+  border-radius: 6px;
+  background-color: #ffffff;
+}
+
+.pathways-card h4 {
+  margin: 0 0 0.5rem 0;
+  font-weight: 500;
+  color: #4b5563;
 }
 
 /* 按鈕樣式 */
