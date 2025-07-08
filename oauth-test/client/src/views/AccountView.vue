@@ -3,8 +3,10 @@ import axios from 'axios';
 import { computed, watch } from 'vue';
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
 import { userAuthStore } from '@/stores/user';
+import { useRouter } from 'vue-router';
 
 const userStore = userAuthStore();
+const router = useRouter();
 
 // 個人資料
 const profile = reactive({
@@ -85,6 +87,7 @@ const warning = reactive({
   pwWarning: ''
 })
 
+// 編輯個人資料 OK
 const updateProfile = async () => {
   // 驗證必填欄位
   if (!profile.displayName.trim()) {
@@ -104,7 +107,6 @@ const updateProfile = async () => {
     }
   }
 
-  console.log("update profile");
   editMode.value = false;
 
   try {
@@ -169,8 +171,7 @@ const updatePassword = async () => {
 };
 
 const forgetPassword = () => {
-  // TODO
-  return;
+  router.push("/forgetPassword");
 }
 
 const updatePrivacy = () => {
@@ -310,7 +311,7 @@ onUnmounted(() => {
   }
 });
 
-watch(() => profile, () => {
+watch(() => newProfile  , () => {
   saveHint.value = '儲存個人資料';
 }, { deep: true });
 </script>
