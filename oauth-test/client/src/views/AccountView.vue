@@ -60,18 +60,19 @@ const privacySettings = reactive({
 
 // 通知設定
 const notificationSettings = reactive({
-  emailNotifications: true,
-  messageNotifications: true,
-  postLikes: true,
-  postComments: true,
-  clubAnnouncements: true,
+  emailNotifications: false,
+  messageNotifications: false,
+  postLikes: false,
+  postComments: false,
+  clubAnnouncements: false,
   systemUpdates: false
 });
 
 // ref 變數設定區
 const activeTab = ref('profile');
-const profileSaveHint = ref('資料已是最新！');
+const profileSaveHint = ref('資料已儲存');
 const privacySaveHint = ref('資料已儲存');
+const notificationSaveHint = ref('資料已儲存');
 const editMode = ref(false);
 
 // 使用computed計算社團的數量和是否超過上限，避免length出問題
@@ -116,7 +117,7 @@ const updateProfile = async () => {
     })
     .then(() => {
       alert('個人資料已更新！');
-      profileSaveHint.value = "資料已儲存！";
+      profileSaveHint.value = "資料已儲存";
     })
     .catch((err) => {
       console.log(`frontend post profile error: ${err}`);
@@ -174,6 +175,7 @@ const forgetPassword = () => {
   router.push("/forgetPassword");
 }
 
+// 隱私設定 OK
 const updatePrivacy = async () => {
   try {
     await axios.post("/api/account/privacy/new", {
@@ -194,9 +196,24 @@ const updatePrivacy = async () => {
 
 };
 
-const updateNotifications = () => {
-  console.log("更新通知設定：", notificationSettings);
-  alert('通知設定已更新！');
+// 通知設定 OK
+const updateNotifications = async () => {
+  try {
+    await axios.post("/api/account/notifications/new", {
+      email: userStore.userData.email,
+      newData: notificationSettings
+    })
+    .then(() => {
+      notificationSaveHint.value = '資料已儲存';
+      console.log("更新通知設定：", notificationSettings);
+      alert('通知設定已更新！');
+    })
+    .catch((err) => {
+      console.log(`updateNorification axios front end error: ${err}`);
+    })
+  } catch(err) {
+    console.log(`updateNorification front end axios error: ${err}`);
+  }
 };
 
 const handleAvatarUpload = (event) => {
@@ -225,10 +242,12 @@ const handleAvatarUpload = (event) => {
   }
 };
 
+// 切換編輯模式
 const toggleEdit = () => {
   editMode.value = !editMode.value;
 }
 
+// 取消編輯模式
 const cancelEdit = () => {
   editMode.value = false;
 }
@@ -272,20 +291,22 @@ const setAllInfo = async () => {
   })
     .then((res) => {
       // 後端資料放在res.data，根據後端資料更新設定頁面的資料
-      profile.avatar = res.data.data.avatar;
-      profile.displayName = res.data.data.displayName;
-      profile.realName = res.data.data.realName;
-      profile.email = res.data.data.email;
-      profile.phone = res.data.data.phone;
-      profile.birthday = res.data.data.birthday;
-      profile.bio = res.data.data.bio;
-      profile.location = res.data.data.location;
-      profile.clubs = res.data.data.clubs;  // 注意，如果只有一筆資料不是array
+      profile.avatar = res.data.result.avatar;
+      profile.displayName = res.data.result.displayName;
+      profile.realName = res.data.result.realName;
+      profile.email = res.data.result.email;
+      profile.phone = res.data.result.phone;
+      profile.birthday = res.data.result.birthday;
+      profile.bio = res.data.result.bio;
+      profile.location = res.data.result.location;
+      profile.clubs = res.data.result.clubs;  // 注意，如果只有一筆資料不是array
 
       if (!Array.isArray(profile.clubs)) {
         profile.clubs = [profile.clubs];
       }
       Object.assign(newProfile, profile);
+      Object.assign(privacySettings, res.data.result.privacy);
+      Object.assign(notificationSettings, res.data.result.notifications);
 
       console.log(`set all data in setting view: ${JSON.stringify(profile)}`);
     })
@@ -294,8 +315,9 @@ const setAllInfo = async () => {
     })
 }
 
-// 初始化時添加一個分會
+// 剛進入頁面
 onMounted(async () => {
+  // 初始化先加入一個空的社團
   if (profile.clubs.length === 0) {
     addClub();
   }
@@ -304,8 +326,9 @@ onMounted(async () => {
   // 同步newProfile(newProfile用來做監控最新的參數，直到點擊儲存才會把profile做更新)
   await setAllInfo();
 
-  console.log(`oldData: ${JSON.stringify(profile)}`);
-  console.log(`newData: ${JSON.stringify(newProfile)}`);
+  profileSaveHint.value = '資料已儲存';
+  privacySaveHint.value = '資料已儲存';
+  notificationSaveHint.value = '資料已儲存';
 
   // 當進入設定頁面時，為 #app 添加 settings-page 類別
   const appElement = document.getElementById('app');
@@ -316,15 +339,6 @@ onMounted(async () => {
 
 // 離開頁面
 onUnmounted(() => {
-  if (profileSaveHint.value === '儲存個人資料') {
-    alert('請先儲存個人資料變更！');
-  }
-
-  // 密碼更新的部分先清空
-  passwordForm.confirmPassword = ''
-  passwordForm.currentPassword = ''
-  passwordForm.newPassword = ''
-
   // 當離開設定頁面時，移除 settings-page 類別
   const appElement = document.getElementById('app');
   if (appElement) {
@@ -339,6 +353,19 @@ watch(() => newProfile  , () => {
 watch(() => privacySettings, () => {
   privacySaveHint.value = '儲存隱私設定';
 }, { deep: true })
+
+watch(() => notificationSettings, () => {
+  notificationSaveHint.value = '儲存通知設定'
+}, {deep: true})
+
+watch(() => activeTab.value, () => {
+    if (activeTab.value != 'security') {
+      // 密碼更新的部分先清空
+      passwordForm.confirmPassword = ''
+      passwordForm.currentPassword = ''
+      passwordForm.newPassword = ''
+    }
+})
 </script>
 
 <template>
@@ -574,7 +601,11 @@ watch(() => privacySettings, () => {
             </div>
 
             <!-- 選擇儲存或離開編輯模式 -->
-            <button class="submit-btn primary" @click="updateProfile">
+            <button
+              class="submit-btn"
+              :class="[profileSaveHint === '儲存個人資料' ? 'primary-unsaved' : 'primary']"
+              @click="updateProfile"
+            >
               💾 {{ profileSaveHint }}
             </button>
             <button class="submit-btn secondary" @click="cancelEdit" style="margin-left: 10px;">
@@ -678,7 +709,11 @@ watch(() => privacySettings, () => {
           </div>
         </div>
 
-        <button class="submit-btn primary" @click="updatePrivacy">
+        <button
+          class="submit-btn"
+          :class="[privacySaveHint === '儲存隱私設定' ? 'primary-unsaved' : 'primary']"
+          @click="updatePrivacy"
+        >
           {{ privacySaveHint }}
         </button>
       </div>
@@ -747,8 +782,12 @@ watch(() => privacySettings, () => {
           </div>
         </div>
 
-        <button class="submit-btn primary" @click="updateNotifications">
-          🔔 儲存通知設定
+        <button
+          class="submit-btn"
+          :class="[notificationSaveHint === '儲存通知設定' ? 'primary-unsaved' : 'primary']"
+          @click="updateNotifications"
+        >
+          {{ notificationSaveHint }}
         </button>
       </div>
     </main>
@@ -1184,6 +1223,7 @@ watch(() => privacySettings, () => {
   width: 100%;
 }
 
+/* 已儲存狀態（藍色） */
 .submit-btn.primary {
   background-color: #3b82f6;
   color: white;
@@ -1191,6 +1231,16 @@ watch(() => privacySettings, () => {
 
 .submit-btn.primary:hover {
   background-color: #2563eb;
+}
+
+/* 未儲存狀態（紅色） */
+.submit-btn.primary-unsaved {
+  background-color: #ef4444;
+  color: white;
+}
+
+.submit-btn.primary-unsaved:hover {
+  background-color: #dc2626;
 }
 
 /* 安全區域 */

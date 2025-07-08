@@ -54,7 +54,6 @@ router.post("/profile/new", async (req, res) => {
 
 // 更新隱私設定
 router.post("/privacy/new", async (req, res) => {
-    console.log(JSON.stringify(req.body.newData))
     const result = await model.user.findOneAndUpdate({
         email: req.body.email
     }, {
@@ -63,13 +62,20 @@ router.post("/privacy/new", async (req, res) => {
         new: true
     });
 
-    console.log(`updated privacy: ${result}`);
-    res.json({ message: "/account/privacy/new" });
+    res.json({ message: "/account/privacy/new", updatedData: result });
 })
 
 // 更新通知設定
-router.post("/notifications/new", (req, res) => {
-    res.json({ message: "/account/notifications/new" });
+router.post("/notifications/new", async (req, res) => {
+    const result = await model.user.findOneAndUpdate({
+        email: req.body.email
+    }, {
+        notifications: req.body.newData
+    }, {
+        new: true
+    });
+
+    res.json({ message: "/account/notifications/new", updatedData: result });
 })
 
 // 更新個人頭像

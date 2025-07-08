@@ -26,7 +26,7 @@ router.get("/fullInfo", async (req, res) => {
             email: req.query.email
         });
         console.log(`find ${req.query.email}: ${JSON.stringify(result)}`);
-        res.json({ msg: "ok", data: result });  
+        res.json({ msg: "ok", result: result });  
     } catch(err) {
         console.log(`fullInfo err: ${err}`);
     }
