@@ -45,7 +45,6 @@ const userSchema = new mongoose.Schema({
         showPhone: { type: Boolean, default: false },
         allowMessages: { type: Boolean, default: false },
         showBirthday: { type: Boolean, default: false },
-        showOnlineStatus: { type: Boolean, default: false },
         publicProfile: { type: Boolean, default: false }
     },
 

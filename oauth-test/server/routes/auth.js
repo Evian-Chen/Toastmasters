@@ -82,6 +82,7 @@ router.post("/mail/sent", async (req, res) => {
         email: req.body.email
     });
     if (findResult.length !== 0) {
+        console.log(`data: ${JSON.stringify(findResult)}`);
         console.log("註冊者已經存在");
         return res.status(201).json({ message: "註冊的使用者資料已經存在" });
     }
@@ -94,7 +95,7 @@ router.post("/mail/sent", async (req, res) => {
         service: "Gmail",
         auth: {
             user: process.env.GMAIL_USER,
-            pass: process.env.GAMIL_PW
+            pass: process.env.GMAIL_PW
         }
     });
 
@@ -102,7 +103,7 @@ router.post("/mail/sent", async (req, res) => {
         from: process.env.GMAIL_USER,
         to: req.body.email,
         subject: "驗證信測試",
-         html: `<p>請點擊下方連結驗證：</p>
+        html: `<p>請點擊下方連結驗證：</p>
          <a href="http://localhost:3000/auth/mail/verify?token=${req.body.emailToken}">驗證連結</a>`
     };
 

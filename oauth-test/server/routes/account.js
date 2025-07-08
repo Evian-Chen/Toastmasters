@@ -53,7 +53,17 @@ router.post("/profile/new", async (req, res) => {
 })
 
 // 更新隱私設定
-router.post("/privacy/new", (req, res) => {
+router.post("/privacy/new", async (req, res) => {
+    console.log(JSON.stringify(req.body.newData))
+    const result = await model.user.findOneAndUpdate({
+        email: req.body.email
+    }, {
+        privacy: req.body.newData
+    }, {
+        new: true
+    });
+
+    console.log(`updated privacy: ${result}`);
     res.json({ message: "/account/privacy/new" });
 })
 

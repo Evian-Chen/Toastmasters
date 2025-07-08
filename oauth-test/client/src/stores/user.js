@@ -45,7 +45,6 @@ export const userAuthStore = defineStore('auth', () => {
 
         privacy: {
           allowMessages: info.privacy?.allowMessages || true,
-          showOnlineStatus: info.privacy?.showOnlineStatus || true,
           publicProfile: info.privacy?.publicProfile || true
         },
 

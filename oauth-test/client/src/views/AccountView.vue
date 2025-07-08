@@ -54,9 +54,8 @@ const privacySettings = reactive({
   showEmail: false,
   showPhone: false,
   showBirthday: false,
-  allowMessages: true,
-  showOnlineStatus: true,
-  publicProfile: true
+  allowMessages: false,
+  publicProfile: false
 });
 
 // 通知設定
@@ -71,7 +70,8 @@ const notificationSettings = reactive({
 
 // ref 變數設定區
 const activeTab = ref('profile');
-const saveHint = ref('資料已是最新！');
+const profileSaveHint = ref('資料已是最新！');
+const privacySaveHint = ref('資料已儲存');
 const editMode = ref(false);
 
 // 使用computed計算社團的數量和是否超過上限，避免length出問題
@@ -116,7 +116,7 @@ const updateProfile = async () => {
     })
     .then(() => {
       alert('個人資料已更新！');
-      saveHint.value = "資料已儲存！";
+      profileSaveHint.value = "資料已儲存！";
     })
     .catch((err) => {
       console.log(`frontend post profile error: ${err}`);
@@ -174,9 +174,24 @@ const forgetPassword = () => {
   router.push("/forgetPassword");
 }
 
-const updatePrivacy = () => {
-  console.log("更新隱私設定：", privacySettings);
-  alert('隱私設定已更新！');
+const updatePrivacy = async () => {
+  try {
+    await axios.post("/api/account/privacy/new", {
+      newData: privacySettings,
+      email: userStore.userData.email
+    })
+    .then(() => {
+      console.log("更新隱私設定：", privacySettings);
+      privacySaveHint.value = '資料已儲存';
+      alert('隱私設定已更新！');
+    })
+    .catch((err) => {
+      console.log(`updatePrivacy axios front end error: ${err}`);
+    })
+  } catch(err) {
+    console.log(`updatePrivacy front end error: ${err}`);
+  }
+
 };
 
 const updateNotifications = () => {
@@ -301,9 +316,15 @@ onMounted(async () => {
 
 // 離開頁面
 onUnmounted(() => {
-  if (saveHint.value === '儲存個人資料') {
+  if (profileSaveHint.value === '儲存個人資料') {
     alert('請先儲存個人資料變更！');
   }
+
+  // 密碼更新的部分先清空
+  passwordForm.confirmPassword = ''
+  passwordForm.currentPassword = ''
+  passwordForm.newPassword = ''
+
   // 當離開設定頁面時，移除 settings-page 類別
   const appElement = document.getElementById('app');
   if (appElement) {
@@ -312,8 +333,12 @@ onUnmounted(() => {
 });
 
 watch(() => newProfile  , () => {
-  saveHint.value = '儲存個人資料';
+  profileSaveHint.value = '儲存個人資料';
 }, { deep: true });
+
+watch(() => privacySettings, () => {
+  privacySaveHint.value = '儲存隱私設定';
+}, { deep: true })
 </script>
 
 <template>
@@ -550,7 +575,7 @@ watch(() => newProfile  , () => {
 
             <!-- 選擇儲存或離開編輯模式 -->
             <button class="submit-btn primary" @click="updateProfile">
-              💾 {{ saveHint }}
+              💾 {{ profileSaveHint }}
             </button>
             <button class="submit-btn secondary" @click="cancelEdit" style="margin-left: 10px;">
               取消
@@ -645,14 +670,6 @@ watch(() => newProfile  , () => {
 
             <div class="toggle-item">
               <label class="toggle-label">
-                <input type="checkbox" v-model="privacySettings.showOnlineStatus" />
-                <span class="toggle-switch"></span>
-                顯示線上狀態
-              </label>
-            </div>
-
-            <div class="toggle-item">
-              <label class="toggle-label">
                 <input type="checkbox" v-model="privacySettings.publicProfile" />
                 <span class="toggle-switch"></span>
                 公開個人檔案
@@ -662,7 +679,7 @@ watch(() => newProfile  , () => {
         </div>
 
         <button class="submit-btn primary" @click="updatePrivacy">
-          🛡️ 儲存隱私設定
+          {{ privacySaveHint }}
         </button>
       </div>
 
