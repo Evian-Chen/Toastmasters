@@ -1,3 +1,7 @@
+<script setup>
+import PostFeedView from './NewsFeed/PostFeedView.vue';
+</script>
+
 <template>
-  <h>This is home page</h>
+  <PostFeedView />
 </template>

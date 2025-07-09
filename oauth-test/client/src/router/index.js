@@ -57,6 +57,16 @@ const router = createRouter({
       name: 'account',
       component: () => import('../views/AccountView.vue'),
       meta: { requiresAuth: true }
+    },{
+      path: '/newEvent',
+      name: 'newEvent',
+      component: () => import('../views/NewsFeed/NewEventForm.vue'),
+      meta: { requiresAuth: true }
+    },{
+      path: '/newPost',
+      name: 'newPost',
+      component: () => import('../views/NewsFeed/NewPostForm.vue'),
+      meta: { requiresAuth: true }
     }
   ],
 })
@@ -91,6 +101,7 @@ router.beforeEach(async (to, from, next) => {
 
     if (to.meta.requiresAuth) { // 沒有cookie，想去的頁面是需要認證的
       console.log("沒有cookie");
+      alert("請先登入！");
       return next('/');
     }
 
