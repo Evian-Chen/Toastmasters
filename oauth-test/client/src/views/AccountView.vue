@@ -429,7 +429,7 @@ watch(() => activeTab.value, () => {
       <div v-if="activeTab === 'profile'" class="settings-panel">
         <h1 class="panel-title">個人資料</h1>
 
-        <!-- 非編輯模式，單純展示資料 -->
+        <!-- 個人資料非編輯模式，單純展示資料 -->
         <div v-if="!editMode">
           <!-- 頭像顯示 -->
           <div class="avatar-section">
@@ -604,7 +604,7 @@ watch(() => activeTab.value, () => {
 
                     <div class="form-group">
                       <div class="pathways-header">
-                        <!-- TODO: addPathways(index) -> 傳入目前的club的index -->
+                        <!-- addPathways(index) -> 傳入目前的club的index -->
                         <h3>Pathways</h3>
                         <button class="btn secondary" @click="addPathways(index)" :disabled="isMaxClub">
                           ➕ 新增Pathways

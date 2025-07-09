@@ -1,8 +1,5 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
-// import axios from 'axios';
-// import { reactive } from 'vue';
-// import { onMounted } from 'vue';
 import { userAuthStore } from "@/stores/user";
 import { storeToRefs } from "pinia";
 
