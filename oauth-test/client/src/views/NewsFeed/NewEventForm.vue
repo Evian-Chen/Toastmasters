@@ -2,7 +2,24 @@
 // 如果使用者選擇要發布「活動資訊」的貼文，進入這邊
 // 這邊可以一鍵報名
 
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
+import { userAuthStore } from '@/stores/user';
+
+const userStore = userAuthStore();
+
+// const content = ref('');
+// const image = ref(null);
+
+const eventContent = reactive({
+  userId: "",
+  userEmail: userStore.userData.email,
+  title: "",
+  caption: "",
+  registerLink: "",
+  agendaLink: "",
+  coverImageFile: "",
+  likeCount: 0
+})
 
 const event = ref({
   title: '',

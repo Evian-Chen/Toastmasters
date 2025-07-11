@@ -2,13 +2,37 @@
 // 如果使用者選擇要發布「一般」的貼文，進入這邊
 // 例如一些活動回顧等等
 
-import { ref } from 'vue';
-const content = ref('');
-const image = ref(null);
+import { reactive } from 'vue';
+import { userAuthStore } from '@/stores/user';
+import axios from 'axios';
+
+const userStore = userAuthStore();
+
+// const content = ref('');
+// const image = ref(null);
+
+const postContent = reactive({
+  userId: "",
+  userEmail: userStore.userData.email,
+  caption: "",
+  likeCount: 0
+})
 
 function handleImageUpload(event) {
   const file = event.target.files[0];
-  if (file) image.value = file;
+  if (file) postContent.coverImageFile.value = file;
+}
+
+const submit = async () => {
+  await axios.post("/api/posts/create", {
+    content: postContent
+  })
+  .then(() => {
+    //
+  })
+  .catch((err) => {
+    //
+  })
 }
 </script>
 
@@ -16,15 +40,16 @@ function handleImageUpload(event) {
   <div class="new-post-form">
     <h2 class="form-title">✍️ 發布新貼文</h2>
     <form @submit.prevent>
+
       <textarea
-        v-model="content"
+        v-model="postContent.caption"
         placeholder="說點什麼吧..."
         class="post-textarea"
         rows="4"
       ></textarea>
 
       <input type="file" @change="handleImageUpload" class="file-input" />
-      <button type="submit" class="submit-btn">發布</button>
+      <button type="submit" class="submit-btn" @click="submit">發布</button>
     </form>
   </div>
 </template>

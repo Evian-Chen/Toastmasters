@@ -116,7 +116,6 @@ const createNormalPost = () => {
   console.log("create normal post");
   alert('📝 準備新增一般貼文...')
   router.push("/newPost");
-  // 前端路由導到NewPostForm
 }
 
 const createEventPost = () => {
@@ -124,7 +123,6 @@ const createEventPost = () => {
   console.log("create new event");
   alert('📅 準備新增活動貼文...')
   router.push("/newEvent");
-  // 前端路由導到NewEventForm
 }
 </script>
 
