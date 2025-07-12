@@ -14,7 +14,7 @@ const router = useRouter();
 // const image = ref(null);
 
 const postContent = reactive({
-  userId: "",
+  userId: userStore.userId,
   userEmail: userStore.userData.email,
   caption: "",
   likeCount: 0
@@ -25,6 +25,7 @@ function handleImageUpload(event) {
   if (file) postContent.coverImageFile.value = file;
 }
 
+// 把發布的貼文存回資料庫
 const submit = async () => {
   await axios.post("/api/posts/create", {
     content: postContent

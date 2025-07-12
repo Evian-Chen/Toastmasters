@@ -6,6 +6,7 @@ export const userAuthStore = defineStore('auth', () => {
   // 一些高頻使用的設定先儲存在pinia
   // 但是個人設定只有在設定頁面才會看到，所以不需要放在pinia
   const userData = ref({
+    userId: "",
     avatar: "",
     displayName: "",
     email: "",
@@ -37,6 +38,7 @@ export const userAuthStore = defineStore('auth', () => {
       const info = res.data.info;
 
       userData.value = {
+        userId: info._id.toString() || "user id not found",
         avatar: info.avatar || "",
         displayName: info.displayName || "",
         email: info.email || "",
