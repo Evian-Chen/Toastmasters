@@ -5,23 +5,17 @@ const router = express.Router();
 
 router.post("/create", async (req, res) => {
     const content = req.body.content;
-    console.log(`後端接收的新一般貼文內容: ${JSON.stringify(content)}`);
 
-    // 後端接收的新一般貼文內容: 
-    // {"userEmail":"paramecium128@gmail.com","caption":"hihihihiihihihihi","likeCount":0}
+    // 儲存新貼文到資料庫
+    const savedData = await model.post.create({
+        userId: content.userId,
+        userEmail: content.userEmail,
+        caption: content.caption,
+        likeCount: content.likeCount
+    })
+    console.log(`儲存資料: ${JSON.stringify(savedData)}`);
 
-    const user = await model.user.findOne({
-        _id: content.userId
-    });
-
-    console.log(`找到資料: ${JSON.stringify(user)}`);
-
-    res.json({ msg: '/create' });
-
-    // const newDoc = await model.post.create({
-    //     userId: user._id,
-    //     userEmail: content.userEmail
-    // })
+    res.json({ msg: 'ok' });
 })
 
 router.get("/:id", (req, res) => {
