@@ -5,8 +5,10 @@
 import { reactive } from 'vue';
 import { userAuthStore } from '@/stores/user';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 
 const userStore = userAuthStore();
+const router = useRouter();
 
 // const content = ref('');
 // const image = ref(null);
@@ -28,10 +30,11 @@ const submit = async () => {
     content: postContent
   })
   .then(() => {
-    //
+    alert("貼文發布成功！");
+    router.push("/"); // 回到首頁
   })
   .catch((err) => {
-    //
+    console.log(`前端新增貼文submit error: ${err}`);
   })
 }
 </script>
