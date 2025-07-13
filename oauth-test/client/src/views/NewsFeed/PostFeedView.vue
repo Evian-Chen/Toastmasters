@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { onActivated, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router';
 
 // 應該要在card.vue使用emit，並在這邊顯示card
@@ -111,6 +111,7 @@ const toggleOptions = () => {
   showOptions.value = !showOptions.value
 }
 
+// 建立一般貼文
 const createNormalPost = () => {
   showOptions.value = false
   console.log("create normal post");
@@ -118,12 +119,27 @@ const createNormalPost = () => {
   router.push("/newPost");
 }
 
+// 建立活動貼文
 const createEventPost = () => {
   showOptions.value = false
   console.log("create new event");
   alert('📅 準備新增活動貼文...')
   router.push("/newEvent");
 }
+
+const loadPosts = () => {
+  //
+}
+
+// 第一次掛載時，請求後端載入
+onMounted(() => {
+  loadPosts();
+})
+
+// 透過pinia store檢查，是否需要refresh post
+onActivated(() => {
+  //
+})
 </script>
 
 <template>
@@ -133,28 +149,32 @@ const createEventPost = () => {
     <div v-if="posts.length === 0" class="empty-msg">目前尚無貼文。</div>
 
     <!-- 貼文顯示處 -->
-    <div v-for="post in posts" :key="post._id" class="post-wrapper">
-      <div v-if="post.type === 'event'" class="card event-card">
-        <div class="label">活動貼文</div>
-        <img :src="post.eventDetails.coverImageUrl" class="card-img" alt="封面圖" />
-        <div class="card-body">
-          <h3 class="card-title">{{ post.eventDetails.title }}</h3>
-          <p class="card-sub">{{ post.eventDetails.date }} ｜ {{ post.eventDetails.location }}</p>
-          <a :href="post.eventDetails.registerLink" target="_blank" class="card-link">📌 點我報名活動</a>
-          <a :href="post.eventDetails.agendaLink" target="_blank" class="card-link">📌 點我查看議程</a>
+    <!-- 使用keepalive保存上一次進來的post內容，避免多次請求 -->
+    <keep-alive>
+      <div v-for="post in posts" :key="post.postId" class="post-wrapper">
+        <div v-if="post.type === 'event'" class="card event-card" @click="goToDetail(post.postId)">
+          <div class="label">活動貼文</div>
+          <img :src="post.eventDetails.coverImageUrl" class="card-img" alt="封面圖" />
+          <div class="card-body">
+            <h3 class="card-title">{{ post.eventDetails.title }}</h3>
+            <p class="card-sub">{{ post.eventDetails.date }} ｜ {{ post.eventDetails.location }}</p>
+            <a :href="post.eventDetails.registerLink" target="_blank" class="card-link">📌 點我報名活動</a>
+            <a :href="post.eventDetails.agendaLink" target="_blank" class="card-link">📌 點我查看議程</a>
+          </div>
         </div>
-      </div>
 
-      <div v-else class="card normal-card">
-        <div class="label gray">一般貼文</div>
-        <div class="card-body">
-          <p class="card-author">{{ post.authorName }}</p>
-          <p class="card-content">{{ post.content }}</p>
-          <img v-if="post.imageUrl" :src="post.imageUrl" class="card-img" alt="貼文圖" />
-          <p class="card-time">{{ post.createdAt }}</p>
+        <div v-else class="card normal-card">
+          <div class="label gray">一般貼文</div>
+          <div class="card-body">
+            <p class="card-author">{{ post.authorName }}</p>
+            <p class="card-content">{{ post.content }}</p>
+            <img v-if="post.imageUrl" :src="post.imageUrl" class="card-img" alt="貼文圖" />
+            <p class="card-time">{{ post.createdAt }}</p>
+          </div>
         </div>
       </div>
-    </div>
+    </keep-alive>
+
 
     <!-- 新增按鈕 + 選項 -->
     <div class="fab-container">
