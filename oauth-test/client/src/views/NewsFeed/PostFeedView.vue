@@ -1,6 +1,7 @@
 <script setup>
 import { onActivated, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router';
+import PostCardView from './PostCardView.vue';
 
 // 應該要在card.vue使用emit，並在這邊顯示card
 // 資料格式必須再次檢查資料庫的資料格式，避免顯示錯誤或找不到
@@ -131,6 +132,12 @@ const loadPosts = () => {
   //
 }
 
+const goToDetail = (postId) => {
+  // 進入到詳細資訊的頁面
+  console.log(`前往貼文 ${postId} 的詳細內容`);
+  router.push(`/post/${postId}`);
+}
+
 // 第一次掛載時，請求後端載入
 onMounted(() => {
   loadPosts();
@@ -152,7 +159,15 @@ onActivated(() => {
     <!-- 使用keepalive保存上一次進來的post內容，避免多次請求 -->
     <keep-alive>
       <div v-for="post in posts" :key="post.postId" class="post-wrapper">
-        <div v-if="post.type === 'event'" class="card event-card" @click="goToDetail(post.postId)">
+        <PostCardView 
+          :post="post"
+          :postId="post._id"
+          @postDeleted="loadPosts"
+          @click="goToDetail(post._id)"
+        />
+
+
+        <!-- <div v-if="post.type === 'event'" class="card event-card" @click="goToDetail(post.postId)">
           <div class="label">活動貼文</div>
           <img :src="post.eventDetails.coverImageUrl" class="card-img" alt="封面圖" />
           <div class="card-body">
@@ -171,7 +186,7 @@ onActivated(() => {
             <img v-if="post.imageUrl" :src="post.imageUrl" class="card-img" alt="貼文圖" />
             <p class="card-time">{{ post.createdAt }}</p>
           </div>
-        </div>
+        </div> -->
       </div>
     </keep-alive>
 

@@ -1,17 +1,24 @@
 <script setup>
-// 如果使用者選擇要發布「一般」的貼文，進入這邊
-// 例如一些活動回顧等等
+import { reactive } from 'vue'
 
-import { reactive, ref } from 'vue'
-import axios from 'axios'
-
-// 假設你需要傳入 postId 作為 props
 const props = defineProps({
-  postId: {
+  postId: {  // 貼文的編號
     type: [String, Number],
     required: true
   }
 })
+
+// 如果不用mock data:
+// const props = defineProps({
+//   postId: {  // 貼文的編號
+//     type: [String, Number],
+//     required: true
+//   }, 
+//   post: {  // 貼文的內容
+//     type: Object,
+//     required: true
+//   }
+// })
 
 const post = reactive({
   authorName: 'Evian',
@@ -20,88 +27,10 @@ const post = reactive({
   createdAt: '2025-07-09 15:30'
 })
 
-// 控制刪除確認對話框的顯示
-const showDeleteConfirm = ref(false)
-// 控制刪除狀態
-const isDeleting = ref(false)
-
-// 刪除貼文的函數
-const deletePost = async () => {
-  if (isDeleting.value) return // 防止重複點擊
-
-  isDeleting.value = true
-
-  try {
-    await axios.delete("/api/posts/delete", {
-      //
-    })
-    .then((res) => {
-      //
-    })
-    .catch((err) => {
-      console.log(`刪除貼文前端錯誤: ${err}`);
-    })
-  } catch (error) {
-    console.error('刪除貼文時發生錯誤:', error)
-    alert('刪除失敗，請稍後再試')
-  } finally {
-    isDeleting.value = false
-    showDeleteConfirm.value = false
-  }
-}
-
-// 顯示刪除確認對話框
-const confirmDelete = () => {
-  showDeleteConfirm.value = true
-}
-
-// 取消刪除
-const cancelDelete = () => {
-  showDeleteConfirm.value = false
-}
-
-// 定義 emit 事件
-const emit = defineEmits(['postDeleted'])
 </script>
 
 <template>
-  <div class="post-card">
-    <div class="post-header">
-      <div class="post-author">{{ post.authorName }}</div>
-      <button
-        @click="confirmDelete"
-        class="delete-btn"
-        :disabled="isDeleting"
-        title="刪除貼文"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6"/>
-        </svg>
-      </button>
-    </div>
-
-    <div class="post-content">{{ post.content }}</div>
-    <img v-if="post.imageUrl" :src="post.imageUrl" alt="貼文圖片" class="post-image" />
-    <div class="post-timestamp">{{ post.createdAt }}</div>
-
-    <!-- 刪除確認對話框 -->
-    <div v-if="showDeleteConfirm" class="delete-confirm-overlay">
-      <div class="delete-confirm-modal">
-        <h3>確認刪除</h3>
-        <p>確定要刪除這篇貼文嗎？此操作無法復原。</p>
-        <div class="modal-actions">
-          <button @click="cancelDelete" class="cancel-btn">取消</button>
-          <button
-            @click="deletePost"
-            class="confirm-delete-btn"
-            :disabled="isDeleting"
-          >
-            {{ isDeleting ? '刪除中...' : '確認刪除' }}
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+  post card view {{ props.postId }}
 </template>
 
 <style scoped>

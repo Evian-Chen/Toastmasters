@@ -13,6 +13,7 @@ const { isLoggedIn } = storeToRefs(userStore);
       <RouterLink to="/" class="nav-link">Home</RouterLink>
       <RouterLink v-if="!isLoggedIn" to="/login" class="nav-link">Log In</RouterLink>
       <RouterLink v-if="isLoggedIn" to="/clubs" class="nav-link">Clubs</RouterLink>
+      <RouterLink v-if="isLoggedIn" to="/clubs" class="nav-link">My Posts</RouterLink>
       <RouterLink v-if="isLoggedIn" to="/account" class="nav-link">Account Setting</RouterLink>
       <RouterLink v-if="isLoggedIn" to="/logout" class="nav-link">Log Out</RouterLink>
       <RouterLink to="/signup" class="nav-link">Sign Up</RouterLink>

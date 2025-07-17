@@ -30,13 +30,20 @@ router.post("/create", async (req, res) => {
 router.get("/", (req, res) => {
     const postId = req.params.id;
 
-    res.json({ msg: '/create' });
+    res.json({ msg: '/create ok' });
 })
 
 // 從PostCardView.vue做請求
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
     const postId = req.params.id;
-    res.json({ msg: '/create' })
+    const result = await model.post.deleteOne({
+        postId: postId
+    }, {
+        new: true
+    });
+
+    console.log(`後端刪除資料: ${JSON.stringify(result)}`);
+    res.json({ msg: '/delete ok' })
 })
 
 module.exports = router;

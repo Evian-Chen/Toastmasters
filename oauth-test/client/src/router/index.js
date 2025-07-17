@@ -40,6 +40,11 @@ const router = createRouter({
       component: () => import('../views/FindClubsView.vue'),
       meta: { requiresAuth: false }
     },{
+      path: '/myPosts',
+      name: 'myPosts',
+      component: () => import('../views/MyPosts/MyPostsView.vue'),
+      meta: { requiresAuth: true }
+    },{
       path: '/logout',
       name: 'logout',
       component: () => import('../views/LogoutView.vue'),
