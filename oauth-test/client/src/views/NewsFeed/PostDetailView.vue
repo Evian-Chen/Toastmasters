@@ -5,9 +5,12 @@
 import { reactive, ref } from 'vue'
 import axios from 'axios'
 import { useRoute } from 'vue-router'
+import { userAuthStore } from '@/stores/user'
 
+const userAuthStore = userAuthStore()
 const route = useRoute();
 const postId = route.params.postId;  // 從路由參數中獲取 postId
+
 
 const post = reactive({
   authorName: 'Evian',
@@ -16,44 +19,44 @@ const post = reactive({
   createdAt: '2025-07-09 15:30'
 })
 
-// TDOD: 把這些跟刪除有關的東西彙整在一起
-// 控制刪除確認對話框的顯示
-const showDeleteConfirm = ref(false)
-// 控制刪除狀態
-const isDeleting = ref(false)
-// 顯示刪除確認對話框
-const confirmDelete = () => {
-  showDeleteConfirm.value = true
-}
-// 取消刪除
-const cancelDelete = () => {
-  showDeleteConfirm.value = false
-}
+// 把跟刪除有關的東西彙整在一起
+const deleteHandler = {
+  showDeleteConfirm: ref(false),
 
-// 刪除貼文的函數
-const deletePost = async () => {
-  if (isDeleting.value) return // 防止重複點擊
+  isDeleting: ref(false),
+  
+  confirmDelete: () => {
+    deleteHandler.showDeleteConfirm.value = true
+  },
+  
+  cancelDelete: () => {
+    deleteHandler.showDeleteConfirm.value = false
+  },
+  
+  deletePost: async (postId) => {
+    if (deleteHandler.isDeleting.value) return // 防止重複點擊
 
-  isDeleting.value = true
+    deleteHandler.isDeleting.value = true
 
-  try {
-    await axios.delete(`/api/posts/${props.postId}`)
-    .then(() => {
-      console.log('貼文刪除成功')
-      alert('貼文已成功刪除')
+    try {
+      await axios.delete(`/api/posts/${postId}`)
+      .then(() => {
+        console.log('貼文刪除成功')
+        alert('貼文已成功刪除')
 
-      // 觸發父組件的事件，通知貼文已被刪除
-      emit('postDeleted', props.postId);
-    })
-    .catch((err) => {
-      console.log(`刪除貼文前端錯誤: ${err}`);
-    })
-  } catch (error) {
-    console.error('刪除貼文時發生錯誤:', error)
-    alert('刪除失敗，請稍後再試')
-  } finally {
-    isDeleting.value = false
-    showDeleteConfirm.value = false
+        // 觸發父組件的事件，通知貼文已被刪除
+        emit('postDeleted', postId);
+      })
+      .catch((err) => {
+        console.log(`刪除貼文前端錯誤: ${err}`);
+      })
+    } catch (error) {
+      console.error('刪除貼文時發生錯誤:', error)
+      alert('刪除失敗，請稍後再試')
+    } finally {
+      deleteHandler.isDeleting.value = false
+      deleteHandler.showDeleteConfirm.value = false
+    }
   }
 }
 
@@ -82,14 +85,14 @@ const emit = defineEmits(['postDeleted'])
     <div class="post-timestamp">{{ post.createdAt }}</div>
 
     <!-- 刪除確認對話框 -->
-    <div v-if="showDeleteConfirm" class="delete-confirm-overlay">
+    <div v-if="deleteHandler.showDeleteConfirm" class="delete-confirm-overlay">
       <div class="delete-confirm-modal">
         <h3>確認刪除</h3>
         <p>確定要刪除這篇貼文嗎？此操作無法復原。</p>
         <div class="modal-actions">
-          <button @click="cancelDelete" class="cancel-btn">取消</button>
+          <button @click="deleteHandler.cancelDelete" class="cancel-btn">取消</button>
           <button
-            @click="deletePost"
+            @click="deleteHandler.deletePost(postId)"
             class="confirm-delete-btn"
             :disabled="isDeleting"
           >

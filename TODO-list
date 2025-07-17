@@ -1,4 +1,5 @@
 1. postDetailView.vue -> 彙整刪除功能
-2. postDetailView.vue -> 處理貼文的詳情顯示，以及編輯的權限
+2. postDetailView.vue -> 處理貼文的詳情顯示，以及編輯的權限，
+                         如果是該使用者，url 要改一下
 3. PostCardView -> 應該是不用用到id，但是要顯是傳入的內容
 4. MyPosts -> 這裡要處理如何顯示，因為也包含要顯示個人資料
