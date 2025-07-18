@@ -3,5 +3,6 @@
                          user.js model 新增 postIds，更新 pinia
                          如果是該使用者，url 要改一下
                          分成兩個狀態的 component
-3. PostCardView -> 應該是不用用到id，但是要顯是傳入的內容
+3. PostCardView -> 從 feed 傳來的 post obj 要怎麼綁定，需要思考一下
+                   用複製一份應該比較保險
 4. MyPosts -> 這裡要處理如何顯示，因為也包含要顯示個人資料
