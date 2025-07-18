@@ -1,7 +1,8 @@
 <script setup>
-import { onActivated, onMounted, ref } from 'vue'
+import { onActivated, onMounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router';
 import PostCardView from './PostCardView.vue';
+import EventCardView from './EventCardView.vue';
 
 // 應該要在card.vue使用emit，並在這邊顯示card
 // 資料格式必須再次檢查資料庫的資料格式，避免顯示錯誤或找不到
@@ -104,6 +105,105 @@ const posts = ref([
   }
 ])
 
+// 包含 post, event 的所有資料
+const feeds = ref([ref([
+  {
+    _id: '1',
+    type: 'event',
+    eventDetails: {
+      title: 'NTUST 聯合例會',
+      date: '2025-08-10 19:00',
+      location: '南港經貿中心',
+      registerLink: 'https://forms.gle/example1',
+      coverImageUrl: 'https://via.placeholder.com/800x300'
+    }
+  },
+  {
+    _id: '2',
+    type: 'normal',
+    authorName: 'Alice',
+    content: '昨天參加了一場超棒的演講比賽，收穫良多！',
+    imageUrl: 'https://via.placeholder.com/600x300',
+    createdAt: '2025-07-08 15:10'
+  },
+  {
+    _id: '3',
+    type: 'event',
+    eventDetails: {
+      title: 'CTBC 說故事工作坊',
+      date: '2025-08-15 19:30',
+      location: '信義區 CTBC 總部',
+      registerLink: 'https://forms.gle/example2',
+      coverImageUrl: 'https://via.placeholder.com/800x300'
+    }
+  },
+  {
+    _id: '4',
+    type: 'normal',
+    authorName: 'Brian',
+    content: '誰說 Toastmasters 只能練英文？我們也能玩創意！',
+    imageUrl: '',
+    createdAt: '2025-07-09 11:00'
+  },
+  {
+    _id: '5',
+    type: 'event',
+    eventDetails: {
+      title: '新竹雙語演講交流會',
+      date: '2025-08-20 18:30',
+      location: '新竹市文化中心',
+      registerLink: 'https://forms.gle/example3',
+      coverImageUrl: 'https://via.placeholder.com/800x300'
+    }
+  },
+  {
+    _id: '6',
+    type: 'normal',
+    authorName: 'Chloe',
+    content: '今天分享了我第一篇 Pathways 演講！超緊張但完成了～',
+    imageUrl: '',
+    createdAt: '2025-07-08 19:10'
+  },
+  {
+    _id: '7',
+    type: 'event',
+    eventDetails: {
+      title: 'TM 嘉義茶會例會',
+      date: '2025-08-18 14:00',
+      location: '嘉義公園管理處',
+      registerLink: 'https://forms.gle/example4',
+      coverImageUrl: 'https://via.placeholder.com/800x300'
+    }
+  },
+  {
+    _id: '8',
+    type: 'normal',
+    authorName: 'Daniel',
+    content: '感謝 mentor 一直支持我，每一次演講都進步一點點 ✨',
+    imageUrl: '',
+    createdAt: '2025-07-06 10:50'
+  },
+  {
+    _id: '9',
+    type: 'event',
+    eventDetails: {
+      title: 'Toastmasters 新人訓練',
+      date: '2025-08-25 10:00',
+      location: '線上 Zoom 會議室',
+      registerLink: 'https://forms.gle/example5',
+      coverImageUrl: 'https://via.placeholder.com/800x300'
+    }
+  },
+  {
+    _id: '10',
+    type: 'normal',
+    authorName: 'Emma',
+    content: '分享一句最喜歡的演講結尾：「If not now, then when?」',
+    imageUrl: '',
+    createdAt: '2025-07-07 22:00'
+  }
+])]);
+
 const router = useRouter();
 
 const showOptions = ref(false);
@@ -128,8 +228,8 @@ const createEventPost = () => {
   router.push("/newEvent");
 }
 
-const loadPosts = () => {
-  //
+const loadFeeds = () => {
+  // post, event 都需要進來
 }
 
 const goToDetail = (postId) => {
@@ -158,13 +258,18 @@ onActivated(() => {
     <!-- 貼文顯示處 -->
     <!-- 使用keepalive保存上一次進來的post內容，避免多次請求 -->
     <keep-alive>
-      <div v-for="post in posts" :key="post.postId" class="post-wrapper">
-        <PostCardView 
-          :post="post"
-          :postId="post._id"
-          @postDeleted="loadPosts"
-          @click="goToDetail(post._id)"
-        />
+      <div v-for="(feed, index) in feeds" :key="index" class="post-wrapper">
+        <div v-if="feed.type === 'post'">
+          <PostCardView 
+            :post="feed"
+            @click="goToDetail(feed.postId)"
+            @postDeleted="loadPosts"
+          />
+        </div>
+        <div v-else-if="feed.type === 'event'">
+          <EventCardView 
+          />
+        </div>
 
 
         <!-- <div v-if="post.type === 'event'" class="card event-card" @click="goToDetail(post.postId)">

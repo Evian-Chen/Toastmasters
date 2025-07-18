@@ -2,22 +2,59 @@
 // 要先檢查這個人的id是不是這篇貼文的發文者，如果是的話可以觸發編輯，當然也包含刪除
 // 不是的話就是一般的顯示
 // post details
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import axios from 'axios'
 import { useRoute } from 'vue-router'
 import { userAuthStore } from '@/stores/user'
 
-const userAuthStore = userAuthStore()
+// postId 使用路由參數，post Object 使用 props 傳入
+const userStore = userAuthStore();
 const route = useRoute();
+
+const isAuthor = ref(postId in userStore.userData.postIds ? true : false); // 判斷當前用戶是否為貼文作者
+const editMode = ref(false); // 編輯模式開關
+
 const postId = route.params.postId;  // 從路由參數中獲取 postId
-
-
-const post = reactive({
-  authorName: 'Evian',
-  content: '這是一般貼文的內容，可以包含文字和圖片。',
-  imageUrl: 'https://via.placeholder.com/600x300',
-  createdAt: '2025-07-09 15:30'
+const props = defineProps({
+  post: {
+    type: Object,
+    required: true
+  }
 })
+
+// 所有修改都先對 localPost 綁定，確認修改才對父子件 emit
+const localPost = Object.assign({}, props.post)
+
+// !!!!
+// 這裡的 post 資料應該是從feed那邊傳進來獲取的，應該使用 props
+// 這裡先用靜態資料模擬
+// const post = reactive({
+//   authorName: 'Evian',
+//   content: '這是一般貼文的內容，可以包含文字和圖片。',
+//   imageUrl: 'https://via.placeholder.com/600x300',
+//   createdAt: '2025-07-09 15:30'
+// })
+
+const toggleEdit = () => {
+  editMode.value = !editMode.value;
+}
+
+// 把更新的貼文內容儲存起來
+const saveEditedPost = async () => {
+  await axios.post('/api/posts/update', {
+    postId: postId,
+    post: localPost
+  })
+  .then(() => {
+    console.log('貼文更新成功');
+    alert('貼文已成功更新');
+    editMode.value = false; 
+  })
+  .catch((err) => {
+    console.error(`更新貼文前端錯誤: ${err}`);
+    alert('更新貼文失敗，請稍後再試');
+  })
+}
 
 // 把跟刪除有關的東西彙整在一起
 const deleteHandler = {
@@ -61,23 +98,41 @@ const deleteHandler = {
 }
 
 // 定義 emit 事件
-const emit = defineEmits(['postDeleted'])
+const emit = defineEmits(['postDeleted', 'postUpdated'])
+
+onMounted(async () => {
+  //
+})
 </script>
 
 <template>
   <div class="post-card">
     <div class="post-header">
       <div class="post-author">{{ post.authorName }}</div>
-      <button
-        @click="confirmDelete"
-        class="delete-btn"
-        :disabled="isDeleting"
-        title="刪除貼文"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6"/>
-        </svg>
-      </button>
+      <!-- 如果是作者，顯示刪除和編輯 -->
+      <div v-if="isAuthor">
+        <button
+          @click="deleteHandler.confirmDelete"
+          class="delete-btn"
+          :disabled="isDeleting"
+          title="刪除貼文"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6"/>
+          </svg>
+        </button>
+        <!-- 編輯與儲存 -->
+        <div v-if="!editMode">
+          <button @click="toggleEdit" title="編輯貼文"></button>
+        </div>
+        <div v-else>
+          <button @click="toggleEdit" title="取消編輯"></button>
+          <button @click="saveEditedPost" title="儲存編輯"></button>
+        </div>
+      </div>
+
+      <!-- 一些非編輯的按鈕，按讚功能 -> 這邊要配合 post 的資料庫設計 -->
+
     </div>
 
     <div class="post-content">{{ post.content }}</div>

@@ -36,6 +36,7 @@ const userSchema = new mongoose.Schema({
     birthday: { type: Date, default: null }, 
 
     clubs: { type: [clubSchema], default: [] }, // 使用嵌套的clubSchema來儲存分會資訊
+    postIds: { type: [String], default: [] },  // 儲存使用者發表的貼文ID
 
     emailToken: String,
     tokenExpires: { type: Date },

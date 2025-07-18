@@ -20,17 +20,8 @@ router.post("/create", async (req, res) => {
     res.json({ msg: 'ok' });
 })
 
-// router.get("/:id", (req, res) => {
-//     const postId = req.params.id;
-
-//     res.json({ msg: '/create' });
-// })
-
-// 取得最新的一百則貼文，提供顯示在PostFeedView
-router.get("/", (req, res) => {
-    const postId = req.params.id;
-
-    res.json({ msg: '/create ok' });
+router.post('/update', async (req, res) => {
+    //
 })
 
 // 從PostCardView.vue做請求

@@ -12,6 +12,7 @@ export const userAuthStore = defineStore('auth', () => {
     email: "",
     emailVerified: false,
     clubs: [],
+    postIds: [],
 
     privacy: {
       allowMessages: true,
@@ -44,6 +45,7 @@ export const userAuthStore = defineStore('auth', () => {
         email: info.email || "",
         emailVerified: info.email_verified || false,
         clubs: info.clubs || [],
+        postIds: info.postIds || [],
 
         privacy: {
           allowMessages: info.privacy?.allowMessages || true,
