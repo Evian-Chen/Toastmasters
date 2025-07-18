@@ -20,11 +20,15 @@ const props = defineProps({
 //   }
 // })
 
+// !!
+// 這邊也要按讚邏輯！！！！！
+
 const post = reactive({
   authorName: 'Evian',
   content: '這是一般貼文的內容，可以包含文字和圖片。',
   imageUrl: 'https://via.placeholder.com/600x300',
-  createdAt: '2025-07-09 15:30'
+  createdAt: '2025-07-09 15:30',
+  likeCount: 0,  // 按讚數
 })
 
 </script>

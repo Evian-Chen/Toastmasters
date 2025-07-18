@@ -2,7 +2,7 @@
 // 要先檢查這個人的id是不是這篇貼文的發文者，如果是的話可以觸發編輯，當然也包含刪除
 // 不是的話就是一般的顯示
 // post details
-import { onMounted, reactive, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import axios from 'axios'
 import { useRoute } from 'vue-router'
 import { userAuthStore } from '@/stores/user'
@@ -41,8 +41,9 @@ const toggleEdit = () => {
 
 // 把更新的貼文內容儲存起來
 const saveEditedPost = async () => {
-  await axios.post('/api/posts/update', {
-    postId: postId,
+  editMode.value = false;
+
+  await axios.post(`/api/posts/update?postId=${postId}`, {
     post: localPost
   })
   .then(() => {
@@ -53,6 +54,25 @@ const saveEditedPost = async () => {
   .catch((err) => {
     console.error(`更新貼文前端錯誤: ${err}`);
     alert('更新貼文失敗，請稍後再試');
+  })
+}
+
+const likePost = async () => {
+  // TODO 
+  // 需要加入pinia的favorite posts
+  // 更新使用者的like list
+  // 更新貼文的按讚數
+
+  await axios.post(`/api/posts/like?postId=${postId}&userId=${userStore.userData.userId}`)
+  .then(() => {
+    console.log('貼文按讚成功');
+    alert('謝謝你的喜歡uwu！幫你把貼文存到按讚儲存區囉！');
+
+    // 這裡可以更新 localPost 的 likeCount 或者其他相關資料
+  })
+  .catch((err) => {
+    console.error(`按讚貼文前端錯誤: ${err}`);
+    alert('按讚貼文失敗，請稍後再試');
   })
 }
 
@@ -131,8 +151,11 @@ onMounted(async () => {
         </div>
       </div>
 
-      <!-- 一些非編輯的按鈕，按讚功能 -> 這邊要配合 post 的資料庫設計 -->
-
+      <!-- 按讚功能 -> 這邊要配合 post 的資料庫設計 -->
+      <!-- feed（postcardView） 頁面應該也要有按讚功能 -->
+      <button @click="likePost" class="like-btn" title="按讚">
+        👍 <span>{{ localPost.likeCount }}</span>
+      </button>
     </div>
 
     <div class="post-content">{{ post.content }}</div>

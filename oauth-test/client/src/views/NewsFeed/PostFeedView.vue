@@ -1,8 +1,9 @@
 <script setup>
-import { onActivated, onMounted, reactive, ref } from 'vue'
+import { onActivated, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router';
 import PostCardView from './PostCardView.vue';
 import EventCardView from './EventCardView.vue';
+import axios from 'axios'
 
 // 應該要在card.vue使用emit，並在這邊顯示card
 // 資料格式必須再次檢查資料庫的資料格式，避免顯示錯誤或找不到
@@ -228,8 +229,28 @@ const createEventPost = () => {
   router.push("/newEvent");
 }
 
-const loadFeeds = () => {
-  // post, event 都需要進來
+const feedLimit = ref(3); // 限制載入的貼文數量
+const loadingFeeds = ref(false);
+
+// TODO 檢查載入的資料都是對的，limit先限制三筆
+// 之後也可以改說讓使用者選擇一次要看多少筆
+// post, event 都需要進來
+const loadFeeds = async () => {
+  try {
+    loadingFeeds.value = true;
+    await axios.get(`/api/feeds?limit=${feedLimit.value}`)
+      .then((res) => {
+        console.log('載入貼文成功', res.data.allFeed);
+        feeds.value = res.data.allFeed;
+      })
+      .catch((err) => {
+      console.error(`載入貼文前端錯誤: ${err}`);
+    });
+  } catch (error) {
+    console.error('載入貼文時發生錯誤:', error);
+  } finally {
+    loadingFeeds.value = false;
+  }
 }
 
 const goToDetail = (postId) => {
@@ -240,7 +261,7 @@ const goToDetail = (postId) => {
 
 // 第一次掛載時，請求後端載入
 onMounted(() => {
-  loadPosts();
+  loadFeeds();
 })
 
 // 透過pinia store檢查，是否需要refresh post

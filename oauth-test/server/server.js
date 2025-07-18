@@ -39,6 +39,7 @@ const accountRouter = require("./routes/account.js");
 const forgetRouter = require("./routes/forget.js");
 const postRouter = require("./routes/posts.js");
 const eventRouter = require("./routes/events.js");
+const feedsRouter = require("./routes/feeds.js");
 
 app.use("/auth", authRouter);
 app.use("/data", dataRouter);
@@ -46,6 +47,7 @@ app.use("/account", accountRouter);
 app.use("/forget", forgetRouter);
 app.use("/posts", postRouter);
 app.use("/events", eventRouter);
+app.use("/feeds", feedsRouter);
 
 // ===================== //
 

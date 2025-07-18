@@ -7,6 +7,7 @@ const postSchema = new mongoose.Schema({
     userEmail: { type: String, required: true },
     caption: { type: String, default: "default caption text" },
     likeCount: { type: Number, default: 0 },
+    likedBy: { type: [String], default: [] }, // 儲存按讚的使用者id
     type: 'post'
 }, {
     timestamps: true,
