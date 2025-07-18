@@ -291,28 +291,6 @@ onActivated(() => {
           <EventCardView 
           />
         </div>
-
-
-        <!-- <div v-if="post.type === 'event'" class="card event-card" @click="goToDetail(post.postId)">
-          <div class="label">活動貼文</div>
-          <img :src="post.eventDetails.coverImageUrl" class="card-img" alt="封面圖" />
-          <div class="card-body">
-            <h3 class="card-title">{{ post.eventDetails.title }}</h3>
-            <p class="card-sub">{{ post.eventDetails.date }} ｜ {{ post.eventDetails.location }}</p>
-            <a :href="post.eventDetails.registerLink" target="_blank" class="card-link">📌 點我報名活動</a>
-            <a :href="post.eventDetails.agendaLink" target="_blank" class="card-link">📌 點我查看議程</a>
-          </div>
-        </div>
-
-        <div v-else class="card normal-card">
-          <div class="label gray">一般貼文</div>
-          <div class="card-body">
-            <p class="card-author">{{ post.authorName }}</p>
-            <p class="card-content">{{ post.content }}</p>
-            <img v-if="post.imageUrl" :src="post.imageUrl" class="card-img" alt="貼文圖" />
-            <p class="card-time">{{ post.createdAt }}</p>
-          </div>
-        </div> -->
       </div>
     </keep-alive>
 

@@ -59,8 +59,6 @@ const saveEditedPost = async () => {
 
 const likePost = async () => {
   // TODO 
-  // 需要加入pinia的favorite posts
-  // 更新使用者的like list
   // 更新貼文的按讚數
 
   await axios.post(`/api/posts/like?postId=${postId}&userId=${userStore.userData.userId}`)

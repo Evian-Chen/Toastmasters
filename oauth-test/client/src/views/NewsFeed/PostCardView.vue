@@ -1,5 +1,9 @@
 <script setup>
 import { reactive } from 'vue'
+import axios from 'axios'
+import { userAuthStore } from '@/stores/user'
+
+const userStore = userAuthStore();
 
 const props = defineProps({
   postId: {  // 貼文的編號
@@ -22,147 +26,130 @@ const props = defineProps({
 
 // !!
 // 這邊也要按讚邏輯！！！！！
+const likePost = async () => {
+  // TODO 
+  // 更新貼文的按讚數
+
+  await axios.post(`/api/posts/like?postId=${props.postId}&userId=${userStore.userData.userId}`)
+  .then(() => {
+    console.log('貼文按讚成功');
+    alert('謝謝你的喜歡uwu！幫你把貼文存到按讚儲存區囉！');
+
+    // 這裡可以更新 localPost 的 likeCount 或者其他相關資料
+  })
+  .catch((err) => {
+    console.error(`按讚貼文前端錯誤: ${err}`);
+    alert('按讚貼文失敗，請稍後再試');
+  })
+}
 
 const post = reactive({
-  authorName: 'Evian',
-  content: '這是一般貼文的內容，可以包含文字和圖片。',
-  imageUrl: 'https://via.placeholder.com/600x300',
-  createdAt: '2025-07-09 15:30',
-  likeCount: 0,  // 按讚數
+  postId: 'abc123',
+  userId: 'user789',
+  userEmail: 'user@example.com',
+  caption: '這是一則測試貼文內容',
+  likeCount: 3,
+  likedBy: ['user123', 'user456', 'user999'],
+  type: 'post',
+  createdAt: '2025-07-17T10:23:00Z',
+  updatedAt: '2025-07-18T08:45:00Z'
 })
 
 </script>
 
 <template>
-  post card view {{ props.postId }}
+  <div class="post-card">
+    <!-- 貼文標題區塊 -->
+    <div class="post-header">
+      <div class="post-author">{{ post.userEmail }}</div>
+    </div>
+
+    <!-- 貼文內容 -->
+    <div class="post-content">
+      {{ post.caption }}
+    </div>
+
+    <!-- 按讚數 -->
+    <!-- TODO: 之後可以做，點擊之後顯示按讚的人有誰 -->
+    <div>
+      ❤ {{ post.likeCount }} 人說讚
+    </div>
+
+    <button @click="likePost">按讚</button>
+
+    <!-- 貼文時間 -->
+    <div class="post-timestamp">
+      建立時間：{{ post.createdAt }}<br />
+      更新時間：{{ post.updatedAt }}
+    </div>
+
+  </div>
 </template>
 
 <style scoped>
 .post-card {
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  background-color: #fafafa;
+  border-left: 6px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   padding: 1rem;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  position: relative;
+  max-width: 800px;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
 }
 
+/* 貼文標題區塊 */
 .post-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
+/* 作者資訊 */
 .post-author {
   font-weight: 600;
   color: #2c3e50;
+  font-size: 16px;
 }
 
-.delete-btn {
-  background: none;
-  border: none;
-  color: #dc3545;
-  cursor: pointer;
-  padding: 0.25rem;
-  border-radius: 4px;
-  transition: background-color 0.2s;
-}
-
-.delete-btn:hover {
-  background-color: #f8d7da;
-}
-
-.delete-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
+/* 貼文內容文字 */
 .post-content {
   font-size: 16px;
-  margin-bottom: 0.5rem;
+  color: #000;
+  margin-bottom: 0.75rem;
+  white-space: pre-wrap;
 }
 
-.post-image {
-  max-width: 100%;
-  border-radius: 6px;
-  margin-bottom: 0.5rem;
+/* 按讚數 */
+.post-card > div:nth-child(3) {
+  font-size: 14px;
+  color: #000000;
+  margin-bottom: 0.75rem;
 }
 
+/* 時間資訊 */
 .post-timestamp {
   font-size: 12px;
-  color: #888;
+  color: #999;
   text-align: right;
 }
 
-/* 刪除確認對話框樣式 */
-.delete-confirm-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+/* 動畫效果（可選） */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.delete-confirm-modal {
-  background: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  max-width: 400px;
-  width: 90%;
-}
-
-.delete-confirm-modal h3 {
-  margin: 0 0 1rem 0;
-  color: #dc3545;
-}
-
-.delete-confirm-modal p {
-  margin: 0 0 1.5rem 0;
-  color: #666;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
-}
-
-.cancel-btn {
-  background: #f8f9fa;
-  border: 1px solid #dee2e6;
-  color: #6c757d;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.cancel-btn:hover {
-  background-color: #e9ecef;
-}
-
-.confirm-delete-btn {
-  background: #dc3545;
-  border: 1px solid #dc3545;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.confirm-delete-btn:hover {
-  background-color: #c82333;
-}
-
-.confirm-delete-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.post-card {
+  animation: fadeInUp 0.5s ease-out;
 }
 </style>
+
