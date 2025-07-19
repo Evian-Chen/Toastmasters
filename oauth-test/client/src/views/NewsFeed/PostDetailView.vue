@@ -13,6 +13,7 @@ const route = useRoute();
 
 const isAuthor = ref(postId in userStore.userData.postIds ? true : false); // 判斷當前用戶是否為貼文作者
 const editMode = ref(false); // 編輯模式開關
+const isLiked = ref(postId in userStore.userData.lickedPostIds ? true : false); // 判斷當前用戶是否已經按讚
 
 const postId = route.params.postId;  // 從路由參數中獲取 postId
 const props = defineProps({
@@ -64,6 +65,11 @@ const likePost = async () => {
   await axios.post(`/api/posts/like?postId=${postId}&userId=${userStore.userData.userId}`)
   .then(() => {
     console.log('貼文按讚成功');
+    localPost.likeCount += 1; // 更新本地貼文的按讚數
+    isLiked.value = true; 
+
+    // TODO: 更新 pinia (likedPostIds) 的狀態
+
     alert('謝謝你的喜歡uwu！幫你把貼文存到按讚儲存區囉！');
 
     // 這裡可以更新 localPost 的 likeCount 或者其他相關資料
@@ -132,7 +138,7 @@ onMounted(async () => {
         <button
           @click="deleteHandler.confirmDelete"
           class="delete-btn"
-          :disabled="isDeleting"
+          :disabled="deleteHandler.isDeleting"
           title="刪除貼文"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -152,7 +158,7 @@ onMounted(async () => {
       <!-- 按讚功能 -> 這邊要配合 post 的資料庫設計 -->
       <!-- feed（postcardView） 頁面應該也要有按讚功能 -->
       <button @click="likePost" class="like-btn" title="按讚">
-        👍 <span>{{ localPost.likeCount }}</span>
+        <span>{{ isLiked ? '♡' : "❤" }} {{ localPost.likeCount }}</span>
       </button>
     </div>
 
