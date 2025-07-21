@@ -74,6 +74,34 @@ export const userAuthStore = defineStore('auth', () => {
     })
   };
 
+  // 更新使用者的喜歡的貼文ID
+  const toggleLikePost = (postId) => {
+    if (!postId) {
+      console.warn("toggleLikePost: postId is required");
+      return;
+    }
+
+    const index = userData.value.likePostIds.indexOf(postId);
+    if (index === -1){
+      userData.value.likePostIds.push(postId);
+      return true; // 新增成功
+    } else {
+      userData.value.likePostIds.splice(index, 1);
+      return false; // 刪除成功
+    }
+  }
+
+  // 更新使用者的貼文ID
+  const updatePostId = (mode="add", postId) => {
+    if (mode === "add") {
+      if (!userData.value.postIds.includes(postId)) {
+        userData.value.postIds.push(postId);
+      }
+    } else if (mode === "remove") {
+      userData.value.postIds = userData.value.postIds.filter(id => id !== postId);
+    }
+  }
+
   const logOut = () => {
     userData.value = {
       name: "",
@@ -85,6 +113,6 @@ export const userAuthStore = defineStore('auth', () => {
     console.log("pinia user.js log out")
   }
 
-  return { userData, setData, logOut, isLoggedIn }
+  return { userData, setData, toggleLikePost, updatePostId, logOut, isLoggedIn }
 })
 

@@ -2,7 +2,7 @@
 // 要先檢查這個人的id是不是這篇貼文的發文者，如果是的話可以觸發編輯，當然也包含刪除
 // 不是的話就是一般的顯示
 // post details
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import axios from 'axios'
 import { useRoute } from 'vue-router'
 import { userAuthStore } from '@/stores/user'
@@ -24,6 +24,8 @@ const props = defineProps({
 })
 
 // 所有修改都先對 localPost 綁定，確認修改才對父子件 emit
+// 所以應該每次離開這個頁面都要確認是否貼文有被修改
+// => unmounted 時可以確認是否有修改過
 const localPost = Object.assign({}, props.post)
 
 // !!!!
@@ -58,21 +60,21 @@ const saveEditedPost = async () => {
   })
 }
 
-const likePost = async () => {
+const handleLikeToggle = async () => {
   // TODO 
   // 更新貼文的按讚數
+  if (userStore.toggleLikePost(postId)) {
+    isLiked.value = true; // 如果 toggleLikePost 返回 true，表示按讚成功
+    localPost.likeCount += 1;
+  } else {
+    isLiked.value = false; // 如果 toggleLikePost 返回 false，表示取消按讚
+    localPost.likeCount -= 1;
+  } 
 
-  await axios.post(`/api/posts/like?postId=${postId}&userId=${userStore.userData.userId}`)
+  // 發送請求到後端更新按讚狀態
+  await axios.post(`/api/posts/like?isLike=${isLiked.value}&postId=${postId}&userId=${userStore.userData.userId}`)
   .then(() => {
-    console.log('貼文按讚成功');
-    localPost.likeCount += 1; // 更新本地貼文的按讚數
-    isLiked.value = true; 
-
-    // TODO: 更新 pinia (likedPostIds) 的狀態
-
-    alert('謝謝你的喜歡uwu！幫你把貼文存到按讚儲存區囉！');
-
-    // 這裡可以更新 localPost 的 likeCount 或者其他相關資料
+    alert(`貼文已${isLiked.value ? '按讚' : '取消按讚'}`);
   })
   .catch((err) => {
     console.error(`按讚貼文前端錯誤: ${err}`);
@@ -127,6 +129,11 @@ const emit = defineEmits(['postDeleted', 'postUpdated'])
 onMounted(async () => {
   //
 })
+
+onUnmounted(() => {
+  // TODO
+  // 在組件卸載時檢查是否有修改過貼文
+})
 </script>
 
 <template>
@@ -157,7 +164,7 @@ onMounted(async () => {
 
       <!-- 按讚功能 -> 這邊要配合 post 的資料庫設計 -->
       <!-- feed（postcardView） 頁面應該也要有按讚功能 -->
-      <button @click="likePost" class="like-btn" title="按讚">
+      <button @click="handleLikeToggle" class="like-btn" title="按讚">
         <span>{{ isLiked ? '♡' : "❤" }} {{ localPost.likeCount }}</span>
       </button>
     </div>

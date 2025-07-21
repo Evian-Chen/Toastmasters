@@ -36,21 +36,24 @@ router.post('/update', async (req, res) => {
 })
 
 // TODO
-// 對貼文按喜歡
+// 對貼文更新喜歡
 router.post('/like', async (req, res) => {
-    const { postId, userId } = req.body;
+    const { isLiked, postId, userId } = req.body;
 
     try {
-        // 更新文章的按讚數與按讚人
-        const postRes = await model.post.findByIdAndUpdate(postId, {
-            $inc: { likeCount: 1 },
-            $addToSet: { likedBy: userId }
-        });
-        
-        // 更新使用者的按讚列表
-        const userRes = await model.user.findByIdAndUpdate(userId, {
-            $addToSet: { likedPosts: postId }
-        });
+        const [postRes, userRes] = await Promise.all([
+            await model.post.findByIdAndUpdate(userId, 
+                isLiked ? 
+                { $inc: { likeCount: 1 }, $addToSet: { likedBy: userId } } : 
+                { $inc: { likeCount: -1 }, $pull: { likedBy: userId } }
+            ),
+
+            await model.user.findByIdAndUpdate(userId, 
+                isLiked ? 
+                { $addToSet: { likedPosts: postId } } : 
+                { $pull: { likedPosts: postId } }
+            )
+        ]);
 
         console.log(`後端使用者資料: ${JSON.stringify(userRes)}`);
         console.log(`後端按讚資料: ${JSON.stringify(postRes)}`);
