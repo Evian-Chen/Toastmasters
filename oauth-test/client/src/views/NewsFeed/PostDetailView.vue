@@ -13,7 +13,7 @@ const route = useRoute();
 
 const isAuthor = ref(postId in userStore.userData.postIds ? true : false); // 判斷當前用戶是否為貼文作者
 const editMode = ref(false); // 編輯模式開關
-const isLiked = ref(postId in userStore.userData.lickedPostIds ? true : false); // 判斷當前用戶是否已經按讚
+const isLiked = ref(postId in userStore.userData.likePostIds ? true : false); // 判斷當前用戶是否已經按讚
 
 const postId = route.params.postId;  // 從路由參數中獲取 postId
 const props = defineProps({
@@ -26,7 +26,7 @@ const props = defineProps({
 // 所有修改都先對 localPost 綁定，確認修改才對父子件 emit
 // 所以應該每次離開這個頁面都要確認是否貼文有被修改
 // => unmounted 時可以確認是否有修改過
-const localPost = Object.assign({}, props.post)
+const localPost = ref(Object.assign({}, props.post))
 
 // !!!!
 // 這裡的 post 資料應該是從feed那邊傳進來獲取的，應該使用 props
@@ -47,7 +47,7 @@ const saveEditedPost = async () => {
   editMode.value = false;
 
   await axios.post(`/api/posts/update?postId=${postId}`, {
-    post: localPost
+    post: localPost.value
   })
   .then(() => {
     console.log('貼文更新成功');
@@ -65,10 +65,10 @@ const handleLikeToggle = async () => {
   // 更新貼文的按讚數
   if (userStore.toggleLikePost(postId)) {
     isLiked.value = true; // 如果 toggleLikePost 返回 true，表示按讚成功
-    localPost.likeCount += 1;
+    localPost.value.likeCount += 1;
   } else {
     isLiked.value = false; // 如果 toggleLikePost 返回 false，表示取消按讚
-    localPost.likeCount -= 1;
+    localPost.value.likeCount -= 1;
   } 
 
   // 發送請求到後端更新按讚狀態
@@ -133,6 +133,12 @@ onMounted(async () => {
 onUnmounted(() => {
   // TODO
   // 在組件卸載時檢查是否有修改過貼文
+  Object.keys(localPost.value).forEach(key => {
+    if (localPost.value[key] !== props.post[key]) {
+      // 如果有修改過，觸發更新事件（所有後端儲存都在更動的當下被存好了）
+      emit('postUpdated', localPost.value);
+    }
+  });
 })
 </script>
 
@@ -152,11 +158,15 @@ onUnmounted(() => {
             <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6"/>
           </svg>
         </button>
+
         <!-- 編輯與儲存 -->
         <div v-if="!editMode">
           <button @click="toggleEdit" title="編輯貼文"></button>
         </div>
         <div v-else>
+          <div>
+            <textarea v-model="localPost.content" placeholder="編輯貼文內容..." rows="3"></textarea>
+          </div>
           <button @click="toggleEdit" title="取消編輯"></button>
           <button @click="saveEditedPost" title="儲存編輯"></button>
         </div>
