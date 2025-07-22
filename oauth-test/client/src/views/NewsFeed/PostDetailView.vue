@@ -10,18 +10,18 @@ import { userAuthStore } from '@/stores/user'
 // postId 使用路由參數，post Object 使用 props 傳入
 const userStore = userAuthStore();
 const route = useRoute();
-
-const isAuthor = ref(postId in userStore.userData.postIds ? true : false); // 判斷當前用戶是否為貼文作者
-const editMode = ref(false); // 編輯模式開關
-const isLiked = ref(postId in userStore.userData.likePostIds ? true : false); // 判斷當前用戶是否已經按讚
-
 const postId = route.params.postId;  // 從路由參數中獲取 postId
+
 const props = defineProps({
   post: {
     type: Object,
     required: true
   }
 })
+
+const isAuthor = ref(postId in userStore.userData.postIds ? true : false); // 判斷當前用戶是否為貼文作者
+const editMode = ref(false); // 編輯模式開關
+const isLiked = ref(postId in userStore.userData.likePostIds ? true : false); // 判斷當前用戶是否已經按讚
 
 // 所有修改都先對 localPost 綁定，確認修改才對父子件 emit
 // 所以應該每次離開這個頁面都要確認是否貼文有被修改
@@ -133,12 +133,14 @@ onMounted(async () => {
 onUnmounted(() => {
   // TODO
   // 在組件卸載時檢查是否有修改過貼文
-  Object.keys(localPost.value).forEach(key => {
-    if (localPost.value[key] !== props.post[key]) {
-      // 如果有修改過，觸發更新事件（所有後端儲存都在更動的當下被存好了）
-      emit('postUpdated', localPost.value);
-    }
-  });
+  const hasChanges = Object.keys(localPost.value).some(key => 
+    localPost.value[key] !== props.post[key]
+  );
+  
+  if (hasChanges) {
+    // 如果有修改過，觸發更新事件（所有後端儲存都在更動的當下被存好了）
+    emit('postUpdated', localPost.value);
+  }
 })
 </script>
 

@@ -5,7 +5,6 @@ import PostCardView from './PostCardView.vue';
 import EventCardView from './EventCardView.vue';
 import axios from 'axios'
 
-// 應該要在card.vue使用emit，並在這邊顯示card
 // 資料格式必須再次檢查資料庫的資料格式，避免顯示錯誤或找不到
 
 const posts = ref([
@@ -107,7 +106,7 @@ const posts = ref([
 ])
 
 // 包含 post, event 的所有資料
-const feeds = ref([ref([
+const feeds = ref([
   {
     _id: '1',
     type: 'event',
@@ -121,7 +120,7 @@ const feeds = ref([ref([
   },
   {
     _id: '2',
-    type: 'normal',
+    type: 'post',
     authorName: 'Alice',
     content: '昨天參加了一場超棒的演講比賽，收穫良多！',
     imageUrl: 'https://via.placeholder.com/600x300',
@@ -140,7 +139,7 @@ const feeds = ref([ref([
   },
   {
     _id: '4',
-    type: 'normal',
+    type: 'post',
     authorName: 'Brian',
     content: '誰說 Toastmasters 只能練英文？我們也能玩創意！',
     imageUrl: '',
@@ -159,7 +158,7 @@ const feeds = ref([ref([
   },
   {
     _id: '6',
-    type: 'normal',
+    type: 'post',
     authorName: 'Chloe',
     content: '今天分享了我第一篇 Pathways 演講！超緊張但完成了～',
     imageUrl: '',
@@ -178,7 +177,7 @@ const feeds = ref([ref([
   },
   {
     _id: '8',
-    type: 'normal',
+    type: 'post',
     authorName: 'Daniel',
     content: '感謝 mentor 一直支持我，每一次演講都進步一點點 ✨',
     imageUrl: '',
@@ -197,14 +196,13 @@ const feeds = ref([ref([
   },
   {
     _id: '10',
-    type: 'normal',
+    type: 'post',
     authorName: 'Emma',
     content: '分享一句最喜歡的演講結尾：「If not now, then when?」',
     imageUrl: '',
     createdAt: '2025-07-07 22:00'
   }
-])]);
-
+]);
 const router = useRouter();
 
 const showOptions = ref(false);
@@ -259,6 +257,23 @@ const goToDetail = (postId) => {
   router.push(`/post/${postId}`);
 }
 
+// 處理貼文刪除事件
+const handlePostDeleted = (postId) => {
+  // 從 feeds 中移除被刪除的貼文
+  feeds.value = feeds.value.filter(feed => feed._id !== postId);
+  console.log(`貼文 ${postId} 已從列表中移除`);
+}
+
+// 處理貼文更新事件
+const handlePostUpdated = (updatedPost) => {
+  // 找到對應的貼文並更新
+  const index = feeds.value.findIndex(feed => feed._id === updatedPost._id);
+  if (index !== -1) {
+    feeds.value[index] = { ...feeds.value[index], ...updatedPost };
+    console.log(`貼文 ${updatedPost._id} 已更新`);
+  }
+}
+
 // 第一次掛載時，請求後端載入
 onMounted(() => {
   loadFeeds();
@@ -283,12 +298,14 @@ onActivated(() => {
         <div v-if="feed.type === 'post'">
           <PostCardView 
             :post="feed"
-            @click="goToDetail(feed.postId)"
-            @postDeleted="loadPosts"
+            @click="goToDetail(feed._id)"
+            @postDeleted="handlePostDeleted"
+            @postUpdated="handlePostUpdated"
           />
         </div>
         <div v-else-if="feed.type === 'event'">
           <EventCardView 
+            :event="feed"
           />
         </div>
       </div>
